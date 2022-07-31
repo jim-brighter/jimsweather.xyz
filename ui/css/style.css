@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
+
+* {
+    font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+    display: grid;
+    grid-template-columns: repeat(13, 7.69%);
+    grid-template-rows: repeat(13, 7.69%);
+}
+
+.tile {
+    transition: 0.4s;
+    box-shadow: 0px 0px 20px 0px lightgray;
+    border-radius: 15px;
+    padding: 1rem;
+    margin: 0.25rem;
+}
+
+.alerts-tile {
+    box-shadow: 0px 0px 20px 0px red;
+}
+
+.alerts-tile:hover {
+    cursor: pointer;
+}
+
+.tile-hover:hover {
+    transform: scale(1.02);
+}
+
+alerts-weather {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+current-weather {
+    grid-column-start: 3;
+    grid-column-end: 7;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+hourly-weather {
+    grid-column-start: 7;
+    grid-column-end: 12;
+    grid-row-start: 1;
+    grid-row-end: 5;
+}
+
+current-weather-details {
+    grid-column-start: 3;
+    grid-column-end: 7;
+    grid-row-start: 3;
+    grid-row-end: 5;
+}
+
+minutely-weather {
+    grid-column-start: 3;
+    grid-column-end: 11;
+    grid-row-start: 5;
+    grid-row-end: 7;
+}
+
+aqi-weather {
+    grid-column-start: 11;
+    grid-column-end: 12;
+    grid-row-start: 5;
+    grid-row-end: 7;
+}
+
+daily-weather {
+    grid-column-start: 3;
+    grid-column-end: 12;
+    grid-row-start: 7;
+    grid-row-end: 14;
+}
+
+.aqi-good {
+    background-color: green;
+    box-shadow: 0px 0px 20px 0px green;
+}
+
+.aqi-fair {
+    background-color: gold;
+    box-shadow: 0px 0px 20px 0px gold;
+}
+
+.aqi-moderate {
+    background-color: orange;
+    box-shadow: 0px 0px 20px 0px orange;
+}
+
+.aqi-poor {
+    background-color: crimson;
+    box-shadow: 0px 0px 20px 0px crimson;
+}
+
+.aqi-very-poor {
+    background-color: purple;
+    box-shadow: 0px 0px 20px 0px purple;
+}
+
+#loading {
+    grid-column-start: 7;
+    grid-row-start: 2;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.spinner {
+    text-align: center;
+    height: 60px;
+    width: 60px;
+    border: 4px solid #e3e3e3;
+    border-top: 4px solid #585858;
+    border-radius: 50%;
+    animation: spin 2s cubic-bezier(.8,.2,.2,.8) infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

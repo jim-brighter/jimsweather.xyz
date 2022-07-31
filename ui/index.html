@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+    <head>
+        <title>Weather</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/dark-theme.css">
+        <link rel="stylesheet" type="text/css" href="css/utils.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="module" src="js/script.js"></script>
+    </head>
+    <body class="h-100">
+        <div id="loading">
+            <div class="spinner"></div>
+        </div>
+        <alerts-weather class="tile tile-hover alerts-tile" hidden></alerts-weather>
+        <current-weather class="tile tile-hover" hidden></current-weather>
+        <hourly-weather class="tile tile-hover" hidden></hourly-weather>
+        <current-weather-details class="tile tile-hover" hidden></current-weather-details>
+        <minutely-weather class="tile tile-hover" hidden></minutely-weather>
+        <aqi-weather class="tile tile-hover" hidden></aqi-weather>
+        <daily-weather class="tile tile-hover" hidden></daily-weather>
+    </body>
+</html>
