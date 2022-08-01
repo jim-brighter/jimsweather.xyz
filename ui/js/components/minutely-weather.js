@@ -45,7 +45,7 @@ const style = utils.createStyleElement(`
 
 const html = utils.createHtmlElement(`
     <div class="minute-div">
-        <img src="http://openweathermap.org/img/wn/10d@4x.png"/>
+        <img src="https://openweathermap.org/img/wn/10d@4x.png"/>
     </div>
 `);
 html.id = 'minutely-container';

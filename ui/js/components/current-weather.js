@@ -32,7 +32,7 @@ class CurrentWeather extends BaseWeatherElement {
         this._weather = weather;
 
         $('#temp', this.shadowRoot).textContent = `${Math.round(this.weather.temp)}° F`;
-        $('#icon', this.shadowRoot).src = `http://openweathermap.org/img/wn/${this.weather.weather[0].icon}@4x.png`;
+        $('#icon', this.shadowRoot).src = `https://openweathermap.org/img/wn/${this.weather.weather[0].icon}@4x.png`;
         $('#main', this.shadowRoot).textContent = `${this.weather.weather[0].main}`;
     }
 

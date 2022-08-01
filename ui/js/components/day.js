@@ -200,7 +200,7 @@ class DayWeather extends BaseWeatherElement {
         this._weather = weather;
 
         $('#time', this.shadowRoot).textContent = utils.dayOfWeek(this.weather.dt);
-        $('#icon', this.shadowRoot).src = `http://openweathermap.org/img/wn/${this.weather.weather[0].icon}@4x.png`;
+        $('#icon', this.shadowRoot).src = `https://openweathermap.org/img/wn/${this.weather.weather[0].icon}@4x.png`;
         $('#main', this.shadowRoot).textContent = this.weather.weather[0].main;
 
         // sun & moon
