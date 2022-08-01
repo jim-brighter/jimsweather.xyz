@@ -13,8 +13,8 @@ import './components/alerts-weather.js';
 import * as weatherService from './modules/weatherService.js';
 import { $ } from './modules/selectors.js';
 
-const setWeather = (lat, lon) => {
-    weatherService.getWeather(lat, lon).then((weatherData) => {
+const setWeather = (locationOptions) => {
+    weatherService.getWeather(locationOptions).then((weatherData) => {
         if (weatherData === undefined) {
             return;
         }
@@ -44,17 +44,14 @@ const setWeather = (lat, lon) => {
 
 navigator.geolocation.getCurrentPosition(
     (location) => {
-        setWeather(location.coords.latitude, location.coords.longitude);
+        setWeather({
+            lat: location.coords.latitude,
+            lon: location.coords.longitude
+        });
     },
     (error) => {
-        console.error(error);
-        const zip = prompt('Enter zip code for retrieving weather data:');
-        console.log(`Could not determine location, calling geolocation api for zip ${zip}`);
-        weatherService.getGeocoding(zip).then((geoData) => {
-            if (geoData === undefined) {
-                return;
-            }
-
-            setWeather(geoData.lat, geoData.lon);
-        })
+        const zip = prompt('Could not determine location. Enter zip code to get weather data:');
+        setWeather({
+            zip: zip
+        });
     });

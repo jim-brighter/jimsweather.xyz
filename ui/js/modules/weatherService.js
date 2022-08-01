@@ -1,14 +1,25 @@
 import { APPLICATION_JSON, USER_AGENT } from './constants.js';
 import * as errorService from './errorService.js';
 
-const getWeather = async (lat, lon) => {
+const getWeather = async (locationOptions) => {
     try {
-        let response = await fetch(`https://api.jimsweather.xyz/weather?lat=${lat}&lon=${lon}`, {
-            headers: {
-                'Accept': APPLICATION_JSON,
-                'User-Agent': USER_AGENT
-            }
-        });
+        let response = {};
+        if (locationOptions.zip) {
+            response = await fetch(`https://api.jimsweather.xyz/weather?zip=${locationOptions.zip}`, {
+                headers: {
+                    'Accept': APPLICATION_JSON,
+                    'User-Agent': USER_AGENT
+                }
+            });
+        }
+        else {
+            response = await fetch(`https://api.jimsweather.xyz/weather?lat=${locationOptions.lat}&lon=${locationOptions.lon}`, {
+                headers: {
+                    'Accept': APPLICATION_JSON,
+                    'User-Agent': USER_AGENT
+                }
+            });
+        }
 
         if (!response.ok) {
             throw `Got status ${response.status} from weather api`;
@@ -20,30 +31,6 @@ const getWeather = async (lat, lon) => {
     }
 }
 
-const getGeocoding = async (zip) => {
-    let data;
-
-    try {
-        console.log('Calling openweathermap.org Geocoding API');
-        let response = await fetch(`http://api.openweathermap.org/geo/1.0/zip?zip=${zip},US&appid=${API_KEY}`, {
-            headers: {
-                'Accept': APPLICATION_JSON,
-                'User-Agent': USER_AGENT
-            }
-        });
-
-        if (!response.ok) {
-            throw `Got status ${response.status} from openweathermap.org:geocoding`
-        }
-
-        data = await response.json();
-    } catch(err) {
-        errorService.handleError(err);
-    }
-    return data;
-}
-
 export {
-    getWeather,
-    getGeocoding
+    getWeather
 };

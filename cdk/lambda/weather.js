@@ -31,7 +31,15 @@ exports.handler = async (event) => {
     let lon = '';
 
     if (event.queryStringParameters.zip) {
-        //TODO
+        const geoData = await sendRequest({
+            hostname: 'api.openweathermap.org',
+            path: `/geo/1.0/zip?zip=${event.queryStringParameters.zip},US&appid=${apiKey}`,
+            method: 'GET',
+            port: 443
+        });
+
+        lat = geoData.lat;
+        lon = geoData.lon;
     }
     else {
         lat = event.queryStringParameters.lat;
