@@ -89,7 +89,7 @@ exports.handler = async (event) => {
         statusCode: 200,
         headers: {
             'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Origin': 'https://jimsweather.xyz',
+            'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET,OPTIONS'
         },
         body: JSON.stringify(weatherResponse)

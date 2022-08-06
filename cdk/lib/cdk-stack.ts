@@ -141,7 +141,7 @@ export class JimsWeatherStack extends Stack {
 
     const api = restApi.root.addResource('weather');
     api.addCorsPreflight({
-      allowOrigins: ['https://jimsweather.xyz'],
+      allowOrigins: ['*'],
       allowHeaders: ['*']
     });
     api.addMethod('GET', new apigw.LambdaIntegration(weatherLambda));
