@@ -1,4 +1,9 @@
 @media (prefers-color-scheme: dark) {
+
+    :root {
+        color-scheme: dark;
+    }
+
     * {
         background-color: #333;
         color: white;
