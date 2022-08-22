@@ -25,7 +25,8 @@ const sendRequest = (options) => {
 };
 
 exports.handler = async (event) => {
-    const apiKey = JSON.parse(process.env.API_KEY)['openweathermap-api-key'];
+    const openweathermapApiKey = JSON.parse(process.env.OPEN_WEATHER_MAP_API_KEY)['openweathermap-api-key'];
+    const googlemapsApiKey = JSON.parse(process.env.GOOGLE_MAPS_API_KEY)['google-maps-api-key'];
 
     let lat = '';
     let lon = '';
@@ -33,7 +34,7 @@ exports.handler = async (event) => {
     if (event.queryStringParameters.zip) {
         const geoData = await sendRequest({
             hostname: 'api.openweathermap.org',
-            path: `/geo/1.0/zip?zip=${event.queryStringParameters.zip},US&appid=${apiKey}`,
+            path: `/geo/1.0/zip?zip=${event.queryStringParameters.zip},US&appid=${openweathermapApiKey}`,
             method: 'GET',
             port: 443
         });
@@ -49,19 +50,25 @@ exports.handler = async (event) => {
     const weatherUrls = [
         {
             hostname: 'api.openweathermap.org',
-            path: `/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`,
+            path: `/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${openweathermapApiKey}&units=imperial`,
             method: 'GET',
             port: 443
         },
         {
             hostname: 'api.openweathermap.org',
-            path: `/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`,
+            path: `/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${openweathermapApiKey}`,
             method: 'GET',
             port: 443
         },
         {
             hostname: 'api.openweathermap.org',
-            path: `/data/2.5/air_pollution/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`,
+            path: `/data/2.5/air_pollution/forecast?lat=${lat}&lon=${lon}&appid=${openweathermapApiKey}`,
+            method: 'GET',
+            port: 443
+        },
+        {
+            hostname: 'maps.googleapis.com',
+            path: `/maps/api/geocode/json?latlng=${lat},${lon}&result_type=locality&key=${googlemapsApiKey}`,
             method: 'GET',
             port: 443
         }
@@ -80,6 +87,9 @@ exports.handler = async (event) => {
         }
         else if (urlOptions.path.includes('/data/2.5/air_pollution')) {
             weatherResponse.air_pollution = result;
+        }
+        else if (urlOptions.hostname === 'maps.googleapis.com') {
+            weatherResponse.locality = result.results[0].formatted_address
         }
 
         return result;

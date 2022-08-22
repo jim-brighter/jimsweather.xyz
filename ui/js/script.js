@@ -27,6 +27,7 @@ const setWeather = (locationOptions) => {
         }
 
         $('current-weather').weather = weatherData.onecall.current;
+        $('current-weather').locality = weatherData.locality;
         $('current-weather-details').weather = weatherData.onecall.current;
         $('minutely-weather').weather = weatherData.onecall.minutely;
         $('daily-weather').weather = weatherData.onecall.daily;

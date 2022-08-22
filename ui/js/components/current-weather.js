@@ -19,6 +19,7 @@ const html = utils.createHtmlElement(`
     <h1 id="temp"></h1>
     <img id="icon"/>
     <h3 id="main"></h3>
+    <h5 id="locality"></h5>
 `);
 
 class CurrentWeather extends BaseWeatherElement {
@@ -26,6 +27,7 @@ class CurrentWeather extends BaseWeatherElement {
         super(style, html);
 
         this._weather = {};
+        this._locality = '';
     }
 
     set weather(weather) {
@@ -38,6 +40,16 @@ class CurrentWeather extends BaseWeatherElement {
 
     get weather() {
         return this._weather;
+    }
+
+    set locality(locality) {
+        this._locality = locality;
+
+        $('#locality', this.shadowRoot).textContent = this.locality;
+    }
+
+    get locality() {
+        return this._locality;
     }
 }
 
