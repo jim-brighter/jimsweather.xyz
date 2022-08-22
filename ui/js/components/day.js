@@ -7,9 +7,16 @@ const style = utils.createStyleElement(`
     div {
         display: grid;
         grid-template-columns: 10% 45% 45%;
-        grid-template-rows: 5, auto);
+        grid-template-rows: repeat(5, auto);
         width: 100%;
         padding-bottom: 2rem;
+    }
+
+    @media screen and (max-width: 768px) {
+        div {
+            grid-template-columns: 25% 100% 100%;
+            overflow: scroll;
+        }
     }
 
     #time {

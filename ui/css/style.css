@@ -11,7 +11,7 @@
 body {
     display: grid;
     grid-template-columns: repeat(13, 7.69%);
-    grid-template-rows: repeat(13, 7.69%);
+    grid-template-rows: repeat(18, 7.69%);
 }
 
 .tile {
