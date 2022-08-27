@@ -1,0 +1,36 @@
+#current-weather-parent {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 100%;
+}
+
+#left {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+#right {
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+
+h1, h3, h5 {
+    margin: 0;
+    padding: 0rem 0rem 1rem 0rem;
+    display: block;
+}
+
+img {
+    width: 6rem;
+    float: right;
+}
+
+@media screen and (max-width: 768px) {
+    img {
+        width: 3rem;
+    }
+
+    h1, h3, h5 {
+        padding: 0rem;
+    }
+}

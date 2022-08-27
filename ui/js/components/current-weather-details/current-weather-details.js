@@ -1,128 +1,26 @@
-import { BaseWeatherElement } from './base-weather-element.js';
-import * as utils from '../modules/utils.js'
-import { $ } from '../modules/selectors.js';
-import { UVI_COLOR_MAP } from '../modules/constants.js';
+import { BaseWeatherElement } from '../base-weather-element.js';
+import * as utils from '../../modules/utils.js'
+import { $ } from '../../modules/selectors.js';
+import { UVI_COLOR_MAP } from '../../modules/constants.js';
 
 const style = utils.createStyleElement(`
-    div {
-        height: 100%;
-        overflow: scroll;
-    }
-
-    table {
-        width: 100%;
-        font-size: 8pt;
-    }
-
-    tbody {
-        width: 100%;
-    }
-
-    td {
-        width: 25%;
-        border-radius: 8px;
-        text-align: center;
-    }
-
-    .key-col {
-        font-weight: bold;
-        text-align: left;
-    }
-
-    .uvi-low {
-        color: white;
-        background-color: green;
-    }
-
-    .uvi-moderate {
-        color: white;
-        background-color: gold;
-    }
-
-    .uvi-high {
-        color: white;
-        background-color: orange;
-    }
-
-    .uvi-very-high {
-        color: white;
-        background-color: crimson;
-    }
-
-    .uvi-extreme {
-        color: white;
-        background-color: purple;
-    }
-
-    .light-rain {
-        color: white;
-        background-color: lightblue;
-    }
-
-    .moderate-rain {
-        color: white;
-        background-color: skyblue;
-    }
-
-    .heavy-rain {
-        color: white;
-        background-color: blue;
-    }
-
-    .violent-rain {
-        color: white;
-        background-color: black;
-    }
-`);
-
-const html = utils.createHtmlElement(`
-    <table id="weather-details">
-        <tr>
-            <td id="sunrise-key" class="key-col">Sunrise:</td>
-            <td id="sunrise-val"></td>
-            <td id="uvi-key" class="key-col">UVI:</td>
-            <td id="uvi-val"></td>
-        </tr>
-        <tr>
-            <td id="sunset-key" class="key-col">Sunset:</td>
-            <td id="sunset-val"></td>
-            <td id="clouds-key" class="key-col">Clouds:</td>
-            <td id="clouds-val"></td>
-        </tr>
-        <tr>
-            <td id="feels_like-key" class="key-col">Feels Like:</td>
-            <td id="feels_like-val"></td>
-            <td id="visibility-key" class="key-col">Visibility:</td>
-            <td id="visibility-val"></td>
-        </tr>
-        <tr>
-            <td id="pressure-key" class="key-col">Pressure:</td>
-            <td id="pressure-val"></td>
-            <td id="wind_speed-key" class="key-col">Wind Speed:</td>
-            <td id="wind_speed-val"></td>
-        </tr>
-        <tr>
-            <td id="humidity-key" class="key-col">Humidity:</td>
-            <td id="humidity-val"></td>
-            <td id="wind_deg-key" class="key-col">Wind Direction:</td>
-            <td id="wind_deg-val"></td>
-        </tr>
-        <tr>
-            <td id="dew_point-key" class="key-col">Dew Point:</td>
-            <td id="dew_point-val"></td>
-            <td id="wind_gust-key" class="key-col">Wind Gust:</td>
-            <td id="wind_gust-val"></td>
-        </tr>
-        <tr id="rain-snow-row">
-        </tr>
-    </table>
+    @import "/js/components/current-weather-details/current-weather-details.css";
 `);
 
 class CurrentWeatherDetails extends BaseWeatherElement {
     constructor() {
-        super(style, html);
+        super(style);
 
         this._weather = {};
+    }
+
+    connectedCallback() {
+        fetch('/js/components/current-weather-details/current-weather-details.html')
+        .then(response => response.text())
+        .then(data => {
+            const html = utils.createHtmlElement(data);
+            this.shadowRoot.append(html);
+        })
     }
 
     set weather(weather) {
@@ -139,7 +37,7 @@ class CurrentWeatherDetails extends BaseWeatherElement {
         $('#humidity-val', this.shadowRoot).textContent = `${Math.round(this.weather['humidity'])}%`;
         $('#wind_deg-val', this.shadowRoot).textContent = `${utils.getWindDirection(this.weather['wind_deg'])}`;
         $('#dew_point-val', this.shadowRoot).textContent = `${Math.round(this.weather['dew_point'])}° F`;
-        $('#wind_gust-val', this.shadowRoot).textContent = `${Math.round(this.weather.wind_gust)} mph`;
+        $('#wind_gust-val', this.shadowRoot).textContent = typeof(this.weather.wind_gust) === 'number' ? `${Math.round(this.weather.wind_gust)} mph` : '';
 
         const uviColor = Math.round(this.weather['uvi']) in UVI_COLOR_MAP ? UVI_COLOR_MAP[Math.round(this.weather['uvi'])] : 'uvi-extreme';
 

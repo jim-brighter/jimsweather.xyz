@@ -1,60 +1,26 @@
-import { BaseWeatherElement } from './base-weather-element.js';
-import * as utils from '../modules/utils.js';
-import { $ } from '../modules/selectors.js';
+import { BaseWeatherElement } from '../base-weather-element.js';
+import * as utils from '../../modules/utils.js';
+import { $ } from '../../modules/selectors.js';
 
 const style = utils.createStyleElement(`
-    #minutely-container {
-        width: 100%;
-        height: 100%;
-        overflow: scroll;
-        display: flex;
-        flex-direction: row;
-    }
-
-    .minute-div {
-        flex-basis: 6rem;
-        flex-shrink: 0;
-        flex-grow: 1;
-        text-align: center;
-    }
-
-    .minute-div>img {
-        width: 100%;
-    }
-
-    .light-rain {
-        color: white;
-        background-color: lightblue;
-    }
-
-    .moderate-rain {
-        color: white;
-        background-color: skyblue;
-    }
-
-    .heavy-rain {
-        color: white;
-        background-color: blue;
-    }
-
-    .violent-rain {
-        color: white;
-        background-color: black;
-    }
+    @import "/js/components/minutely-weather/minutely-weather.css";
 `);
-
-const html = utils.createHtmlElement(`
-    <div class="minute-div">
-        <img src="https://openweathermap.org/img/wn/10d@4x.png"/>
-    </div>
-`);
-html.id = 'minutely-container';
 
 class MinutelyWeather extends BaseWeatherElement {
     constructor() {
-        super(style, html);
+        super(style);
 
         this._weather = [];
+    }
+
+    connectedCallback() {
+        fetch('/js/components/minutely-weather/minutely-weather.html')
+        .then(response => response.text())
+        .then(data => {
+            const html = utils.createHtmlElement(data);
+            html.id = 'minutely-container';
+            this.shadowRoot.append(html);
+        })
     }
 
     set weather(weather) {

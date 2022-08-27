@@ -1,24 +1,23 @@
-import { BaseWeatherElement } from './base-weather-element.js';
-import * as utils from '../modules/utils.js';
-import { $ } from '../modules/selectors.js';
+import { BaseWeatherElement } from '../base-weather-element.js';
+import * as utils from '../../modules/utils.js';
+import { $ } from '../../modules/selectors.js';
 
 const style = utils.createStyleElement(`
-    #hourly-container {
-        width: 100%;
-        height: 100%;
-        overflow: scroll;
-    }
+    @import "/js/components/hourly-weather/hourly-weather.css";
 `);
-
-const html = utils.createHtmlElement(``);
-html.id = 'hourly-container';
 
 class HourlyWeather extends BaseWeatherElement {
     constructor() {
-        super(style, html);
+        super(style);
 
         this._weather = [];
         this._aqi = [];
+    }
+
+    connectedCallback() {
+        const html = utils.createHtmlElement(``);
+        html.id = 'hourly-container';
+        this.shadowRoot.append(html);
     }
 
     set weather(weather) {
@@ -48,10 +47,9 @@ class HourlyWeather extends BaseWeatherElement {
             const aqi = this.aqi[i];
 
             const oneHour = document.createElement('hour-weather');
+            hourlyContainer.append(oneHour);
             oneHour.id = `hour-${hour.dt}`;
             oneHour.setWeatherAndAqi(hour, aqi);
-
-            hourlyContainer.append(oneHour);
         }
     }
 }
