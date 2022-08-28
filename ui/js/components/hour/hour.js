@@ -1,43 +1,70 @@
 import { BaseWeatherElement } from '../base-weather-element.js';
 import * as utils from '../../modules/utils.js'
 import { $ } from '../../modules/selectors.js';
-import { UVI_COLOR_MAP } from '../../modules/constants.js';
+import { UVI_COLOR_MAP, AQI_COLOR_MAP } from '../../modules/constants.js';
 
 const style = utils.createStyleElement(`
-    @import "/js/components/current-weather-details/current-weather-details.css";
+    @import "/js/components/hour/hour.css";
 `);
 
-fetch('/js/components/current-weather-details/current-weather-details.html')
+fetch('/js/components/hour/hour.html')
 .then(response => response.text())
 .then(data => {
     const html = utils.createHtmlElement(data);
+    html.classList.add('one-hour');
 
     define(html);
 });
 
 const define = (html) => {
-    class CurrentWeatherDetails extends BaseWeatherElement {
+    class HourWeather extends BaseWeatherElement {
         constructor() {
-            super(style, html);
+            super(style.cloneNode(true), html.cloneNode(true));
 
             this._weather = {};
+            this._aqi = {}
         }
 
         set weather(weather) {
             this._weather = weather;
+        }
 
-            $('#sunrise-val', this.shadowRoot).textContent = utils.shortTime(this.weather['sunrise']);
-            $('#uvi-val', this.shadowRoot).textContent = Math.round(this.weather['uvi']);
-            $('#sunset-val', this.shadowRoot).textContent = utils.shortTime(this.weather['sunset']);
-            $('#clouds-val', this.shadowRoot).textContent = `${Math.round(this.weather['clouds'])}%`;
+        get weather() {
+            return this._weather;
+        }
+
+        set aqi(aqi) {
+            this._aqi = aqi;
+        }
+
+        get aqi() {
+            return this._aqi;
+        }
+
+        setWeatherAndAqi(weather, aqi) {
+            this.weather = weather;
+            this.aqi = aqi;
+
+            $('#time', this.shadowRoot).textContent = utils.shortTime(this.weather.dt);
+            $('#icon', this.shadowRoot).src = `https://openweathermap.org/img/wn/${this.weather.weather[0].icon}@4x.png`;
+            $('#temp-and-main', this.shadowRoot).textContent = `${Math.round(this.weather.temp)}° F, ${this.weather.weather[0].main}`;
+
             $('#feels_like-val', this.shadowRoot).textContent = `${Math.round(this.weather['feels_like'])}° F`;
-            $('#visibility-val', this.shadowRoot).textContent = `${Math.round(this.weather['visibility'] / 1000)} km`;
+            $('#uvi-val', this.shadowRoot).textContent = Math.round(this.weather['uvi']);
+            $('#clouds-val', this.shadowRoot).textContent = `${Math.round(this.weather['clouds'])}%`;
+            $('#pop-val', this.shadowRoot).textContent = `${Math.round(this.weather.pop * 100)}%`;
             $('#pressure-val', this.shadowRoot).textContent = `${Math.round(this.weather['pressure'])} hPa`;
             $('#wind_speed-val', this.shadowRoot).textContent = `${Math.round(this.weather['wind_speed'])} mph`;
             $('#humidity-val', this.shadowRoot).textContent = `${Math.round(this.weather['humidity'])}%`;
             $('#wind_deg-val', this.shadowRoot).textContent = `${utils.getWindDirection(this.weather['wind_deg'])}`;
+            $('#visibility-val', this.shadowRoot).textContent = `${Math.round(this.weather['visibility'] / 1000)} km`;
             $('#dew_point-val', this.shadowRoot).textContent = `${Math.round(this.weather['dew_point'])}° F`;
-            $('#wind_gust-val', this.shadowRoot).textContent = typeof(this.weather.wind_gust) === 'number' ? `${Math.round(this.weather.wind_gust)} mph` : '';
+            $('#wind_gust-val', this.shadowRoot).textContent = `${Math.round(this.weather.wind_gust)} mph`;
+
+            if (this.weather.dt === this.aqi.dt) {
+                $('#aqi-val', this.shadowRoot).textContent = Math.round(this.aqi.main.aqi);
+                $('#aqi-val', this.shadowRoot).classList.add(AQI_COLOR_MAP[this.aqi.main.aqi]);
+            }
 
             const uviColor = Math.round(this.weather['uvi']) in UVI_COLOR_MAP ? UVI_COLOR_MAP[Math.round(this.weather['uvi'])] : 'uvi-extreme';
 
@@ -95,12 +122,7 @@ const define = (html) => {
                 }
             }
         }
-
-        get weather() {
-            return this._weather;
-        }
-
     }
 
-    customElements.define('current-weather-details', CurrentWeatherDetails);
+    customElements.define('hour-weather', HourWeather);
 }

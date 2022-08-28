@@ -1,0 +1,105 @@
+div {
+    display: grid;
+    grid-template-columns: 10% 45% 45%;
+    grid-template-rows: repeat(5, auto);
+    width: 100%;
+    padding-bottom: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+    div {
+        grid-template-columns: 25% 100% 100%;
+        overflow: scroll;
+    }
+}
+
+#time {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+img {
+    width: 3rem;
+}
+
+#icon {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 5;
+}
+
+#main {
+    font-size: 9pt;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 5;
+    grid-row-end: 6;
+}
+
+table {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 6;
+    font-size: 8pt;
+    width: 100%;
+}
+
+td {
+    border-radius: 8px;
+    text-align: center;
+    width: 10%;
+}
+
+.key-col {
+    font-weight: bold;
+    text-align: left;
+}
+
+.uvi-low {
+    color: white;
+    background-color: green;
+}
+
+.uvi-moderate {
+    color: white;
+    background-color: gold;
+}
+
+.uvi-high {
+    color: white;
+    background-color: orange;
+}
+
+.uvi-very-high {
+    color: white;
+    background-color: crimson;
+}
+
+.uvi-extreme {
+    color: white;
+    background-color: purple;
+}
+
+.light-rain {
+    color: white;
+    background-color: lightblue;
+}
+
+.moderate-rain {
+    color: white;
+    background-color: skyblue;
+}
+
+.heavy-rain {
+    color: white;
+    background-color: blue;
+}
+
+.violent-rain {
+    color: white;
+    background-color: black;
+}

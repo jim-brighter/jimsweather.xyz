@@ -1,5 +1,5 @@
 export class BaseWeatherElement extends HTMLElement {
-    constructor(style, html=null, mode='open') {
+    constructor(style, html, mode='open') {
         super();
 
         const shadow = this.attachShadow({ mode });
@@ -35,8 +35,6 @@ export class BaseWeatherElement extends HTMLElement {
         };
 
         shadow.append(style);
-        if (html != null) {
-            shadow.append(html);
-        }
+        shadow.append(html);
     }
 }

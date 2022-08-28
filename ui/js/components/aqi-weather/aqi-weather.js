@@ -7,32 +7,33 @@ const style = utils.createStyleElement(`
     @import "/js/components/aqi-weather/aqi-weather.css";
 `);
 
-class AqiWeather extends BaseWeatherElement {
-    constructor() {
-        super(style);
+fetch('/js/components/aqi-weather/aqi-weather.html')
+.then(response => response.text())
+.then(data => {
+    const html = utils.createHtmlElement(data);
 
-        this._aqi = {};
+    define(html);
+});
+
+const define = (html) => {
+    class AqiWeather extends BaseWeatherElement {
+        constructor() {
+            super(style, html);
+
+            this._aqi = {};
+        }
+
+        set aqi(aqi) {
+            this._aqi = aqi;
+
+            $('#aqi', this.shadowRoot).textContent = this.aqi.main.aqi;
+            $('aqi-weather').classList.add(AQI_COLOR_MAP[this.aqi.main.aqi]);
+        }
+
+        get aqi() {
+            return this._aqi;
+        }
     }
 
-    connectedCallback() {
-        fetch('/js/components/aqi-weather/aqi-weather.html')
-        .then(response => response.text())
-        .then(data => {
-            const html = utils.createHtmlElement(data);
-            this.shadowRoot.append(html);
-        })
-    }
-
-    set aqi(aqi) {
-        this._aqi = aqi;
-
-        $('#aqi', this.shadowRoot).textContent = this.aqi.main.aqi;
-        $('aqi-weather').classList.add(AQI_COLOR_MAP[this.aqi.main.aqi]);
-    }
-
-    get aqi() {
-        return this._aqi;
-    }
+    customElements.define('aqi-weather', AqiWeather);
 }
-
-customElements.define('aqi-weather', AqiWeather);

@@ -6,76 +6,79 @@ const style = utils.createStyleElement(`
     @import "/js/components/alerts-weather/alerts-weather.css";
 `);
 
-class AlertsWeather extends BaseWeatherElement {
-    constructor() {
-        super(style);
+fetch('/js/components/alerts-weather/alerts-weather.html')
+.then(response => response.text())
+.then(data => {
+    const html = utils.createHtmlElement(data);
+    html.id = 'alerts-container';
 
-        this._alerts = [];
-    }
+    define(html);
+});
 
-    connectedCallback() {
-        fetch('/js/components/alerts-weather/alerts-weather.html')
-        .then(response => response.text())
-        .then(data => {
-            const html = utils.createHtmlElement(data);
-            html.id = 'alerts-container';
-            this.shadowRoot.append(html);
-        });
+const define = (html) => {
+    class AlertsWeather extends BaseWeatherElement {
+        constructor() {
+            super(style, html);
 
-        this.addEventListener('click', (event) => {
-            if (Array.from(event.path[0].classList).includes('modal')) {
-                $('.modal', this.shadowRoot).classList.remove('show');
-                $('.modal-content', this.shadowRoot).classList.remove('show');
+            this._alerts = [];
+        }
 
-                Array.from($$('.tile')).forEach((n) => {
-                    n.classList.add('tile-hover');
-                });
+        connectedCallback() {
+            this.addEventListener('click', (event) => {
+                if (Array.from(event.path[0].classList).includes('modal')) {
+                    $('.modal', this.shadowRoot).classList.remove('show');
+                    $('.modal-content', this.shadowRoot).classList.remove('show');
+
+                    Array.from($$('.tile')).forEach((n) => {
+                        n.classList.add('tile-hover');
+                    });
+                }
+                else {
+                    Array.from($$('.tile')).forEach((n) => {
+                        n.classList.remove('tile-hover');
+                    });
+
+                    $('.modal', this.shadowRoot).classList.add('show');
+                    $('.modal-content', this.shadowRoot).classList.add('show');
+                }
+            });
+        }
+
+        set alerts(alerts) {
+            this._alerts = alerts;
+
+            $('#title', this.shadowRoot).textContent = `⚠️ There ${this.alerts.length === 1 ? 'is' : 'are'} ${this.alerts.length} ${this.alerts.length > 1 ? 'alerts' : 'alert'}`;
+
+            const modal = $('.modal-content', this.shadowRoot);
+
+            for (let alert of this.alerts) {
+                const event = document.createElement('h3');
+                event.textContent = alert.event;
+
+                const startTime = document.createElement('p');
+                startTime.textContent = `Start Time: ${new Date(alert.start * 1000)}`;
+
+                const endTime = document.createElement('p');
+                endTime.textContent = `End Time: ${new Date(alert.end * 1000)}`;
+
+                const description = document.createElement('p');
+                description.textContent = alert.description;
+
+                const alertDiv = document.createElement('div');
+                alertDiv.classList.add('alert');
+                alertDiv.append(event);
+                alertDiv.append(startTime);
+                alertDiv.append(endTime);
+                alertDiv.append(description);
+
+                modal.append(alertDiv);
             }
-            else {
-                Array.from($$('.tile')).forEach((n) => {
-                    n.classList.remove('tile-hover');
-                });
+        }
 
-                $('.modal', this.shadowRoot).classList.add('show');
-                $('.modal-content', this.shadowRoot).classList.add('show');
-            }
-        });
-    }
-
-    set alerts(alerts) {
-        this._alerts = alerts;
-
-        $('#title', this.shadowRoot).textContent = `⚠️ There ${this.alerts.length === 1 ? 'is' : 'are'} ${this.alerts.length} ${this.alerts.length > 1 ? 'alerts' : 'alert'}`;
-
-        const modal = $('.modal-content', this.shadowRoot);
-
-        for (let alert of this.alerts) {
-            const event = document.createElement('h3');
-            event.textContent = alert.event;
-
-            const startTime = document.createElement('p');
-            startTime.textContent = `Start Time: ${new Date(alert.start * 1000)}`;
-
-            const endTime = document.createElement('p');
-            endTime.textContent = `End Time: ${new Date(alert.end * 1000)}`;
-
-            const description = document.createElement('p');
-            description.textContent = alert.description;
-
-            const alertDiv = document.createElement('div');
-            alertDiv.classList.add('alert');
-            alertDiv.append(event);
-            alertDiv.append(startTime);
-            alertDiv.append(endTime);
-            alertDiv.append(description);
-
-            modal.append(alertDiv);
+        get alerts() {
+            return this._alerts;
         }
     }
 
-    get alerts() {
-        return this._alerts;
-    }
+    customElements.define('alerts-weather', AlertsWeather);
 }
-
-customElements.define('alerts-weather', AlertsWeather);

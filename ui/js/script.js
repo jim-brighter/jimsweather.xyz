@@ -5,8 +5,8 @@ import './components/current-weather-details/current-weather-details.js';
 import './components/minutely-weather/minutely-weather.js';
 import './components/daily-weather/daily-weather.js';
 import './components/aqi-weather/aqi-weather.js';
-import './components/hour.js';
-import './components/day.js';
+import './components/hour/hour.js';
+import './components/day/day.js';
 import './components/alerts-weather/alerts-weather.js';
 
 // Services
