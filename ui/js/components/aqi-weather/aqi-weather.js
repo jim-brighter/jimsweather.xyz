@@ -26,8 +26,8 @@ const define = (html) => {
         set aqi(aqi) {
             this._aqi = aqi;
 
-            $('#aqi', this.shadowRoot).textContent = this.aqi.main.aqi;
-            $('aqi-weather').classList.add(AQI_COLOR_MAP[this.aqi.main.aqi]);
+            $('#aqi', this.shadowRoot).textContent = this.aqi ? this.aqi.main.aqi : 'error';
+            $('aqi-weather').classList.add(AQI_COLOR_MAP[this.aqi ? this.aqi.main.aqi : 5]);
         }
 
         get aqi() {
