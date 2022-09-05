@@ -61,7 +61,7 @@ const define = (html) => {
             $('#dew_point-val', this.shadowRoot).textContent = `${Math.round(this.weather['dew_point'])}° F`;
             $('#wind_gust-val', this.shadowRoot).textContent = `${Math.round(this.weather.wind_gust)} mph`;
 
-            if (this.weather && this.aqu && (this.weather.dt === this.aqi.dt)) {
+            if (this.weather && this.aqi && (this.weather.dt === this.aqi.dt)) {
                 $('#aqi-val', this.shadowRoot).textContent = Math.round(this.aqi.main.aqi);
                 $('#aqi-val', this.shadowRoot).classList.add(AQI_COLOR_MAP[this.aqi.main.aqi]);
             }
