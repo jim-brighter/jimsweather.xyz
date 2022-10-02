@@ -76,32 +76,47 @@ exports.handler = async (event) => {
 
     const weatherResponse = {};
 
-    await Promise.all(weatherUrls.map(async (urlOptions) => {
-        const result = await sendRequest(urlOptions);
+    try {
+        await Promise.all(weatherUrls.map(async (urlOptions) => {
+            const result = await sendRequest(urlOptions);
 
-        if (urlOptions.path.includes('/data/3.0/onecall')) {
-            weatherResponse.onecall = result;
-        }
-        else if (urlOptions.path.includes('/data/2.5/air_pollution/forecast')) {
-            weatherResponse.air_pollution_forecast = result;
-        }
-        else if (urlOptions.path.includes('/data/2.5/air_pollution')) {
-            weatherResponse.air_pollution = result;
-        }
-        else if (urlOptions.hostname === 'maps.googleapis.com') {
-            weatherResponse.locality = result.results[0].formatted_address
-        }
+            if (urlOptions.path.includes('/data/3.0/onecall')) {
+                weatherResponse.onecall = result;
+            }
+            else if (urlOptions.path.includes('/data/2.5/air_pollution/forecast')) {
+                weatherResponse.air_pollution_forecast = result;
+            }
+            else if (urlOptions.path.includes('/data/2.5/air_pollution')) {
+                weatherResponse.air_pollution = result;
+            }
+            else if (urlOptions.hostname === 'maps.googleapis.com') {
+                weatherResponse.locality = result.results[0].formatted_address
+            }
 
-        return result;
-    }));
+            return result;
+        }));
 
-    return {
-        statusCode: 200,
-        headers: {
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET,OPTIONS'
-        },
-        body: JSON.stringify(weatherResponse)
+        return {
+            statusCode: 200,
+            headers: {
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET,OPTIONS'
+            },
+            body: JSON.stringify(weatherResponse)
+        }
+    } catch(e) {
+        console.error(e);
+        return {
+            statusCode: 500,
+            headers: {
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET,OPTIONS'
+            },
+            body: JSON.stringify({
+                body: 'An error occurred getting weather details'
+            })
+        }
     }
 };
