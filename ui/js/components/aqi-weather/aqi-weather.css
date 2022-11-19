@@ -1,14 +1,24 @@
 div {
     color: white;
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
-    text-align: center;
 }
 
-h6, h1 {
+h6, h2 {
     margin: 0;
     padding: 0;
+}
+
+table {
+    width: 100%;
+    font-size: 7pt;
+}
+
+@media screen and (max-width: 768px) {
+    table {
+        display: none;
+    }
+}
+
+.key-col {
+    font-weight: bold;
 }

@@ -36,6 +36,14 @@ const AQI_COLOR_MAP = {
     5: 'aqi-very-poor'
 };
 
+const AQI_DESC_MAP = {
+    1: 'Good',
+    2: 'Fair',
+    3: 'Moderate',
+    4: 'Poor',
+    5: 'Very Poor'
+}
+
 export {
     CELSIUS,
     FAHRENHEIT,
@@ -43,5 +51,6 @@ export {
     APPLICATION_JSON,
     UVI_COLOR_MAP,
     DAY_OF_WEEK_MAP,
-    AQI_COLOR_MAP
+    AQI_COLOR_MAP,
+    AQI_DESC_MAP
 }

@@ -10,8 +10,8 @@
 
 body {
     display: grid;
-    grid-template-columns: repeat(13, 7.69%);
-    grid-template-rows: repeat(18, 7.69%);
+    grid-template-columns: repeat(13, 8%);
+    grid-template-rows: repeat(18, 8%);
 }
 
 .tile {
@@ -64,13 +64,13 @@ current-weather-details {
 
 minutely-weather {
     grid-column-start: 3;
-    grid-column-end: 11;
+    grid-column-end: 10;
     grid-row-start: 5;
     grid-row-end: 7;
 }
 
 aqi-weather {
-    grid-column-start: 11;
+    grid-column-start: 10;
     grid-column-end: 12;
     grid-row-start: 5;
     grid-row-end: 7;
