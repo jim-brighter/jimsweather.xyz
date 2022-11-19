@@ -111,7 +111,6 @@ export class JimsWeatherStack extends Stack {
 
     // Secret
     const openweathermapSecret = secrets.Secret.fromSecretCompleteArn(this, 'WeatherSecret', 'arn:aws:secretsmanager:us-east-1:108929950724:secret:jimsweather/openweathermap-api-key-MYDqHT');
-    const googlemapsSecret = secrets.Secret.fromSecretCompleteArn(this, 'GoogleMapsSecret', 'arn:aws:secretsmanager:us-east-1:108929950724:secret:jimsweather/google-maps-api-key-PKcX0G');
 
     // Weather Lambda
     const weatherLambda = new nodelambda.NodejsFunction(this, 'WeatherHandler', {
@@ -124,8 +123,7 @@ export class JimsWeatherStack extends Stack {
         ]
       },
       environment: {
-        OPEN_WEATHER_MAP_API_KEY: openweathermapSecret.secretValue.unsafeUnwrap(),
-        GOOGLE_MAPS_API_KEY: googlemapsSecret.secretValue.unsafeUnwrap()
+        OPEN_WEATHER_MAP_API_KEY: openweathermapSecret.secretValue.unsafeUnwrap()
       },
       logRetention: logs.RetentionDays.ONE_WEEK
     });

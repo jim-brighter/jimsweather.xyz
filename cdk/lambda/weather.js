@@ -26,7 +26,6 @@ const sendRequest = (options) => {
 
 exports.handler = async (event) => {
     const openweathermapApiKey = JSON.parse(process.env.OPEN_WEATHER_MAP_API_KEY)['openweathermap-api-key'];
-    const googlemapsApiKey = JSON.parse(process.env.GOOGLE_MAPS_API_KEY)['google-maps-api-key'];
 
     let lat = '';
     let lon = '';
@@ -67,8 +66,8 @@ exports.handler = async (event) => {
             port: 443
         },
         {
-            hostname: 'maps.googleapis.com',
-            path: `/maps/api/geocode/json?latlng=${lat},${lon}&result_type=locality&key=${googlemapsApiKey}`,
+            hostname: 'api.openweathermap.org',
+            path: `/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${openweathermapApiKey}`,
             method: 'GET',
             port: 443
         }
@@ -89,8 +88,8 @@ exports.handler = async (event) => {
             else if (urlOptions.path.includes('/data/2.5/air_pollution')) {
                 weatherResponse.air_pollution = result;
             }
-            else if (urlOptions.hostname === 'maps.googleapis.com') {
-                weatherResponse.locality = result.results[0].formatted_address
+            else if (urlOptions.path.includes('/geo/1.0/reverse')) {
+                weatherResponse.locality = `${result[0].name}, ${result[0].state}`
             }
 
             return result;
