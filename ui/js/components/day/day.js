@@ -31,13 +31,6 @@ const define = (html) => {
             $('#icon', this.shadowRoot).src = `https://openweathermap.org/img/wn/${this.weather.weather[0].icon}@4x.png`;
             $('#main', this.shadowRoot).textContent = this.weather.weather[0].main;
 
-            // sun & moon
-            $('#sunrise-val', this.shadowRoot).textContent = utils.shortTime(this.weather.sunrise);
-            $('#sunset-val', this.shadowRoot).textContent = utils.shortTime(this.weather.sunset);
-            $('#moonrise-val', this.shadowRoot).textContent = utils.shortTime(this.weather.moonrise);
-            $('#moonset-val', this.shadowRoot).textContent = utils.shortTime(this.weather.moonset);
-            $('#moonphase-val', this.shadowRoot).textContent = utils.getMoonPhase(this.weather.moon_phase);
-
             // temps
             $('#morn_temp-val', this.shadowRoot).textContent = `${Math.round(this.weather.temp.morn)}° F`;
             $('#day_temp-val', this.shadowRoot).textContent = `${Math.round(this.weather.temp.day)}° F`;
@@ -62,6 +55,13 @@ const define = (html) => {
             $('#wind_gust-val', this.shadowRoot).textContent = `${Math.round(this.weather.wind_gust)} mph`;
             $('#pop-val', this.shadowRoot).textContent = `${Math.round(this.weather.pop * 100)}%`;
             $('#pressure-val', this.shadowRoot).textContent = `${Math.round(this.weather['pressure'])} hPa`;
+
+            // sun & moon
+            $('#sunrise-val', this.shadowRoot).textContent = utils.shortTime(this.weather.sunrise);
+            $('#sunset-val', this.shadowRoot).textContent = utils.shortTime(this.weather.sunset);
+            $('#moonrise-val', this.shadowRoot).textContent = utils.shortTime(this.weather.moonrise);
+            $('#moonset-val', this.shadowRoot).textContent = utils.shortTime(this.weather.moonset);
+            $('#moonphase-val', this.shadowRoot).textContent = utils.getMoonPhase(this.weather.moon_phase);
 
             const uviColor = Math.round(this.weather['uvi']) in UVI_COLOR_MAP ? UVI_COLOR_MAP[Math.round(this.weather['uvi'])] : 'uvi-extreme';
 
