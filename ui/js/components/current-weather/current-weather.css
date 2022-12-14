@@ -1,17 +1,36 @@
 #current-weather-parent {
     display: grid;
     grid-template-columns: 50% 50%;
-    grid-template-rows: 100%;
+    grid-template-rows: 70% 30%;
+}
+
+@media screen and (max-width: 768px) {
+    #current-weather-parent {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 90% 10%;
+    }
 }
 
 #left {
     grid-column-start: 1;
     grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
 }
 
 #right {
     grid-column-start: 2;
     grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+#bottom {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
 }
 
 h1, h3, h5 {
