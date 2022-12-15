@@ -24,6 +24,7 @@ const setWeather = (locationOptions) => {
         if (weatherData.onecall.alerts && weatherData.onecall.alerts.length > 0) {
             $('alerts-weather').alerts = weatherData.onecall.alerts;
             $('alerts-weather').hidden = false;
+            $('alerts-weather').click();
         }
 
         $('current-weather').weather = weatherData.onecall.current;

@@ -32,6 +32,8 @@ const define = (html) => {
                     Array.from($$('.tile')).forEach((n) => {
                         n.classList.add('tile-hover');
                     });
+
+                    this.hidden = true;
                 }
                 else {
                     Array.from($$('.tile')).forEach((n) => {
