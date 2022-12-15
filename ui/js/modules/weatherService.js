@@ -1,7 +1,11 @@
 import { APPLICATION_JSON, USER_AGENT } from './constants.js';
+import { defaultWeatherResponseWithAlert } from './mocks.js';
 import * as errorService from './errorService.js';
 
 const getWeather = async (locationOptions) => {
+
+    // return defaultWeatherResponseWithAlert;
+
     try {
         let response = {};
         if (locationOptions.zip) {
