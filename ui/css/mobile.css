@@ -1,47 +1,54 @@
 @media screen and (max-width: 768px) {
     body {
-        grid-template-rows: repeat(18, 10%);
+        grid-template-rows: repeat(19, 10%);
+    }
+
+    alerts-weather {
+        grid-column-start: 1;
+        grid-column-end: 14;
+        grid-row-start: 1;
+        grid-row-end: 2;
     }
 
     current-weather {
         grid-column-start: 1;
         grid-column-end: 8;
-        grid-row-start: 1;
-        grid-row-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 4;
     }
 
     aqi-weather {
         grid-column-start: 8;
         grid-column-end: 14;
-        grid-row-start: 1;
-        grid-row-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 4;
     }
 
     current-weather-details {
         grid-column-start: 1;
         grid-column-end: 14;
-        grid-row-start: 3;
-        grid-row-end: 5;
+        grid-row-start: 4;
+        grid-row-end: 6;
     }
 
     hourly-weather {
         grid-column-start: 1;
         grid-column-end: 14;
-        grid-row-start: 5;
-        grid-row-end: 9;
+        grid-row-start: 6;
+        grid-row-end: 10;
     }
 
     minutely-weather {
         grid-column-start: 1;
         grid-column-end: 14;
-        grid-row-start: 9;
-        grid-row-end: 11;
+        grid-row-start: 10;
+        grid-row-end: 12;
     }
 
     daily-weather {
         grid-column-start: 1;
         grid-column-end: 14;
-        grid-row-start: 11;
-        grid-row-end: 19;
+        grid-row-start: 12;
+        grid-row-end: 20;
     }
 }

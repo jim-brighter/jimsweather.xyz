@@ -21,12 +21,7 @@ const setWeather = (locationOptions) => {
 
         $('#loading').remove();
 
-        if (weatherData.onecall.alerts && weatherData.onecall.alerts.length > 0) {
-            $('alerts-weather').alerts = weatherData.onecall.alerts;
-            $('alerts-weather').hidden = false;
-            $('alerts-weather').click();
-        }
-
+        $('alerts-weather').alerts = weatherData.onecall.alerts ? weatherData.onecall.alerts : [];
         $('current-weather').weather = weatherData.onecall.current;
         $('current-weather').locality = weatherData.locality;
         $('current-weather-details').weather = weatherData.onecall.current;
@@ -35,6 +30,7 @@ const setWeather = (locationOptions) => {
         $('hourly-weather').setWeatherAndAqi(weatherData.onecall.hourly, weatherData.air_pollution_forecast.list);
         $('aqi-weather').aqi = weatherData.air_pollution.list[0];
 
+        $('alerts-weather').hidden = false;
         $('current-weather').hidden = false;
         $('current-weather-details').hidden = false;
         $('minutely-weather').hidden = false;

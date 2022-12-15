@@ -32,8 +32,6 @@ const define = (html) => {
                     Array.from($$('.tile')).forEach((n) => {
                         n.classList.add('tile-hover');
                     });
-
-                    this.hidden = true;
                 }
                 else {
                     Array.from($$('.tile')).forEach((n) => {
@@ -49,7 +47,7 @@ const define = (html) => {
         set alerts(alerts) {
             this._alerts = alerts;
 
-            $('#title', this.shadowRoot).textContent = `⚠️ There ${this.alerts.length === 1 ? 'is' : 'are'} ${this.alerts.length} ${this.alerts.length > 1 ? 'alerts' : 'alert'}`;
+            $('#title', this.shadowRoot).textContent = `${this.alerts.length > 0 ? '⚠️' : '✅'} There ${this.alerts.length === 1 ? 'is' : 'are'} ${this.alerts.length} ${this.alerts.length === 1 ? 'alert' : 'alerts'}`;
 
             const modal = $('.modal-content', this.shadowRoot);
 

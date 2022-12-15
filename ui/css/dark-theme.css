@@ -13,9 +13,9 @@
         box-shadow: 0px 0px 20px 0px #222;
     }
 
-    .alerts-tile {
+    /* .alerts-tile {
         box-shadow: 0px 0px 20px 0px darkred;
-    }
+    } */
 
     .aqi-good {
         background-color: green;

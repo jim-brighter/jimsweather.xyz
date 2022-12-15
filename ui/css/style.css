@@ -11,7 +11,7 @@
 body {
     display: grid;
     grid-template-columns: repeat(13, 7.69%);
-    grid-template-rows: repeat(18, 8%);
+    grid-template-rows: repeat(19, 8%);
 }
 
 .tile {
@@ -22,9 +22,9 @@ body {
     margin: 0.25rem;
 }
 
-.alerts-tile {
+/* .alerts-tile {
     box-shadow: 0px 0px 20px 0px red;
-}
+} */
 
 .alerts-tile:hover {
     cursor: pointer;
@@ -35,52 +35,52 @@ body {
 }
 
 alerts-weather {
-    grid-column-start: 1;
-    grid-column-end: 3;
+    grid-column-start: 3;
+    grid-column-end: 12;
     grid-row-start: 1;
-    grid-row-end: 3;
+    grid-row-end: 2;
 }
 
 current-weather {
     grid-column-start: 3;
     grid-column-end: 7;
-    grid-row-start: 1;
-    grid-row-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 4;
 }
 
 hourly-weather {
     grid-column-start: 7;
     grid-column-end: 12;
-    grid-row-start: 1;
-    grid-row-end: 5;
+    grid-row-start: 2;
+    grid-row-end: 6;
 }
 
 current-weather-details {
     grid-column-start: 3;
     grid-column-end: 7;
-    grid-row-start: 3;
-    grid-row-end: 5;
+    grid-row-start: 4;
+    grid-row-end: 6;
 }
 
 minutely-weather {
     grid-column-start: 3;
     grid-column-end: 10;
-    grid-row-start: 5;
-    grid-row-end: 7;
+    grid-row-start: 6;
+    grid-row-end: 8;
 }
 
 aqi-weather {
     grid-column-start: 10;
     grid-column-end: 12;
-    grid-row-start: 5;
-    grid-row-end: 7;
+    grid-row-start: 6;
+    grid-row-end: 8;
 }
 
 daily-weather {
     grid-column-start: 3;
     grid-column-end: 12;
-    grid-row-start: 7;
-    grid-row-end: 14;
+    grid-row-start: 8;
+    grid-row-end: 15;
 }
 
 .aqi-good {
