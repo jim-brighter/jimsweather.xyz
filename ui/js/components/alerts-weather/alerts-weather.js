@@ -23,25 +23,34 @@ const define = (html) => {
             this._alerts = [];
         }
 
+        handleClick(event) {
+            event.preventDefault();
+
+            if (Array.from(event.path[0].classList).includes('modal')) {
+                $('.modal', this.shadowRoot).classList.remove('show');
+                $('.modal-content', this.shadowRoot).classList.remove('show');
+
+                Array.from($$('.tile')).forEach((n) => {
+                    n.classList.add('tile-hover');
+                });
+            }
+            else {
+                Array.from($$('.tile')).forEach((n) => {
+                    n.classList.remove('tile-hover');
+                });
+
+                $('.modal', this.shadowRoot).classList.add('show');
+                $('.modal-content', this.shadowRoot).classList.add('show');
+            }
+        }
+
         connectedCallback() {
             this.addEventListener('click', (event) => {
-                if (Array.from(event.path[0].classList).includes('modal')) {
-                    $('.modal', this.shadowRoot).classList.remove('show');
-                    $('.modal-content', this.shadowRoot).classList.remove('show');
-
-                    Array.from($$('.tile')).forEach((n) => {
-                        n.classList.add('tile-hover');
-                    });
-                }
-                else {
-                    Array.from($$('.tile')).forEach((n) => {
-                        n.classList.remove('tile-hover');
-                    });
-
-                    $('.modal', this.shadowRoot).classList.add('show');
-                    $('.modal-content', this.shadowRoot).classList.add('show');
-                }
+                this.handleClick(event);
             });
+            this.addEventListener('touchstart', (event) => {
+                this.handleClick(event);
+            })
         }
 
         set alerts(alerts) {
