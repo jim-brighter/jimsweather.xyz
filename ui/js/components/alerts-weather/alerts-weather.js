@@ -48,9 +48,6 @@ const define = (html) => {
             this.addEventListener('click', (event) => {
                 this.handleClick(event);
             });
-            this.addEventListener('touchstart', (event) => {
-                this.handleClick(event);
-            })
         }
 
         set alerts(alerts) {
