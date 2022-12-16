@@ -21,18 +21,22 @@ const define = (html) => {
             super(style, html);
 
             this._alerts = [];
+
+            this._modalOpen = false;
         }
 
         handleClick(event) {
             event.preventDefault();
 
-            if (Array.from(event.path[0].classList).includes('modal')) {
+            if (this.modalOpen) {
                 $('.modal', this.shadowRoot).classList.remove('show');
                 $('.modal-content', this.shadowRoot).classList.remove('show');
 
                 Array.from($$('.tile')).forEach((n) => {
                     n.classList.add('tile-hover');
                 });
+
+                this.modalOpen = false;
             }
             else {
                 Array.from($$('.tile')).forEach((n) => {
@@ -41,6 +45,8 @@ const define = (html) => {
 
                 $('.modal', this.shadowRoot).classList.add('show');
                 $('.modal-content', this.shadowRoot).classList.add('show');
+
+                this.modalOpen = true;
             }
         }
 
@@ -83,6 +89,14 @@ const define = (html) => {
 
         get alerts() {
             return this._alerts;
+        }
+
+        set modalOpen(isOpen) {
+            this._modalOpen = isOpen;
+        }
+
+        get modalOpen() {
+            return this._modalOpen;
         }
     }
 
