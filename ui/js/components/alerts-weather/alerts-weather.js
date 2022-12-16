@@ -63,6 +63,11 @@ const define = (html) => {
 
             const modal = $('.modal-content', this.shadowRoot);
 
+            if (this.alerts.length == 0) {
+                modal.textContent = 'All good! 👍'
+                return;
+            }
+
             for (let alert of this.alerts) {
                 const event = document.createElement('h3');
                 event.textContent = alert.event;

@@ -36,7 +36,6 @@
     top: -100%;
     opacity: 0;
     transition: top 0.5s, opacity 0.5s;
-    box-shadow: 0px 0px 20px 0px red;
 }
 
 @media screen and (max-width: 768px) {
