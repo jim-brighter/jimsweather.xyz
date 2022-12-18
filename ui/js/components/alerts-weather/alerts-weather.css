@@ -48,6 +48,7 @@
 .modal-content.show {
     top: 0;
     opacity: 1;
+    height: 5%;
     max-height: 88%;
     overflow: scroll;
 }
