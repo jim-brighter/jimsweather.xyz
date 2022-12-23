@@ -19,11 +19,13 @@
     left: 0;
     top: -100%;
     z-index: 1000;
+    display: none;
 }
 
 .modal.show {
     top: 0;
     opacity: 1;
+    display: block;
 }
 
 .modal-content {
