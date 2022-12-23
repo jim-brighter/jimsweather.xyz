@@ -1,3 +1,60 @@
+/* Tablet layout */
+@media screen and (min-width: 769px) and (max-width: 1280px) {
+    body {
+        min-height: 1080px;
+    }
+
+    alerts-weather {
+        grid-column-start: 2;
+        grid-column-end: 13;
+        grid-row-start: 1;
+        grid-row-end: 2;
+    }
+
+    current-weather {
+        grid-column-start: 2;
+        grid-column-end: 7;
+        grid-row-start: 2;
+        grid-row-end: 4;
+    }
+
+    hourly-weather {
+        grid-column-start: 7;
+        grid-column-end: 13;
+        grid-row-start: 2;
+        grid-row-end: 6;
+    }
+
+    current-weather-details {
+        grid-column-start: 2;
+        grid-column-end: 7;
+        grid-row-start: 4;
+        grid-row-end: 6;
+    }
+
+    minutely-weather {
+        grid-column-start: 2;
+        grid-column-end: 10;
+        grid-row-start: 6;
+        grid-row-end: 8;
+    }
+
+    aqi-weather {
+        grid-column-start: 10;
+        grid-column-end: 13;
+        grid-row-start: 6;
+        grid-row-end: 8;
+    }
+
+    daily-weather {
+        grid-column-start: 2;
+        grid-column-end: 13;
+        grid-row-start: 8;
+        grid-row-end: 15;
+    }
+}
+
+/* Phone layout */
 @media screen and (max-width: 768px) {
     body {
         grid-template-rows: repeat(19, 10%);
