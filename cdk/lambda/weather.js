@@ -1,4 +1,5 @@
-const https = require('https');
+import * as https from 'https';
+import { STATE_TO_ABBREVIATION } from './constants';
 
 const sendRequest = (options) => {
     return new Promise((resolve, reject) => {
@@ -89,7 +90,7 @@ exports.handler = async (event) => {
                 weatherResponse.air_pollution = result;
             }
             else if (urlOptions.path.includes('/geo/1.0/reverse')) {
-                weatherResponse.locality = `${result[0].name}, ${result[0].state}`
+                weatherResponse.locality = `${result[0].name}, ${result[0].state ? STATE_TO_ABBREVIATION[result[0].state] : result[0].country}`
             }
 
             return result;
