@@ -25,7 +25,8 @@ export class JimsWeatherStack extends Stack {
     const uiBucket = new s3.Bucket(this, 'JimsWeatherBucket', {
       bucketName: 'jimsweather.xyz',
       encryption: s3.BucketEncryption.S3_MANAGED,
-      removalPolicy: RemovalPolicy.RETAIN,
+      removalPolicy: RemovalPolicy.DESTROY,
+      autoDeleteObjects: true,
       versioned: true,
       publicReadAccess: true,
       websiteIndexDocument: 'index.html',
