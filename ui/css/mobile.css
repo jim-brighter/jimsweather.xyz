@@ -57,7 +57,7 @@
 /* Phone layout */
 @media screen and (max-width: 768px) {
     body {
-        min-height: 1080px;
+        min-height: 650px;
         grid-template-rows: repeat(19, 10%);
     }
 
