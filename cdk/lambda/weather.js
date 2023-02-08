@@ -26,6 +26,13 @@ const sendRequest = (options) => {
 };
 
 exports.handler = async (event) => {
+    const headers = {
+        'Access-Control-Allow-Headers': '*',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,OPTIONS',
+        'Access-Control-Allow-Credentials': true
+    };
+
     const openweathermapApiKey = JSON.parse(process.env.OPEN_WEATHER_MAP_API_KEY)['openweathermap-api-key'];
 
     let lat = '';
@@ -98,23 +105,14 @@ exports.handler = async (event) => {
 
         return {
             statusCode: 200,
-            headers: {
-                'Access-Control-Allow-Headers': '*',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET,OPTIONS',
-                'Access-Control-Allow-Credentials': true
-            },
+            headers,
             body: JSON.stringify(weatherResponse)
         }
     } catch(e) {
         console.error(e);
         return {
             statusCode: 500,
-            headers: {
-                'Access-Control-Allow-Headers': '*',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET,OPTIONS'
-            },
+            headers,
             body: JSON.stringify({
                 body: 'An error occurred getting weather details'
             })
