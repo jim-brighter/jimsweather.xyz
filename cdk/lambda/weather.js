@@ -101,7 +101,8 @@ exports.handler = async (event) => {
             headers: {
                 'Access-Control-Allow-Headers': '*',
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET,OPTIONS'
+                'Access-Control-Allow-Methods': 'GET,OPTIONS',
+                'Access-Control-Allow-Credentials': true
             },
             body: JSON.stringify(weatherResponse)
         }
