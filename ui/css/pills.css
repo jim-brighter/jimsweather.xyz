@@ -37,21 +37,29 @@
     .light-rain {
         color: white;
         background-color: lightblue;
+        font-weight: bold;
+        border: 1px solid lightblue;
     }
 
     .moderate-rain {
         color: white;
         background-color: skyblue;
+        font-weight: bold;
+        border: 1px solid skyblue;
     }
 
     .heavy-rain {
         color: white;
         background-color: blue;
+        font-weight: bold;
+        border: 1px solid blue;
     }
 
     .violent-rain {
         color: white;
         background-color: black;
+        font-weight: bold;
+        border: 1px solid black;
     }
 }
 
