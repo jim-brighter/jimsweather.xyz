@@ -4,6 +4,7 @@ import { $ } from '../../modules/selectors.js';
 
 const style = utils.createStyleElement(`
     @import "/js/components/minutely-weather/minutely-weather.css";
+    @import "/css/pills.css";
 `);
 
 fetch('/js/components/minutely-weather/minutely-weather.html')

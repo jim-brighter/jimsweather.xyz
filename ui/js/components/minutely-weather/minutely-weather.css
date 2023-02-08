@@ -16,23 +16,3 @@
 .minute-div>img {
     width: 100%;
 }
-
-.light-rain {
-    color: white;
-    background-color: lightblue;
-}
-
-.moderate-rain {
-    color: white;
-    background-color: skyblue;
-}
-
-.heavy-rain {
-    color: white;
-    background-color: blue;
-}
-
-.violent-rain {
-    color: white;
-    background-color: black;
-}

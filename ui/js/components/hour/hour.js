@@ -5,6 +5,7 @@ import { UVI_COLOR_MAP, AQI_COLOR_MAP } from '../../modules/constants.js';
 
 const style = utils.createStyleElement(`
     @import "/js/components/hour/hour.css";
+    @import "/css/pills.css";
 `);
 
 fetch('/js/components/hour/hour.html')

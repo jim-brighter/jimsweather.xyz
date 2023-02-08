@@ -5,6 +5,7 @@ import { UVI_COLOR_MAP } from '../../modules/constants.js';
 
 const style = utils.createStyleElement(`
     @import "/js/components/current-weather-details/current-weather-details.css";
+    @import "/css/pills.css";
 `);
 
 fetch('/js/components/current-weather-details/current-weather-details.html')

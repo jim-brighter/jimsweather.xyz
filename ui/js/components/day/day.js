@@ -5,6 +5,7 @@ import { UVI_COLOR_MAP } from '../../modules/constants.js';
 
 const style = utils.createStyleElement(`
     @import "/js/components/day/day.css";
+    @import "/css/pills.css";
 `);
 
 fetch('/js/components/day/day.html')
