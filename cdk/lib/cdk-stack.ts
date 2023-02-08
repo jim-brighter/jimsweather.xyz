@@ -52,8 +52,8 @@ export class JimsWeatherStack extends Stack {
               isDefaultBehavior: true,
               pathPattern: '*',
               compress: true,
-              allowedMethods: cloudfront.CloudFrontAllowedMethods.GET_HEAD,
-              cachedMethods: cloudfront.CloudFrontAllowedCachedMethods.GET_HEAD,
+              allowedMethods: cloudfront.CloudFrontAllowedMethods.GET_HEAD_OPTIONS,
+              cachedMethods: cloudfront.CloudFrontAllowedCachedMethods.GET_HEAD_OPTIONS,
               defaultTtl: Duration.days(1),
               minTtl: Duration.days(1),
               maxTtl: Duration.days(3)
