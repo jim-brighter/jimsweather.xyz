@@ -27,6 +27,12 @@ const define = (html) => {
         set weather(weather) {
             this._weather = weather;
 
+            const minutelyContainer = $('#minutely-container', this.shadowRoot);
+
+            do {
+                minutelyContainer.removeChild(minutelyContainer.lastChild);
+            } while (minutelyContainer.childElementCount > 1)
+
             for (let minute of this.weather) {
                 const minuteDiv = document.createElement('div');
                 minuteDiv.id = `minute-${minute.dt}`;
