@@ -40,10 +40,27 @@ const define = (html) => {
             this._locality = locality;
 
             $('#locality', this.shadowRoot).textContent = this.locality;
+
+            const edit = document.createElement('button');
+            edit.textContent = '✏️';
+            edit.id = 'edit-btn';
+            edit.title = 'Change Location';
+            edit.onclick = () => {
+                this.changeLocation();
+            }
+
+            $('#locality', this.shadowRoot).appendChild(edit);
         }
 
         get locality() {
             return this._locality;
+        }
+
+        changeLocation() {
+            const zip = prompt('Enter zip code:');
+            utils.setWeather({
+                zip: zip
+            });
         }
     }
 

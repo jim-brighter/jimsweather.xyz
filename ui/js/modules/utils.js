@@ -1,4 +1,6 @@
 import { DAY_OF_WEEK_MAP } from './constants.js';
+import * as weatherService from './weatherService.js';
+import { $ } from './selectors.js';
 
 const shortTime = (time) => new Date(time * 1000).toLocaleTimeString('en-us', {timeStyle: 'short'});
 
@@ -97,11 +99,43 @@ const createHtmlElement = (htmlContent) => {
     return html;
 }
 
+const setWeather = (locationOptions) => {
+    weatherService.getWeather(locationOptions).then((weatherData) => {
+        if (weatherData === undefined) {
+            return;
+        }
+
+        try {
+            $('#loading').remove();
+        } catch (e) {
+            console.log('Loading spinner already removed');
+        }
+
+        $('alerts-weather').alerts = weatherData.onecall.alerts ? weatherData.onecall.alerts : [];
+        $('current-weather').weather = weatherData.onecall.current;
+        $('current-weather').locality = weatherData.locality;
+        $('current-weather-details').weather = weatherData.onecall.current;
+        $('minutely-weather').weather = weatherData.onecall.minutely;
+        $('daily-weather').weather = weatherData.onecall.daily;
+        $('hourly-weather').setWeatherAndAqi(weatherData.onecall.hourly, weatherData.air_pollution_forecast.list);
+        $('aqi-weather').aqi = weatherData.air_pollution.list[0];
+
+        $('alerts-weather').hidden = false;
+        $('current-weather').hidden = false;
+        $('current-weather-details').hidden = false;
+        $('minutely-weather').hidden = false;
+        $('daily-weather').hidden = false;
+        $('hourly-weather').hidden = false;
+        $('aqi-weather').hidden = false;
+    });
+}
+
 export {
     shortTime,
     dayOfWeek,
     getWindDirection,
     getMoonPhase,
     createStyleElement,
-    createHtmlElement
+    createHtmlElement,
+    setWeather
 }

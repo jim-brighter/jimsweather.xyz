@@ -9,36 +9,8 @@ import './components/hour/hour.js';
 import './components/day/day.js';
 import './components/alerts-weather/alerts-weather.js';
 
-// Services
-import * as weatherService from './modules/weatherService.js';
-import { $ } from './modules/selectors.js';
-
-const setWeather = (locationOptions) => {
-    weatherService.getWeather(locationOptions).then((weatherData) => {
-        if (weatherData === undefined) {
-            return;
-        }
-
-        $('#loading').remove();
-
-        $('alerts-weather').alerts = weatherData.onecall.alerts ? weatherData.onecall.alerts : [];
-        $('current-weather').weather = weatherData.onecall.current;
-        $('current-weather').locality = weatherData.locality;
-        $('current-weather-details').weather = weatherData.onecall.current;
-        $('minutely-weather').weather = weatherData.onecall.minutely;
-        $('daily-weather').weather = weatherData.onecall.daily;
-        $('hourly-weather').setWeatherAndAqi(weatherData.onecall.hourly, weatherData.air_pollution_forecast.list);
-        $('aqi-weather').aqi = weatherData.air_pollution.list[0];
-
-        $('alerts-weather').hidden = false;
-        $('current-weather').hidden = false;
-        $('current-weather-details').hidden = false;
-        $('minutely-weather').hidden = false;
-        $('daily-weather').hidden = false;
-        $('hourly-weather').hidden = false;
-        $('aqi-weather').hidden = false;
-    });
-}
+// Util
+import { setWeather } from './modules/utils.js';
 
 navigator.geolocation.getCurrentPosition(
     (location) => {
