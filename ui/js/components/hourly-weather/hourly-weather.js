@@ -41,6 +41,8 @@ const define = (html) => {
 
             const hourlyContainer = $('#hourly-container', this.shadowRoot);
 
+            hourlyContainer.replaceChildren();
+
             for (let i = 0; i < this.weather.length; i++) {
                 const hour = this.weather[i];
                 const aqi = this.aqi[i];

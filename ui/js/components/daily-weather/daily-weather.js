@@ -23,6 +23,8 @@ const define = (html) => {
 
             const dailyContainer = $('#daily-container', this.shadowRoot);
 
+            dailyContainer.replaceChildren();
+
             for (let day of this.weather) {
                 const oneDay = document.createElement('day-weather');
                 dailyContainer.append(oneDay);
