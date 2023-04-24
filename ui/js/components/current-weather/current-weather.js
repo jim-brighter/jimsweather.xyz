@@ -58,6 +58,9 @@ const define = (html) => {
 
         changeLocation() {
             const zip = prompt('Enter zip code:');
+            if (zip === null) {
+                return;
+            }
             utils.setWeather({
                 zip: zip
             });
