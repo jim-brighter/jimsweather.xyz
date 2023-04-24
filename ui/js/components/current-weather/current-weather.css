@@ -50,6 +50,12 @@ img {
     cursor: pointer;
 }
 
+#temp-link, #temp-link:visited {
+    text-decoration: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
     img {
         width: 3rem;

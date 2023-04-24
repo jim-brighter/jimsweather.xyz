@@ -1,7 +1,7 @@
 import { BaseWeatherElement } from '../base-weather-element.js';
 import * as utils from '../../modules/utils.js'
 import { $ } from '../../modules/selectors.js';
-import { UVI_COLOR_MAP, AQI_COLOR_MAP } from '../../modules/constants.js';
+import { UVI_COLOR_MAP, AQI_COLOR_MAP, UNITS_MAP } from '../../modules/constants.js';
 
 const style = utils.createStyleElement(`
     @import "/js/components/hour/hour.css";
@@ -48,19 +48,19 @@ const define = (html) => {
 
             $('#time', this.shadowRoot).textContent = utils.shortTime(this.weather.dt);
             $('#icon', this.shadowRoot).src = `https://openweathermap.org/img/wn/${this.weather.weather[0].icon}@4x.png`;
-            $('#temp-and-main', this.shadowRoot).textContent = `${Math.round(this.weather.temp)}° F, ${this.weather.weather[0].main}`;
+            $('#temp-and-main', this.shadowRoot).textContent = `${Math.round(this.weather.temp)}° ${UNITS_MAP[utils.getUnits()].temperature}, ${this.weather.weather[0].main}`;
 
-            $('#feels_like-val', this.shadowRoot).textContent = `${Math.round(this.weather['feels_like'])}° F`;
+            $('#feels_like-val', this.shadowRoot).textContent = `${Math.round(this.weather['feels_like'])}° ${UNITS_MAP[utils.getUnits()].temperature}`;
             $('#uvi-val', this.shadowRoot).textContent = Math.round(this.weather['uvi']);
             $('#clouds-val', this.shadowRoot).textContent = `${Math.round(this.weather['clouds'])}%`;
             $('#pop-val', this.shadowRoot).textContent = `${Math.round(this.weather.pop * 100)}%`;
             $('#pressure-val', this.shadowRoot).textContent = `${Math.round(this.weather['pressure'])} hPa`;
-            $('#wind_speed-val', this.shadowRoot).textContent = `${Math.round(this.weather['wind_speed'])} mph`;
+            $('#wind_speed-val', this.shadowRoot).textContent = `${Math.round(this.weather['wind_speed'])} ${UNITS_MAP[utils.getUnits()].windSpeed}`;
             $('#humidity-val', this.shadowRoot).textContent = `${Math.round(this.weather['humidity'])}%`;
             $('#wind_deg-val', this.shadowRoot).textContent = `${utils.getWindDirection(this.weather['wind_deg'])}`;
             $('#visibility-val', this.shadowRoot).textContent = `${Math.round(this.weather['visibility'] / 1000)} km`;
-            $('#dew_point-val', this.shadowRoot).textContent = `${Math.round(this.weather['dew_point'])}° F`;
-            $('#wind_gust-val', this.shadowRoot).textContent = `${Math.round(this.weather.wind_gust)} mph`;
+            $('#dew_point-val', this.shadowRoot).textContent = `${Math.round(this.weather['dew_point'])}° ${UNITS_MAP[utils.getUnits()].temperature}`;
+            $('#wind_gust-val', this.shadowRoot).textContent = `${Math.round(this.weather.wind_gust)} ${UNITS_MAP[utils.getUnits()].windSpeed}`;
 
             if (this.weather && this.aqi && (this.weather.dt === this.aqi.dt)) {
                 $('#aqi-val', this.shadowRoot).textContent = Math.round(this.aqi.main.aqi);

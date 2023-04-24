@@ -57,7 +57,7 @@ exports.handler = async (event) => {
     const weatherUrls = [
         {
             hostname: 'api.openweathermap.org',
-            path: `/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${openweathermapApiKey}&units=imperial`,
+            path: `/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${openweathermapApiKey}&units=${event.queryStringParameters.units}`,
             method: 'GET',
             port: 443
         },
