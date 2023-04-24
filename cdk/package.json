@@ -13,7 +13,7 @@
     "destroy": "cdk destroy -f"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.0",
+    "@types/jest": "^29.5.1",
     "@types/node": "18.15.11",
     "@types/prettier": "2.7.2",
     "esbuild": "^0.17.17",
