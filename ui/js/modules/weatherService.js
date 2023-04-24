@@ -2,14 +2,14 @@ import { APPLICATION_JSON, USER_AGENT } from './constants.js';
 import { defaultWeatherResponseWithAlert } from './mocks.js';
 import * as errorService from './errorService.js';
 
-const getWeather = async (locationOptions) => {
+const getWeather = async (locationOptions, units) => {
 
     // return defaultWeatherResponseWithAlert;
 
     try {
         let response = {};
         if (locationOptions.zip) {
-            response = await fetch(`https://api.jimsweather.xyz/weather?zip=${locationOptions.zip}`, {
+            response = await fetch(`https://api.jimsweather.xyz/weather?zip=${locationOptions.zip}&units=${units}`, {
                 headers: {
                     'Accept': APPLICATION_JSON,
                     'User-Agent': USER_AGENT
@@ -17,7 +17,7 @@ const getWeather = async (locationOptions) => {
             });
         }
         else {
-            response = await fetch(`https://api.jimsweather.xyz/weather?lat=${locationOptions.lat}&lon=${locationOptions.lon}`, {
+            response = await fetch(`https://api.jimsweather.xyz/weather?lat=${locationOptions.lat}&lon=${locationOptions.lon}&units=${units}`, {
                 headers: {
                     'Accept': APPLICATION_JSON,
                     'User-Agent': USER_AGENT

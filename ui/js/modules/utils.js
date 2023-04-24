@@ -100,7 +100,7 @@ const createHtmlElement = (htmlContent) => {
 }
 
 const setWeather = (locationOptions) => {
-    weatherService.getWeather(locationOptions).then((weatherData) => {
+    weatherService.getWeather(locationOptions, 'imperial').then((weatherData) => {
         if (weatherData === undefined) {
             return;
         }
