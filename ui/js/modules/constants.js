@@ -44,6 +44,17 @@ const AQI_DESC_MAP = {
     5: 'Very Poor'
 }
 
+const UNITS_MAP = {
+    imperial: {
+        temperature: 'F',
+        windSpeed: 'mph'
+    },
+    metric: {
+        temperature: 'C',
+        windSpeed: 'm/s'
+    }
+}
+
 export {
     CELSIUS,
     FAHRENHEIT,
@@ -52,5 +63,6 @@ export {
     UVI_COLOR_MAP,
     DAY_OF_WEEK_MAP,
     AQI_COLOR_MAP,
-    AQI_DESC_MAP
+    AQI_DESC_MAP,
+    UNITS_MAP
 }

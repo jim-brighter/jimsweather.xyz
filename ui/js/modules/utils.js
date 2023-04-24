@@ -100,7 +100,7 @@ const createHtmlElement = (htmlContent) => {
 }
 
 const setWeather = (locationOptions) => {
-    weatherService.getWeather(locationOptions, 'imperial').then((weatherData) => {
+    weatherService.getWeather(locationOptions, getUnits()).then((weatherData) => {
         if (weatherData === undefined) {
             return;
         }
@@ -130,6 +130,10 @@ const setWeather = (locationOptions) => {
     });
 }
 
+const getUnits = () => {
+    return 'imperial';
+}
+
 export {
     shortTime,
     dayOfWeek,
@@ -137,5 +141,6 @@ export {
     getMoonPhase,
     createStyleElement,
     createHtmlElement,
-    setWeather
+    setWeather,
+    getUnits
 }

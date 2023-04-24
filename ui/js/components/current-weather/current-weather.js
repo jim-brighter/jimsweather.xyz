@@ -1,6 +1,7 @@
 import { BaseWeatherElement } from '../base-weather-element.js';
 import * as utils from '../../modules/utils.js';
 import { $ } from '../../modules/selectors.js';
+import { UNITS_MAP } from '../../modules/constants.js';
 
 const style = utils.createStyleElement(`
     @import "/js/components/current-weather/current-weather.css";
@@ -27,7 +28,7 @@ const define = (html) => {
         set weather(weather) {
             this._weather = weather;
 
-            $('#temp', this.shadowRoot).textContent = `${Math.round(this.weather.temp)}° F`;
+            $('#temp', this.shadowRoot).textContent = `${Math.round(this.weather.temp)}° ${UNITS_MAP[utils.getUnits()].temperature}`;
             $('#icon', this.shadowRoot).src = `https://openweathermap.org/img/wn/${this.weather.weather[0].icon}@4x.png`;
             $('#main', this.shadowRoot).textContent = `${this.weather.weather[0].main}`;
         }

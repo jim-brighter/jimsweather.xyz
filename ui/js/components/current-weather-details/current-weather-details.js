@@ -1,7 +1,7 @@
 import { BaseWeatherElement } from '../base-weather-element.js';
 import * as utils from '../../modules/utils.js'
 import { $ } from '../../modules/selectors.js';
-import { UVI_COLOR_MAP } from '../../modules/constants.js';
+import { UVI_COLOR_MAP, UNITS_MAP } from '../../modules/constants.js';
 
 const style = utils.createStyleElement(`
     @import "/js/components/current-weather-details/current-weather-details.css";
@@ -31,14 +31,14 @@ const define = (html) => {
             $('#uvi-val', this.shadowRoot).textContent = Math.round(this.weather['uvi']);
             $('#sunset-val', this.shadowRoot).textContent = utils.shortTime(this.weather['sunset']);
             $('#clouds-val', this.shadowRoot).textContent = `${Math.round(this.weather['clouds'])}%`;
-            $('#feels_like-val', this.shadowRoot).textContent = `${Math.round(this.weather['feels_like'])}° F`;
+            $('#feels_like-val', this.shadowRoot).textContent = `${Math.round(this.weather['feels_like'])}° ${UNITS_MAP[utils.getUnits()].temperature}`;
             $('#visibility-val', this.shadowRoot).textContent = `${Math.round(this.weather['visibility'] / 1000)} km`;
             $('#pressure-val', this.shadowRoot).textContent = `${Math.round(this.weather['pressure'])} hPa`;
-            $('#wind_speed-val', this.shadowRoot).textContent = `${Math.round(this.weather['wind_speed'])} mph`;
+            $('#wind_speed-val', this.shadowRoot).textContent = `${Math.round(this.weather['wind_speed'])} ${UNITS_MAP[utils.getUnits()].windSpeed}`;
             $('#humidity-val', this.shadowRoot).textContent = `${Math.round(this.weather['humidity'])}%`;
             $('#wind_deg-val', this.shadowRoot).textContent = `${utils.getWindDirection(this.weather['wind_deg'])}`;
-            $('#dew_point-val', this.shadowRoot).textContent = `${Math.round(this.weather['dew_point'])}° F`;
-            $('#wind_gust-val', this.shadowRoot).textContent = typeof(this.weather.wind_gust) === 'number' ? `${Math.round(this.weather.wind_gust)} mph` : '';
+            $('#dew_point-val', this.shadowRoot).textContent = `${Math.round(this.weather['dew_point'])}° ${UNITS_MAP[utils.getUnits()].temperature}`;
+            $('#wind_gust-val', this.shadowRoot).textContent = typeof(this.weather.wind_gust) === 'number' ? `${Math.round(this.weather.wind_gust)} ${UNITS_MAP[utils.getUnits()].windSpeed}` : '';
 
             const uviColor = Math.round(this.weather['uvi']) in UVI_COLOR_MAP ? UVI_COLOR_MAP[Math.round(this.weather['uvi'])] : 'uvi-extreme';
 

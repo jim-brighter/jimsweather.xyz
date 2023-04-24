@@ -1,7 +1,7 @@
 import { BaseWeatherElement } from '../base-weather-element.js';
 import * as utils from '../../modules/utils.js'
 import { $ } from '../../modules/selectors.js';
-import { UVI_COLOR_MAP } from '../../modules/constants.js';
+import { UVI_COLOR_MAP, UNITS_MAP } from '../../modules/constants.js';
 
 const style = utils.createStyleElement(`
     @import "/js/components/day/day.css";
@@ -33,27 +33,27 @@ const define = (html) => {
             $('#main', this.shadowRoot).textContent = this.weather.weather[0].main;
 
             // temps
-            $('#morn_temp-val', this.shadowRoot).textContent = `${Math.round(this.weather.temp.morn)}° F`;
-            $('#day_temp-val', this.shadowRoot).textContent = `${Math.round(this.weather.temp.day)}° F`;
-            $('#eve_temp-val', this.shadowRoot).textContent = `${Math.round(this.weather.temp.eve)}° F`;
-            $('#night_temp-val', this.shadowRoot).textContent = `${Math.round(this.weather.temp.night)}° F`;
-            $('#min_temp-val', this.shadowRoot).textContent = `${Math.round(this.weather.temp.min)}° F`;
-            $('#max_temp-val', this.shadowRoot).textContent = `${Math.round(this.weather.temp.max)}° F`;
+            $('#morn_temp-val', this.shadowRoot).textContent = `${Math.round(this.weather.temp.morn)}° ${UNITS_MAP[utils.getUnits()].temperature}`;
+            $('#day_temp-val', this.shadowRoot).textContent = `${Math.round(this.weather.temp.day)}° ${UNITS_MAP[utils.getUnits()].temperature}`;
+            $('#eve_temp-val', this.shadowRoot).textContent = `${Math.round(this.weather.temp.eve)}° ${UNITS_MAP[utils.getUnits()].temperature}`;
+            $('#night_temp-val', this.shadowRoot).textContent = `${Math.round(this.weather.temp.night)}° ${UNITS_MAP[utils.getUnits()].temperature}`;
+            $('#min_temp-val', this.shadowRoot).textContent = `${Math.round(this.weather.temp.min)}° ${UNITS_MAP[utils.getUnits()].temperature}`;
+            $('#max_temp-val', this.shadowRoot).textContent = `${Math.round(this.weather.temp.max)}° ${UNITS_MAP[utils.getUnits()].temperature}`;
 
             // feels like
-            $('#morn_feels_like-val', this.shadowRoot).textContent = `${Math.round(this.weather.feels_like.morn)}° F`;
-            $('#day_feels_like-val', this.shadowRoot).textContent = `${Math.round(this.weather.feels_like.day)}° F`;
-            $('#eve_feels_like-val', this.shadowRoot).textContent = `${Math.round(this.weather.feels_like.eve)}° F`;
-            $('#night_feels_like-val', this.shadowRoot).textContent = `${Math.round(this.weather.feels_like.night)}° F`;
+            $('#morn_feels_like-val', this.shadowRoot).textContent = `${Math.round(this.weather.feels_like.morn)}° ${UNITS_MAP[utils.getUnits()].temperature}`;
+            $('#day_feels_like-val', this.shadowRoot).textContent = `${Math.round(this.weather.feels_like.day)}° ${UNITS_MAP[utils.getUnits()].temperature}`;
+            $('#eve_feels_like-val', this.shadowRoot).textContent = `${Math.round(this.weather.feels_like.eve)}° ${UNITS_MAP[utils.getUnits()].temperature}`;
+            $('#night_feels_like-val', this.shadowRoot).textContent = `${Math.round(this.weather.feels_like.night)}° ${UNITS_MAP[utils.getUnits()].temperature}`;
 
             // weather
             $('#clouds-val', this.shadowRoot).textContent = `${Math.round(this.weather.clouds)}%`;
             $('#uvi-val', this.shadowRoot).textContent = `${Math.round(this.weather.uvi)}`;
             $('#humidity-val', this.shadowRoot).textContent = `${Math.round(this.weather['humidity'])}%`;
-            $('#dew_point-val', this.shadowRoot).textContent = `${Math.round(this.weather['dew_point'])}° F`;
-            $('#wind_speed-val', this.shadowRoot).textContent = `${Math.round(this.weather['wind_speed'])} mph`;
+            $('#dew_point-val', this.shadowRoot).textContent = `${Math.round(this.weather['dew_point'])}° ${UNITS_MAP[utils.getUnits()].temperature}`;
+            $('#wind_speed-val', this.shadowRoot).textContent = `${Math.round(this.weather['wind_speed'])} ${UNITS_MAP[utils.getUnits()].windSpeed}`;
             $('#wind_deg-val', this.shadowRoot).textContent = `${utils.getWindDirection(this.weather['wind_deg'])}`;
-            $('#wind_gust-val', this.shadowRoot).textContent = `${Math.round(this.weather.wind_gust)} mph`;
+            $('#wind_gust-val', this.shadowRoot).textContent = `${Math.round(this.weather.wind_gust)} ${UNITS_MAP[utils.getUnits()].windSpeed}`;
             $('#pop-val', this.shadowRoot).textContent = `${Math.round(this.weather.pop * 100)}%`;
             $('#pressure-val', this.shadowRoot).textContent = `${Math.round(this.weather['pressure'])} hPa`;
 
