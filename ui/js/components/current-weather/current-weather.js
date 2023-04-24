@@ -31,6 +31,10 @@ const define = (html) => {
             $('#temp', this.shadowRoot).textContent = `${Math.round(this.weather.temp)}° ${UNITS_MAP[utils.getUnits()].temperature}`;
             $('#icon', this.shadowRoot).src = `https://openweathermap.org/img/wn/${this.weather.weather[0].icon}@4x.png`;
             $('#main', this.shadowRoot).textContent = `${this.weather.weather[0].main}`;
+
+            $('#temp-link', this.shadowRoot).onclick = () => {
+                this.changeUnits();
+            }
         }
 
         get weather() {
@@ -65,6 +69,10 @@ const define = (html) => {
             utils.setWeather({
                 zip: zip
             });
+        }
+
+        changeUnits() {
+            utils.changeUnits();
         }
     }
 

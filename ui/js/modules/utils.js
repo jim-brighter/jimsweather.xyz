@@ -1,4 +1,4 @@
-import { DAY_OF_WEEK_MAP } from './constants.js';
+import { DAY_OF_WEEK_MAP, IMPERIAL, METRIC } from './constants.js';
 import * as weatherService from './weatherService.js';
 import { $ } from './selectors.js';
 
@@ -130,8 +130,27 @@ const setWeather = (locationOptions) => {
     });
 }
 
+const getUnitsCookie = () => {
+    return document.cookie.split('; ').find((row) => row.startsWith('units='))?.split('=')[1];
+}
+
 const getUnits = () => {
-    return 'imperial';
+    return getUnitsCookie() || IMPERIAL;
+}
+
+const changeUnits = () => {
+    const currentUnits = getUnits();
+
+    const expires = `expires=${new Date('2100-01-01').toUTCString()}`;
+
+    if (currentUnits === IMPERIAL) {
+        document.cookie = `units=${METRIC}; ${expires}`;
+    }
+    else {
+        document.cookie = `units=${IMPERIAL}; ${expires}`;
+    }
+
+    location.reload();
 }
 
 export {
@@ -142,5 +161,6 @@ export {
     createStyleElement,
     createHtmlElement,
     setWeather,
-    getUnits
+    getUnits,
+    changeUnits
 }

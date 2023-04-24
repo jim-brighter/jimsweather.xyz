@@ -55,6 +55,9 @@ const UNITS_MAP = {
     }
 }
 
+const IMPERIAL = 'imperial';
+const METRIC = 'metric';
+
 export {
     CELSIUS,
     FAHRENHEIT,
@@ -64,5 +67,7 @@ export {
     DAY_OF_WEEK_MAP,
     AQI_COLOR_MAP,
     AQI_DESC_MAP,
-    UNITS_MAP
+    UNITS_MAP,
+    IMPERIAL,
+    METRIC
 }
