@@ -30,7 +30,13 @@ export class JimsWeatherStack extends Stack {
       versioned: true,
       publicReadAccess: true,
       websiteIndexDocument: 'index.html',
-      websiteErrorDocument: 'index.html'
+      websiteErrorDocument: 'index.html',
+      lifecycleRules: [{
+        enabled: true,
+        expiredObjectDeleteMarker: true,
+        noncurrentVersionExpiration: Duration.days(30),
+        noncurrentVersionsToRetain: 1
+      }]
     });
 
     // SSL Certificate
