@@ -9,3 +9,5 @@ updates:
     directory: "/cdk" # Location of package manifests
     schedule:
       interval: "weekly"
+    assignees:
+      - "jim-brighter"
