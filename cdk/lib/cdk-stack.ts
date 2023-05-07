@@ -123,7 +123,7 @@ export class JimsWeatherStack extends Stack {
     const weatherLambda = new nodelambda.NodejsFunction(this, 'WeatherHandler', {
       runtime: lambda.Runtime.NODEJS_18_X,
       handler: 'handler',
-      entry: './lambda/weather.js',
+      entry: '../lambda/weather.js',
       bundling: {
         externalModules: [
           'aws-sdk'
