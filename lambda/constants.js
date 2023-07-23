@@ -58,6 +58,9 @@ const STATE_TO_ABBREVIATION = {
     'Wyoming': 'WY'
 }
 
+const OPENWEATHER_HOST = 'https://api.openweathermap.org';
+
 export {
-    STATE_TO_ABBREVIATION
+    STATE_TO_ABBREVIATION,
+    OPENWEATHER_HOST
 }

@@ -1,29 +1,4 @@
-import * as https from 'https';
-import { STATE_TO_ABBREVIATION } from './constants';
-
-const sendRequest = (options) => {
-    return new Promise((resolve, reject) => {
-        const req = https.request(options, (res) => {
-            res.setEncoding('utf8');
-
-            let responseBody = '';
-
-            res.on('data', (chunk) => {
-                responseBody += chunk;
-            });
-
-            res.on('end', () => {
-                resolve(JSON.parse(responseBody));
-            });
-        });
-
-        req.on('error', (err) => {
-            reject(err);
-        });
-
-        req.end();
-    });
-};
+import { STATE_TO_ABBREVIATION, OPENWEATHER_HOST } from './constants';
 
 exports.handler = async (event) => {
     const headers = {
@@ -39,12 +14,9 @@ exports.handler = async (event) => {
     let lon = '';
 
     if (event.queryStringParameters.zip) {
-        const geoData = await sendRequest({
-            hostname: 'api.openweathermap.org',
-            path: `/geo/1.0/zip?zip=${event.queryStringParameters.zip},US&appid=${openweathermapApiKey}`,
-            method: 'GET',
-            port: 443
-        });
+        const geoResponse = await fetch(`${OPENWEATHER_HOST}/geo/1.0/zip?zip=${event.queryStringParameters.zip},US&appid=${openweathermapApiKey}`);
+
+        const geoData = await geoResponse.json();
 
         lat = geoData.lat;
         lon = geoData.lon;
@@ -55,48 +27,30 @@ exports.handler = async (event) => {
     }
 
     const weatherUrls = [
-        {
-            hostname: 'api.openweathermap.org',
-            path: `/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${openweathermapApiKey}&units=${event.queryStringParameters.units}`,
-            method: 'GET',
-            port: 443
-        },
-        {
-            hostname: 'api.openweathermap.org',
-            path: `/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${openweathermapApiKey}`,
-            method: 'GET',
-            port: 443
-        },
-        {
-            hostname: 'api.openweathermap.org',
-            path: `/data/2.5/air_pollution/forecast?lat=${lat}&lon=${lon}&appid=${openweathermapApiKey}`,
-            method: 'GET',
-            port: 443
-        },
-        {
-            hostname: 'api.openweathermap.org',
-            path: `/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${openweathermapApiKey}`,
-            method: 'GET',
-            port: 443
-        }
+        `/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${openweathermapApiKey}&units=${event.queryStringParameters.units}`,
+        `/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${openweathermapApiKey}`,
+        `/data/2.5/air_pollution/forecast?lat=${lat}&lon=${lon}&appid=${openweathermapApiKey}`,
+        `/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${openweathermapApiKey}`,
     ];
 
     const weatherResponse = {};
 
     try {
         await Promise.all(weatherUrls.map(async (urlOptions) => {
-            const result = await sendRequest(urlOptions);
+            const response = await fetch(`${OPENWEATHER_HOST}${urlOptions}`);
 
-            if (urlOptions.path.includes('/data/3.0/onecall')) {
+            const result = await response.json();
+
+            if (urlOptions.includes('/data/3.0/onecall')) {
                 weatherResponse.onecall = result;
             }
-            else if (urlOptions.path.includes('/data/2.5/air_pollution/forecast')) {
+            else if (urlOptions.includes('/data/2.5/air_pollution/forecast')) {
                 weatherResponse.air_pollution_forecast = result;
             }
-            else if (urlOptions.path.includes('/data/2.5/air_pollution')) {
+            else if (urlOptions.includes('/data/2.5/air_pollution')) {
                 weatherResponse.air_pollution = result;
             }
-            else if (urlOptions.path.includes('/geo/1.0/reverse')) {
+            else if (urlOptions.includes('/geo/1.0/reverse')) {
                 weatherResponse.locality = `${result[0].name}, ${result[0].state ? STATE_TO_ABBREVIATION[result[0].state] : result[0].country}`
             }
 
