@@ -94,7 +94,7 @@ daily-weather {
     border-top: 4px solid #585858;
     border-bottom: 4px solid #585858;
     border-radius: 50%;
-    animation: spin 2s infinite;
+    animation: spin 2s linear infinite;
 }
 
 @keyframes spin {
