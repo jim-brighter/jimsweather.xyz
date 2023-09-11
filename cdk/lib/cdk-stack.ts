@@ -124,11 +124,6 @@ export class JimsWeatherStack extends Stack {
       runtime: lambda.Runtime.NODEJS_18_X,
       handler: 'handler',
       entry: '../lambda/weather.js',
-      bundling: {
-        externalModules: [
-          'aws-sdk'
-        ]
-      },
       environment: {
         OPEN_WEATHER_MAP_API_KEY: openweathermapSecret.secretValue.unsafeUnwrap()
       },
