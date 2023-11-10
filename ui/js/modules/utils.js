@@ -130,24 +130,22 @@ const setWeather = (locationOptions) => {
     });
 }
 
-const getUnitsCookie = () => {
-    return document.cookie.split('; ').find((row) => row.startsWith('units='))?.split('=')[1];
+const getUnits = () => {
+    return localStorage.getItem('units') || IMPERIAL;
 }
 
-const getUnits = () => {
-    return getUnitsCookie() || IMPERIAL;
+const setUnits = (units) => {
+    localStorage.setItem('units', units);
 }
 
 const changeUnits = () => {
     const currentUnits = getUnits();
 
-    const expires = `expires=${new Date('2100-01-01').toUTCString()}`;
-
     if (currentUnits === IMPERIAL) {
-        document.cookie = `units=${METRIC}; ${expires}`;
+        setUnits(METRIC);
     }
     else {
-        document.cookie = `units=${IMPERIAL}; ${expires}`;
+        setUnits(IMPERIAL);
     }
 
     location.reload();
