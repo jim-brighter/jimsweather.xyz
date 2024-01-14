@@ -87,6 +87,8 @@ const define = (html) => {
             }
 
             if (weather.snow) {
+                $('#pop-key', this.shadowRoot).textContent = '% Snow:';
+
                 const snowKeyCell = document.createElement('td');
                 snowKeyCell.classList.add('key-col');
                 snowKeyCell.id = 'snow-key';
