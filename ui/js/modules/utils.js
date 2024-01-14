@@ -99,35 +99,51 @@ const createHtmlElement = (htmlContent) => {
     return html;
 }
 
-const setWeather = (locationOptions) => {
-    weatherService.getWeather(locationOptions, getUnits()).then((weatherData) => {
-        if (weatherData === undefined) {
-            return;
-        }
+const createHtmlElementV2 = async (filename, defineFunction, options = {id: '', class: ''}) => {
+    const htmlBody = filename ? await fetch(filename) : '';
+    const htmlText = htmlBody ? await htmlBody.text() : '';
+    const html = createHtmlElement(htmlText);
 
-        try {
-            $('#loading').remove();
-        } catch (e) {
-            console.log('Loading spinner already removed');
-        }
+    if (options.class) {
+        html.classList.add(options.class);
+    }
 
-        $('alerts-weather').alerts = weatherData.onecall.alerts ? weatherData.onecall.alerts : [];
-        $('current-weather').weather = weatherData.onecall.current;
-        $('current-weather').locality = weatherData.locality;
-        $('current-weather-details').weather = weatherData.onecall.current;
-        $('minutely-weather').weather = weatherData.onecall.minutely;
-        $('daily-weather').weather = weatherData.onecall.daily;
-        $('hourly-weather').setWeatherAndAqi(weatherData.onecall.hourly, weatherData.air_pollution_forecast.list);
-        $('aqi-weather').aqi = weatherData.air_pollution.list[0];
+    if (options.id) {
+        html.id = options.id;
+    }
 
-        $('alerts-weather').hidden = false;
-        $('current-weather').hidden = false;
-        $('current-weather-details').hidden = false;
-        $('minutely-weather').hidden = false;
-        $('daily-weather').hidden = false;
-        $('hourly-weather').hidden = false;
-        $('aqi-weather').hidden = false;
-    });
+    defineFunction(html);
+}
+
+const setWeather = async (locationOptions) => {
+    const weatherData = await weatherService.getWeather(locationOptions, getUnits());
+
+    if (weatherData === undefined) {
+        return;
+    }
+
+    try {
+        $('#loading').remove();
+    } catch (e) {
+        console.log('Loading spinner already removed');
+    }
+
+    $('alerts-weather').alerts = weatherData.onecall.alerts ? weatherData.onecall.alerts : [];
+    $('current-weather').weather = weatherData.onecall.current;
+    $('current-weather').locality = weatherData.locality;
+    $('current-weather-details').weather = weatherData.onecall.current;
+    $('minutely-weather').weather = weatherData.onecall.minutely;
+    $('daily-weather').weather = weatherData.onecall.daily;
+    $('hourly-weather').setWeatherAndAqi(weatherData.onecall.hourly, weatherData.air_pollution_forecast.list);
+    $('aqi-weather').aqi = weatherData.air_pollution.list[0];
+
+    $('alerts-weather').hidden = false;
+    $('current-weather').hidden = false;
+    $('current-weather-details').hidden = false;
+    $('minutely-weather').hidden = false;
+    $('daily-weather').hidden = false;
+    $('hourly-weather').hidden = false;
+    $('aqi-weather').hidden = false;
 }
 
 const getUnits = () => {
@@ -158,6 +174,7 @@ export {
     getMoonPhase,
     createStyleElement,
     createHtmlElement,
+    createHtmlElementV2,
     setWeather,
     getUnits,
     changeUnits

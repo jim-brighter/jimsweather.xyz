@@ -8,15 +8,6 @@ const style = utils.createStyleElement(`
     @import "/css/pills.css";
 `);
 
-fetch('/js/components/day/day.html')
-.then(response => response.text())
-.then(data => {
-    const html = utils.createHtmlElement(data);
-    html.classList.add('one-day');
-
-    define(html);
-});
-
 const define = (html) => {
     class DayWeather extends BaseWeatherElement {
         constructor() {
@@ -129,3 +120,7 @@ const define = (html) => {
 
     customElements.define('day-weather', DayWeather);
 }
+
+utils.createHtmlElementV2('/js/components/day/day.html', define, {
+    class: 'one-day'
+});

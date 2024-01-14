@@ -6,15 +6,6 @@ const style = utils.createStyleElement(`
     @import "/js/components/alerts-weather/alerts-weather.css";
 `);
 
-fetch('/js/components/alerts-weather/alerts-weather.html')
-.then(response => response.text())
-.then(data => {
-    const html = utils.createHtmlElement(data);
-    html.id = 'alerts-container';
-
-    define(html);
-});
-
 const define = (html) => {
     class AlertsWeather extends BaseWeatherElement {
         constructor() {
@@ -107,3 +98,7 @@ const define = (html) => {
 
     customElements.define('alerts-weather', AlertsWeather);
 }
+
+utils.createHtmlElementV2('/js/components/alerts-weather/alerts-weather.html', define, {
+    id: 'alerts-container'
+});

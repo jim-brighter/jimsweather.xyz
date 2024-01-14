@@ -6,10 +6,6 @@ const style = utils.createStyleElement(`
     @import "/js/components/daily-weather/daily-weather.css";
 `);
 
-const html = utils.createHtmlElement(``);
-html.id = 'daily-container';
-// define called below
-
 const define = (html) => {
     class DailyWeather extends BaseWeatherElement {
         constructor() {
@@ -41,4 +37,6 @@ const define = (html) => {
     customElements.define('daily-weather', DailyWeather);
 }
 
-define(html);
+utils.createHtmlElementV2(null, define, {
+    id: 'daily-container'
+});

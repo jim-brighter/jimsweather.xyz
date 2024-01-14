@@ -8,15 +8,6 @@ const style = utils.createStyleElement(`
     @import "/css/pills.css";
 `);
 
-fetch('/js/components/hour/hour.html')
-.then(response => response.text())
-.then(data => {
-    const html = utils.createHtmlElement(data);
-    html.classList.add('one-hour');
-
-    define(html);
-});
-
 const define = (html) => {
     class HourWeather extends BaseWeatherElement {
         constructor() {
@@ -127,3 +118,7 @@ const define = (html) => {
 
     customElements.define('hour-weather', HourWeather);
 }
+
+utils.createHtmlElementV2('/js/components/hour/hour.html', define, {
+    class: 'one-hour'
+});

@@ -9,14 +9,6 @@ const style = utils.createStyleElement(`
     @import "/js/components/aqi-weather/aqi-weather.css";
 `);
 
-fetch('/js/components/aqi-weather/aqi-weather.html')
-.then(response => response.text())
-.then(data => {
-    const html = utils.createHtmlElement(data);
-
-    define(html);
-});
-
 const define = (html) => {
     class AqiWeather extends BaseWeatherElement {
         constructor() {
@@ -48,3 +40,5 @@ const define = (html) => {
 
     customElements.define('aqi-weather', AqiWeather);
 }
+
+utils.createHtmlElementV2('/js/components/aqi-weather/aqi-weather.html', define);
