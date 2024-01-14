@@ -7,15 +7,6 @@ const style = utils.createStyleElement(`
     @import "/js/components/current-weather/current-weather.css";
 `);
 
-fetch('/js/components/current-weather/current-weather.html')
-.then(response => response.text())
-.then(data => {
-    const html = utils.createHtmlElement(data);
-    html.id = 'current-weather-parent';
-
-    define(html);
-});
-
 const define = (html) => {
     class CurrentWeather extends BaseWeatherElement {
         constructor() {
@@ -78,3 +69,7 @@ const define = (html) => {
 
     customElements.define('current-weather', CurrentWeather);
 }
+
+utils.createHtmlElementV2('/js/components/current-weather/current-weather.html', define, {
+    id: 'current-weather-parent'
+});

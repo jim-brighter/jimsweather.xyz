@@ -99,6 +99,22 @@ const createHtmlElement = (htmlContent) => {
     return html;
 }
 
+const createHtmlElementV2 = async (filename, defineFunction, options = {id: '', class: ''}) => {
+    const htmlBody = filename ? await fetch(filename) : '';
+    const htmlText = htmlBody ? await htmlBody.text() : '';
+    const html = createHtmlElement(htmlText);
+
+    if (options.class) {
+        html.classList.add(options.class);
+    }
+
+    if (options.id) {
+        html.id = options.id;
+    }
+
+    defineFunction(html);
+}
+
 const setWeather = async (locationOptions) => {
     const weatherData = await weatherService.getWeather(locationOptions, getUnits());
 
@@ -158,6 +174,7 @@ export {
     getMoonPhase,
     createStyleElement,
     createHtmlElement,
+    createHtmlElementV2,
     setWeather,
     getUnits,
     changeUnits

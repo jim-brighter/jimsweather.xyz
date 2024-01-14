@@ -6,10 +6,6 @@ const style = utils.createStyleElement(`
     @import "/js/components/hourly-weather/hourly-weather.css";
 `);
 
-const html = utils.createHtmlElement(``);
-html.id = 'hourly-container';
-// define called below
-
 const define = (html) => {
     class HourlyWeather extends BaseWeatherElement {
         constructor() {
@@ -58,4 +54,6 @@ const define = (html) => {
     customElements.define('hourly-weather', HourlyWeather);
 }
 
-define(html);
+utils.createHtmlElementV2(null, define, {
+    id: 'hourly-container'
+});

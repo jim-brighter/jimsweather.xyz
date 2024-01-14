@@ -7,15 +7,6 @@ const style = utils.createStyleElement(`
     @import "/css/pills.css";
 `);
 
-fetch('/js/components/minutely-weather/minutely-weather.html')
-.then(response => response.text())
-.then(data => {
-    const html = utils.createHtmlElement(data);
-    html.id = 'minutely-container';
-
-    define(html);
-});
-
 const define = (html) => {
     class MinutelyWeather extends BaseWeatherElement {
         constructor() {
@@ -71,3 +62,7 @@ const define = (html) => {
 
     customElements.define('minutely-weather', MinutelyWeather);
 }
+
+utils.createHtmlElementV2('/js/components/minutely-weather/minutely-weather.html', define, {
+    id: 'minutely-container'
+});

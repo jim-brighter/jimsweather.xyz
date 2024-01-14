@@ -8,14 +8,6 @@ const style = utils.createStyleElement(`
     @import "/css/pills.css";
 `);
 
-fetch('/js/components/current-weather-details/current-weather-details.html')
-.then(response => response.text())
-.then(data => {
-    const html = utils.createHtmlElement(data);
-
-    define(html);
-});
-
 const define = (html) => {
     class CurrentWeatherDetails extends BaseWeatherElement {
         constructor() {
@@ -105,3 +97,5 @@ const define = (html) => {
 
     customElements.define('current-weather-details', CurrentWeatherDetails);
 }
+
+utils.createHtmlElementV2('/js/components/current-weather-details/current-weather-details.html', define);
