@@ -60,36 +60,14 @@ const define = (html) => {
             $('#uvi-val', this.shadowRoot).classList.add(uviColor);
 
             // rain & snow
-            if (weather.rain) {
-                const rainKeyCell = document.createElement('td');
-                rainKeyCell.classList.add('key-col');
-                rainKeyCell.id = 'rain-key';
-                rainKeyCell.textContent = 'Rain:';
-
-                const rainValCell = document.createElement('td');
-                rainValCell.textContent = `${Math.round(this.weather.rain)} mm`;
-
-                $('#rain-snow-row', this.shadowRoot).append(rainKeyCell);
-                $('#rain-snow-row', this.shadowRoot).append(rainValCell);
-
-                utils.addPrecipitationClass(rainValCell, this.weather.rain);
+            if (this.weather.rain) {
+                utils.createRainCells(this.weather.rain, this.shadowRoot);
             }
 
-            if (weather.snow) {
+            if (this.weather.snow) {
                 $('#pop-key', this.shadowRoot).textContent = '% Snow:';
 
-                const snowKeyCell = document.createElement('td');
-                snowKeyCell.classList.add('key-col');
-                snowKeyCell.id = 'snow-key';
-                snowKeyCell.textContent = 'Snow:';
-
-                const snowValCell = document.createElement('td');
-                snowValCell.textContent = `${Math.round(this.weather.snow)} mm`;
-
-                $('#rain-snow-row', this.shadowRoot).append(snowKeyCell);
-                $('#rain-snow-row', this.shadowRoot).append(snowValCell);
-
-                utils.addPrecipitationClass(snowValCell, this.weather.snow);
+                utils.createSnowCells(this.weather.snow, this.shadowRoot);
             }
         }
 

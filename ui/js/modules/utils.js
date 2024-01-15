@@ -186,6 +186,29 @@ const addPrecipitationClass = (htmlElement, precipitationValue) => {
     }
 }
 
+const createRainCells = (volume, shadowRootElement) => {
+    createPrecipitationCells(volume, 'rain-key', 'Rain:', shadowRootElement)
+}
+
+const createSnowCells = (volume, shadowRootElement) => {
+    createPrecipitationCells(volume, 'snow-key', 'Snow:', shadowRootElement)
+}
+
+const createPrecipitationCells = (volume, keyId, keyText, shadowRootElement) => {
+    const keyCell = document.createElement('td');
+    keyCell.classList.add('key-col');
+    keyCell.id = keyId;
+    keyCell.textContent = keyText;
+
+    const valCell = document.createElement('td');
+    valCell.textContent = `${Math.round(volume)} mm`;
+
+    $('#rain-snow-row', shadowRootElement).append(keyCell);
+    $('#rain-snow-row', shadowRootElement).append(valCell);
+
+    addPrecipitationClass(valCell, volume);
+}
+
 export {
     shortTime,
     dayOfWeek,
@@ -197,5 +220,7 @@ export {
     setWeather,
     getUnits,
     changeUnits,
-    addPrecipitationClass
+    addPrecipitationClass,
+    createRainCells,
+    createSnowCells
 }
