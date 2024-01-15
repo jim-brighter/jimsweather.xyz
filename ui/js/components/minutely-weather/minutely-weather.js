@@ -35,18 +35,7 @@ const define = (html) => {
                 const precipitation = document.createElement('p');
                 precipitation.textContent = `${Math.round(minute.precipitation)} mm`;
 
-                if (minute.precipitation > 0 && minute.precipitation < 2.5) {
-                    precipitation.classList.add('light-rain');
-                }
-                else if (minute.precipitation >= 2.5 && minute.precipitation < 10) {
-                    precipitation.classList.add('moderate-rain');
-                }
-                else if (minute.precipitation >= 10 && minute.precipitation < 50) {
-                    precipitation.classList.add('heavy-rain');
-                }
-                else if (minute.precipitation >= 50) {
-                    precipitation.classList.add('violent-rain');
-                }
+                utils.addPrecipitationClass(precipitation, minute.precipitation);
 
                 $('#minutely-container', this.shadowRoot).append(minuteDiv);
                 minuteDiv.append(time);

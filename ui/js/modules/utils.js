@@ -167,6 +167,25 @@ const changeUnits = () => {
     location.reload();
 }
 
+const addPrecipitationClass = (htmlElement, precipitationValue) => {
+    if (precipitationValue <= 0) {
+        return;
+    }
+
+    if (precipitationValue > 0 && precipitationValue < 2.5) {
+        htmlElement.classList.add('light-rain');
+    }
+    else if (precipitationValue >= 2.5 && precipitationValue < 10) {
+        htmlElement.classList.add('moderate-rain');
+    }
+    else if (precipitationValue >= 10 && precipitationValue < 50) {
+        htmlElement.classList.add('heavy-rain');
+    }
+    else {
+        htmlElement.classList.add('violent-rain');
+    }
+}
+
 export {
     shortTime,
     dayOfWeek,
@@ -177,5 +196,6 @@ export {
     createHtmlElementV2,
     setWeather,
     getUnits,
-    changeUnits
+    changeUnits,
+    addPrecipitationClass
 }

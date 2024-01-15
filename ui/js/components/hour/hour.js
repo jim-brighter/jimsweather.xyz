@@ -74,18 +74,7 @@ const define = (html) => {
                 $('#rain-snow-row', this.shadowRoot).append(rainKeyCell);
                 $('#rain-snow-row', this.shadowRoot).append(rainValCell);
 
-                if (this.weather.rain['1h'] > 0 && this.weather.rain['1h'] < 2.5) {
-                    rainValCell.classList.add('light-rain');
-                }
-                else if (this.weather.rain['1h'] >= 2.5 && this.weather.rain['1h'] < 10) {
-                    rainValCell.classList.add('moderate-rain');
-                }
-                else if (this.weather.rain['1h'] >= 10 && this.weather.rain['1h'] < 50) {
-                    rainValCell.classList.add('heavy-rain');
-                }
-                else if (this.weather.rain['1h'] >= 50) {
-                    rainValCell.classList.add('violent-rain');
-                }
+                utils.addPrecipitationClass(rainValCell, this.weather.rain['1h']);
             }
 
             if (this.weather.snow && this.weather.snow['1h']) {
@@ -102,18 +91,7 @@ const define = (html) => {
                 $('#rain-snow-row', this.shadowRoot).append(snowKeyCell);
                 $('#rain-snow-row', this.shadowRoot).append(snowValCell);
 
-                if (this.weather.snow['1h'] > 0 && this.weather.snow['1h'] < 2.5) {
-                    snowValCell.classList.add('light-rain');
-                }
-                else if (this.weather.snow['1h'] >= 2.5 && this.weather.snow['1h'] < 10) {
-                    snowValCell.classList.add('moderate-rain');
-                }
-                else if (this.weather.snow['1h'] >= 10 && this.weather.snow['1h'] < 50) {
-                    snowValCell.classList.add('heavy-rain');
-                }
-                else if (this.weather.snow['1h'] >= 50) {
-                    snowValCell.classList.add('violent-rain');
-                }
+                utils.addPrecipitationClass(snowValCell, this.weather.snow['1h']);
             }
         }
     }
