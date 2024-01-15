@@ -7,23 +7,20 @@ const getWeather = async (locationOptions, units) => {
     // return defaultWeatherResponseWithAlert;
 
     try {
-        let response = {};
+        let url = '';
         if (locationOptions.zip) {
-            response = await fetch(`https://api.jimsweather.xyz/weather?zip=${locationOptions.zip}&units=${units}`, {
-                headers: {
-                    'Accept': APPLICATION_JSON,
-                    'User-Agent': USER_AGENT
-                }
-            });
+            url = `https://api.jimsweather.xyz/weather?zip=${locationOptions.zip}&units=${units}`;
         }
         else {
-            response = await fetch(`https://api.jimsweather.xyz/weather?lat=${locationOptions.lat}&lon=${locationOptions.lon}&units=${units}`, {
-                headers: {
-                    'Accept': APPLICATION_JSON,
-                    'User-Agent': USER_AGENT
-                }
-            });
+            url = `https://api.jimsweather.xyz/weather?lat=${locationOptions.lat}&lon=${locationOptions.lon}&units=${units}`;
         }
+
+        const response = await fetch(url, {
+            headers: {
+                'Accept': APPLICATION_JSON,
+                'User-Agent': USER_AGENT
+            }
+        });
 
         if (!response.ok) {
             throw `Got status ${response.status} from weather api`;
