@@ -1,6 +1,4 @@
-import { DAY_OF_WEEK_MAP, IMPERIAL, METRIC } from './constants.js';
-import * as weatherService from './weatherService.js';
-import { $ } from './selectors.js';
+import { DAY_OF_WEEK_MAP, IMPERIAL, METRIC } from '../constants.js';
 
 const shortTime = (time) => new Date(time * 1000).toLocaleTimeString('en-us', {timeStyle: 'short'});
 
@@ -85,67 +83,6 @@ const getMoonPhase = (phase) => {
     }
 }
 
-const createStyleElement = (styleContent) => {
-    const style = document.createElement('style');
-    style.textContent = styleContent;
-
-    return style;
-}
-
-const createHtmlElement = (htmlContent) => {
-    const html = document.createElement('div');
-    html.innerHTML = htmlContent;
-
-    return html;
-}
-
-const createHtmlElementV2 = async (filename, defineFunction, options = {id: '', class: ''}) => {
-    const htmlBody = filename ? await fetch(filename) : '';
-    const htmlText = htmlBody ? await htmlBody.text() : '';
-    const html = createHtmlElement(htmlText);
-
-    if (options.class) {
-        html.classList.add(options.class);
-    }
-
-    if (options.id) {
-        html.id = options.id;
-    }
-
-    defineFunction(html);
-}
-
-const setWeather = async (locationOptions) => {
-    const weatherData = await weatherService.getWeather(locationOptions, getUnits());
-
-    if (weatherData === undefined) {
-        return;
-    }
-
-    try {
-        $('#loading').remove();
-    } catch (e) {
-        console.log('Loading spinner already removed');
-    }
-
-    $('alerts-weather').alerts = weatherData.onecall.alerts ? weatherData.onecall.alerts : [];
-    $('current-weather').weather = weatherData.onecall.current;
-    $('current-weather').locality = weatherData.locality;
-    $('current-weather-details').weather = weatherData.onecall.current;
-    $('minutely-weather').weather = weatherData.onecall.minutely;
-    $('daily-weather').weather = weatherData.onecall.daily;
-    $('hourly-weather').setWeatherAndAqi(weatherData.onecall.hourly, weatherData.air_pollution_forecast.list);
-    $('aqi-weather').aqi = weatherData.air_pollution.list[0];
-
-    $('alerts-weather').hidden = false;
-    $('current-weather').hidden = false;
-    $('current-weather-details').hidden = false;
-    $('minutely-weather').hidden = false;
-    $('daily-weather').hidden = false;
-    $('hourly-weather').hidden = false;
-    $('aqi-weather').hidden = false;
-}
-
 const getUnits = () => {
     return localStorage.getItem('units') || IMPERIAL;
 }
@@ -172,10 +109,6 @@ export {
     dayOfWeek,
     getWindDirection,
     getMoonPhase,
-    createStyleElement,
-    createHtmlElement,
-    createHtmlElementV2,
-    setWeather,
     getUnits,
     changeUnits
 }

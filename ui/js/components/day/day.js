@@ -1,9 +1,10 @@
 import { BaseWeatherElement } from '../base-weather-element.js';
-import * as utils from '../../modules/utils.js'
-import { $ } from '../../modules/selectors.js';
+import * as utils from '../../modules/utils/utils.js'
+import * as domService from '../../modules/services/domService.js';
+import { $ } from '../../modules/utils/selectors.js';
 import { UVI_COLOR_MAP, UNITS_MAP } from '../../modules/constants.js';
 
-const style = utils.createStyleElement(`
+const style = domService.createStyleElement(`
     @import "/js/components/day/day.css";
     @import "/css/pills.css";
 `);
@@ -60,58 +61,14 @@ const define = (html) => {
             $('#uvi-val', this.shadowRoot).classList.add(uviColor);
 
             // rain & snow
-            if (weather.rain) {
-                const rainKeyCell = document.createElement('td');
-                rainKeyCell.classList.add('key-col');
-                rainKeyCell.id = 'rain-key';
-                rainKeyCell.textContent = 'Rain:';
-
-                const rainValCell = document.createElement('td');
-                rainValCell.textContent = `${Math.round(this.weather.rain)} mm`;
-
-                $('#rain-snow-row', this.shadowRoot).append(rainKeyCell);
-                $('#rain-snow-row', this.shadowRoot).append(rainValCell);
-
-                if (this.weather.rain > 0 && this.weather.rain < 2.5) {
-                    rainValCell.classList.add('light-rain');
-                }
-                else if (this.weather.rain >= 2.5 && this.weather.rain < 10) {
-                    rainValCell.classList.add('moderate-rain');
-                }
-                else if (this.weather.rain >= 10 && this.weather.rain < 50) {
-                    rainValCell.classList.add('heavy-rain');
-                }
-                else if (this.weather.rain >= 50) {
-                    rainValCell.classList.add('violent-rain');
-                }
+            if (this.weather.rain) {
+                domService.createRainCells(this.weather.rain, this.shadowRoot);
             }
 
-            if (weather.snow) {
+            if (this.weather.snow) {
                 $('#pop-key', this.shadowRoot).textContent = '% Snow:';
 
-                const snowKeyCell = document.createElement('td');
-                snowKeyCell.classList.add('key-col');
-                snowKeyCell.id = 'snow-key';
-                snowKeyCell.textContent = 'Snow:';
-
-                const snowValCell = document.createElement('td');
-                snowValCell.textContent = `${Math.round(this.weather.snow)} mm`;
-
-                $('#rain-snow-row', this.shadowRoot).append(snowKeyCell);
-                $('#rain-snow-row', this.shadowRoot).append(snowValCell);
-
-                if (this.weather.snow > 0 && this.weather.snow < 2.5) {
-                    snowValCell.classList.add('light-rain');
-                }
-                else if (this.weather.snow >= 2.5 && this.weather.snow < 10) {
-                    snowValCell.classList.add('moderate-rain');
-                }
-                else if (this.weather.snow >= 10 && this.weather.snow < 50) {
-                    snowValCell.classList.add('heavy-rain');
-                }
-                else if (this.weather.snow >= 50) {
-                    snowValCell.classList.add('violent-rain');
-                }
+                domService.createSnowCells(this.weather.snow, this.shadowRoot);
             }
         }
 
@@ -123,6 +80,6 @@ const define = (html) => {
     customElements.define('day-weather', DayWeather);
 }
 
-utils.createHtmlElementV2('/js/components/day/day.html', define, {
+domService.createHtmlElementV2('/js/components/day/day.html', define, {
     class: 'one-day'
 });

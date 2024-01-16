@@ -1,8 +1,8 @@
 import { BaseWeatherElement } from '../base-weather-element.js';
-import * as utils from '../../modules/utils.js';
-import { $ } from '../../modules/selectors.js';
+import * as domService from '../../modules/services/domService.js';
+import { $ } from '../../modules/utils/selectors.js';
 
-const style = utils.createStyleElement(`
+const style = domService.createStyleElement(`
     @import "/js/components/hourly-weather/hourly-weather.css";
 `);
 
@@ -54,6 +54,6 @@ const define = (html) => {
     customElements.define('hourly-weather', HourlyWeather);
 }
 
-utils.createHtmlElementV2(null, define, {
+domService.createHtmlElementV2(null, define, {
     id: 'hourly-container'
 });

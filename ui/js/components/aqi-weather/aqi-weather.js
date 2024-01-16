@@ -1,11 +1,11 @@
 import { BaseWeatherElement } from '../base-weather-element.js';
-import * as utils from '../../modules/utils.js';
-import { $ } from '../../modules/selectors.js';
+import * as domService from '../../modules/services/domService.js';
+import { $ } from '../../modules/utils/selectors.js';
 import { AQI_COLOR_MAP, AQI_DESC_MAP } from '../../modules/constants.js';
 
 const microgramsPerCubicMeter = 'μg/m<sup>3</sup>';
 
-const style = utils.createStyleElement(`
+const style = domService.createStyleElement(`
     @import "/js/components/aqi-weather/aqi-weather.css";
 `);
 
@@ -41,4 +41,4 @@ const define = (html) => {
     customElements.define('aqi-weather', AqiWeather);
 }
 
-utils.createHtmlElementV2('/js/components/aqi-weather/aqi-weather.html', define);
+domService.createHtmlElementV2('/js/components/aqi-weather/aqi-weather.html', define);

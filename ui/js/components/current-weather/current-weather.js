@@ -1,9 +1,11 @@
 import { BaseWeatherElement } from '../base-weather-element.js';
-import * as utils from '../../modules/utils.js';
-import { $ } from '../../modules/selectors.js';
+import * as utils from '../../modules/utils/utils.js';
+import * as domService from '../../modules/services/domService.js';
+import { $ } from '../../modules/utils/selectors.js';
 import { UNITS_MAP } from '../../modules/constants.js';
+import * as weatherService from '../../modules/services/weatherService.js';
 
-const style = utils.createStyleElement(`
+const style = domService.createStyleElement(`
     @import "/js/components/current-weather/current-weather.css";
 `);
 
@@ -57,7 +59,7 @@ const define = (html) => {
             if (zip === null) {
                 return;
             }
-            utils.setWeather({
+            weatherService.getWeather({
                 zip: zip
             });
         }
@@ -70,6 +72,6 @@ const define = (html) => {
     customElements.define('current-weather', CurrentWeather);
 }
 
-utils.createHtmlElementV2('/js/components/current-weather/current-weather.html', define, {
+domService.createHtmlElementV2('/js/components/current-weather/current-weather.html', define, {
     id: 'current-weather-parent'
 });

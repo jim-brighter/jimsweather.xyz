@@ -10,18 +10,18 @@ import './components/day/day.js';
 import './components/alerts-weather/alerts-weather.js';
 
 // Util
-import { setWeather } from './modules/utils.js';
+import { getWeather } from './modules/services/weatherService.js';
 
 navigator.geolocation.getCurrentPosition(
     (location) => {
-        setWeather({
+        getWeather({
             lat: location.coords.latitude,
             lon: location.coords.longitude
         });
     },
     (error) => {
         const zip = prompt('Could not determine location. Enter zip code to get weather data:');
-        setWeather({
+        getWeather({
             zip: zip
         });
     });
