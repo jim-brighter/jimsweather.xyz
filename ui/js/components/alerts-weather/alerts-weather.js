@@ -1,8 +1,8 @@
 import { BaseWeatherElement } from '../base-weather-element.js';
-import * as utils from '../../modules/utils.js';
-import { $, $$ } from '../../modules/selectors.js';
+import * as domService from '../../modules/services/domService.js';
+import { $, $$ } from '../../modules/utils/selectors.js';
 
-const style = utils.createStyleElement(`
+const style = domService.createStyleElement(`
     @import "/js/components/alerts-weather/alerts-weather.css";
 `);
 
@@ -99,6 +99,6 @@ const define = (html) => {
     customElements.define('alerts-weather', AlertsWeather);
 }
 
-utils.createHtmlElementV2('/js/components/alerts-weather/alerts-weather.html', define, {
+domService.createHtmlElementV2('/js/components/alerts-weather/alerts-weather.html', define, {
     id: 'alerts-container'
 });

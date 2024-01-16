@@ -1,9 +1,10 @@
 import { BaseWeatherElement } from '../base-weather-element.js';
-import * as utils from '../../modules/utils.js'
-import { $ } from '../../modules/selectors.js';
+import * as utils from '../../modules/utils/utils.js'
+import * as domService from '../../modules/services/domService.js';
+import { $ } from '../../modules/utils/selectors.js';
 import { UVI_COLOR_MAP, UNITS_MAP } from '../../modules/constants.js';
 
-const style = utils.createStyleElement(`
+const style = domService.createStyleElement(`
     @import "/js/components/day/day.css";
     @import "/css/pills.css";
 `);
@@ -61,13 +62,13 @@ const define = (html) => {
 
             // rain & snow
             if (this.weather.rain) {
-                utils.createRainCells(this.weather.rain, this.shadowRoot);
+                domService.createRainCells(this.weather.rain, this.shadowRoot);
             }
 
             if (this.weather.snow) {
                 $('#pop-key', this.shadowRoot).textContent = '% Snow:';
 
-                utils.createSnowCells(this.weather.snow, this.shadowRoot);
+                domService.createSnowCells(this.weather.snow, this.shadowRoot);
             }
         }
 
@@ -79,6 +80,6 @@ const define = (html) => {
     customElements.define('day-weather', DayWeather);
 }
 
-utils.createHtmlElementV2('/js/components/day/day.html', define, {
+domService.createHtmlElementV2('/js/components/day/day.html', define, {
     class: 'one-day'
 });
