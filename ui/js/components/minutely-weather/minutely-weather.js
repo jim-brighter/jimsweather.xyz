@@ -17,7 +17,7 @@ const define = (html) => {
         }
 
         set weather(weather) {
-            this._weather = weather;
+            this._weather = weather || [];
 
             const minutelyContainer = $('#minutely-container', this.shadowRoot);
 
