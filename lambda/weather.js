@@ -1,4 +1,4 @@
-import { STATE_TO_ABBREVIATION, OPENWEATHER_HOST } from './constants';
+import { OPENWEATHER_HOST } from './constants';
 
 exports.handler = async (event) => {
     const headers = {
@@ -51,8 +51,7 @@ exports.handler = async (event) => {
                 weatherResponse.air_pollution = result;
             }
             else if (urlOptions.includes('/geo/1.0/reverse')) {
-                const suffix = result[0].state && STATE_TO_ABBREVIATION[result[0].state] ? STATE_TO_ABBREVIATION[result[0].state] : result[0].country
-                weatherResponse.locality = `${result[0].name}, ${suffix}`
+                weatherResponse.locality = `${result[0].name}, ${result[0].state || result[0].country}`
             }
 
             return result;
