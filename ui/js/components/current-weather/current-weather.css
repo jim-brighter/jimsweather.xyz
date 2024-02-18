@@ -58,7 +58,7 @@ img {
 
 @media screen and (max-width: 768px) {
     img {
-        width: 3rem;
+        width: 4rem;
     }
 
     h1, h3, h5 {
