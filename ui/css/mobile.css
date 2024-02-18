@@ -5,14 +5,14 @@
     }
 
     alerts-weather {
-        grid-column-start: 2;
-        grid-column-end: 13;
+        grid-column-start: 1;
+        grid-column-end: 14;
         grid-row-start: 1;
         grid-row-end: 2;
     }
 
     current-weather {
-        grid-column-start: 2;
+        grid-column-start: 1;
         grid-column-end: 7;
         grid-row-start: 2;
         grid-row-end: 4;
@@ -20,20 +20,20 @@
 
     hourly-weather {
         grid-column-start: 7;
-        grid-column-end: 13;
+        grid-column-end: 14;
         grid-row-start: 2;
         grid-row-end: 6;
     }
 
     current-weather-details {
-        grid-column-start: 2;
+        grid-column-start: 1;
         grid-column-end: 7;
         grid-row-start: 4;
         grid-row-end: 6;
     }
 
     minutely-weather {
-        grid-column-start: 2;
+        grid-column-start: 1;
         grid-column-end: 10;
         grid-row-start: 6;
         grid-row-end: 8;
@@ -41,14 +41,14 @@
 
     aqi-weather {
         grid-column-start: 10;
-        grid-column-end: 13;
+        grid-column-end: 14;
         grid-row-start: 6;
         grid-row-end: 8;
     }
 
     daily-weather {
-        grid-column-start: 2;
-        grid-column-end: 13;
+        grid-column-start: 1;
+        grid-column-end: 14;
         grid-row-start: 8;
         grid-row-end: 15;
     }
@@ -58,7 +58,7 @@
 @media screen and (max-width: 768px) {
     body {
         min-height: 650px;
-        grid-template-rows: repeat(19, 10%);
+        grid-template-rows: repeat(20, 10%);
     }
 
     alerts-weather {
@@ -70,13 +70,6 @@
 
     current-weather {
         grid-column-start: 1;
-        grid-column-end: 8;
-        grid-row-start: 2;
-        grid-row-end: 4;
-    }
-
-    aqi-weather {
-        grid-column-start: 8;
         grid-column-end: 14;
         grid-row-start: 2;
         grid-row-end: 4;
@@ -89,24 +82,31 @@
         grid-row-end: 6;
     }
 
-    hourly-weather {
+    aqi-weather {
         grid-column-start: 1;
         grid-column-end: 14;
         grid-row-start: 6;
-        grid-row-end: 10;
+        grid-row-end: 7;
+    }
+
+    hourly-weather {
+        grid-column-start: 1;
+        grid-column-end: 14;
+        grid-row-start: 7;
+        grid-row-end: 11;
     }
 
     minutely-weather {
         grid-column-start: 1;
         grid-column-end: 14;
-        grid-row-start: 10;
-        grid-row-end: 12;
+        grid-row-start: 11;
+        grid-row-end: 13;
     }
 
     daily-weather {
         grid-column-start: 1;
         grid-column-end: 14;
-        grid-row-start: 12;
-        grid-row-end: 20;
+        grid-row-start: 13;
+        grid-row-end: 21;
     }
 }
