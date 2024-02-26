@@ -58,7 +58,7 @@
 @media screen and (max-width: 768px) {
     body {
         min-height: 650px;
-        grid-template-rows: repeat(20, 10%);
+        grid-template-rows: repeat(21, 10%);
     }
 
     alerts-weather {
@@ -86,27 +86,27 @@
         grid-column-start: 1;
         grid-column-end: 14;
         grid-row-start: 6;
-        grid-row-end: 7;
+        grid-row-end: 8;
     }
 
     hourly-weather {
         grid-column-start: 1;
         grid-column-end: 14;
-        grid-row-start: 7;
-        grid-row-end: 11;
+        grid-row-start: 8;
+        grid-row-end: 12;
     }
 
     minutely-weather {
         grid-column-start: 1;
         grid-column-end: 14;
-        grid-row-start: 11;
-        grid-row-end: 13;
+        grid-row-start: 12;
+        grid-row-end: 14;
     }
 
     daily-weather {
         grid-column-start: 1;
         grid-column-end: 14;
-        grid-row-start: 13;
-        grid-row-end: 21;
+        grid-row-start: 14;
+        grid-row-end: 22;
     }
 }
