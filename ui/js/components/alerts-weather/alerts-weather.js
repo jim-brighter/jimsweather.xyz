@@ -50,7 +50,17 @@ const define = (html) => {
         set alerts(alerts) {
             this._alerts = alerts;
 
-            $('#title', this.shadowRoot).textContent = `${this.alerts.length > 0 ? '⚠️' : '✅'} There ${this.alerts.length === 1 ? 'is' : 'are'} ${this.alerts.length} ${this.alerts.length === 1 ? 'alert' : 'alerts'}`;
+            let alertsTitle;
+
+            if (this.alerts.length > 0) {
+                const firstAlertTitle = this.alerts[0].event;
+
+                alertsTitle = `⚠️ ${firstAlertTitle}${this.alerts.length > 1 ? ` and ${this.alerts.length - 1} other ${this.alerts.length > 2 ? 'alerts' : 'alert'}` : ''}`
+            } else {
+                alertsTitle = `✅ No alerts`
+            }
+
+            $('#title', this.shadowRoot).textContent = alertsTitle;
 
             const modal = $('.modal-content', this.shadowRoot);
 
