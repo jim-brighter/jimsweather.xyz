@@ -1,13 +1,11 @@
-name: Deploy
+name: PR Build
 on:
-  push:
-    branches:
-      - main
+  pull_request:
 concurrency:
   group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
   cancel-in-progress: false
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -24,8 +22,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Deploy
+      - name: Build
         run: |
           cd cdk
           npm i
-          npm run deploy
+          npm run synth
