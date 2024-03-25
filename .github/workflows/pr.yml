@@ -21,4 +21,4 @@ jobs:
         run: |
           cd cdk
           npm i
-          npm run synth
+          npm run synth -- -q
