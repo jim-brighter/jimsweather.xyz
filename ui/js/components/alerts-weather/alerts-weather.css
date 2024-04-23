@@ -51,6 +51,7 @@
     opacity: 1;
     max-height: 88%;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 p {
