@@ -13,6 +13,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-tags: true
+          fetch-depth: 0
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -29,7 +32,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          git fetch --tags
           last_release=$(git describe --abbrev=0 --tags | sed -e 's/v//')
 
           last_major_version=$(echo $last_release | cut -d '.' -f 1)
