@@ -27,6 +27,7 @@ jobs:
           npm run synth -- -q
       - name: Create Release
         run: |
+          git fetch
           last_release=$(git describe --abbrev=0 --tags | sed -e 's/v//')
 
           last_major_version=$(echo $last_release | cut -d '.' -f 1)
