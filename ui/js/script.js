@@ -24,4 +24,8 @@ navigator.geolocation.getCurrentPosition(
         getWeather({
             zip: zip
         });
+    },
+    {
+        enableHighAccuracy: false,
+        maximumAge: 24 * 60 * 60 * 1000
     });
