@@ -15,9 +15,9 @@
 
     .uvi-high, .aqi-moderate {
         color: white;
-        background-color: orange;
+        background-color: orangered;
         font-weight: bold;
-        border: 1px solid orange;
+        border: 1px solid orangered;
     }
 
     .uvi-very-high, .aqi-poor {
@@ -79,10 +79,10 @@
     }
 
     .uvi-high, .aqi-moderate {
-        color: orange;
-        background-color: rgba(255, 140, 0, 0.2);
+        color: orangered;
+        background-color: rgba(255, 69, 0, 0.2);
         font-weight: bold;
-        border: 1px solid orange;
+        border: 1px solid orangered;
     }
 
     .uvi-very-high, .aqi-poor {
