@@ -1,37 +1,51 @@
+:root {
+    --uvi-green: rgb(151, 215, 00);
+    --uvi-yellow: rgb(252, 227, 0);
+    --uvi-orange: rgb(255, 130, 0);
+    --uvi-red: rgb(239, 51, 64);
+    --uvi-purple: rgb(144, 99, 205);
+
+    --uvi-green-transparent: rgba(151, 215, 00, 0.2);
+    --uvi-yellow-transparent: rgba(252, 227, 0, 0.2);
+    --uvi-orange-transparent: rgba(255, 130, 0, 0.2);
+    --uvi-red-transparent: rgba(239, 51, 64, 0.2);
+    --uvi-purple-transparent: rgba(144, 99, 205, 0.2);
+}
+
 @media (prefers-color-scheme: light) {
     .uvi-low, .aqi-good {
         color: white;
-        background-color: green;
+        background-color: var(--uvi-green);
         font-weight: bold;
-        border: 1px solid green;
+        border: 1px solid var(--uvi-green);
     }
 
     .uvi-moderate, .aqi-fair {
         color: white;
-        background-color: goldenrod;
+        background-color: var(--uvi-yellow);
         font-weight: bold;
-        border: 1px solid goldenrod;
+        border: 1px solid var(--uvi-yellow);
     }
 
     .uvi-high, .aqi-moderate {
         color: white;
-        background-color: orangered;
+        background-color: var(--uvi-orange);
         font-weight: bold;
-        border: 1px solid orangered;
+        border: 1px solid var(--uvi-orange);
     }
 
     .uvi-very-high, .aqi-poor {
         color: white;
-        background-color: crimson;
+        background-color: var(--uvi-red);
         font-weight: bold;
-        border: 1px solid crimson;
+        border: 1px solid var(--uvi-red);
     }
 
     .uvi-extreme, .aqi-very-poor {
         color: white;
-        background-color: purple;
+        background-color: var(--uvi-purple);
         font-weight: bold;
-        border: 1px solid purple;
+        border: 1px solid var(--uvi-purple);
     }
 
     .light-rain {
@@ -65,38 +79,38 @@
 
 @media (prefers-color-scheme: dark) {
     .uvi-low, .aqi-good {
-        color: limegreen;
-        background-color: rgba(0, 100, 0, 0.2);
+        color: var(--uvi-green);
+        background-color: var(--uvi-green-transparent);
         font-weight: bold;
-        border: 1px solid limegreen;
+        border: 1px solid var(--uvi-green);
     }
 
     .uvi-moderate, .aqi-fair {
-        color: gold;
-        background-color: rgba(184, 134, 11, 0.2);
+        color: var(--uvi-yellow);
+        background-color: var(--uvi-yellow-transparent);
         font-weight: bold;
-        border: 1px solid gold;
+        border: 1px solid var(--uvi-yellow);
     }
 
     .uvi-high, .aqi-moderate {
-        color: orangered;
-        background-color: rgba(255, 69, 0, 0.2);
+        color: var(--uvi-orange);
+        background-color: var(--uvi-orange-transparent);
         font-weight: bold;
-        border: 1px solid orangered;
+        border: 1px solid var(--uvi-orange);
     }
 
     .uvi-very-high, .aqi-poor {
-        color: crimson;
-        background-color: rgba(139, 0, 0, 0.2);
+        color: var(--uvi-red);
+        background-color: var(--uvi-red-transparent);
         font-weight: bold;
-        border: 1px solid crimson;
+        border: 1px solid var(--uvi-red);
     }
 
     .uvi-extreme, .aqi-very-poor {
-        color: rgb(255, 0, 255);
-        background-color: rgba(103, 0, 103, 0.2);
+        color: var(--uvi-purple);
+        background-color: var(--uvi-purple-transparent);
         font-weight: bold;
-        border: 1px solid rgb(255, 1, 255);
+        border: 1px solid var(--uvi-purple);
     }
 
     .light-rain {
