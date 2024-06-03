@@ -10,5 +10,5 @@ echo "Link: $link"
 if [[ "$OSTYPE" =~ ^"darwin".*$ ]]; then
     open $link
 else
-    xdg-open $link
+    wslview $link
 fi
