@@ -39,7 +39,7 @@ const define = (html) => {
 
             hourlyContainer.replaceChildren();
 
-            for (let i = 0; i < this.weather.length; i++) {
+            for (let i = 0; i < Math.min(this.weather.length, 24); i++) {
                 const hour = this.weather[i];
                 const aqi = this.aqi[i];
 
