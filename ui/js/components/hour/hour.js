@@ -38,7 +38,7 @@ const define = (html) => {
             this.weather = weather;
             this.aqi = aqi;
 
-            $('#time', this.shadowRoot).textContent = utils.shortTime(this.weather.dt);
+            $('#time', this.shadowRoot).textContent = utils.toLocaleTimeString(this.weather.dt);
             $('#icon', this.shadowRoot).src = `https://openweathermap.org/img/wn/${this.weather.weather[0].icon}@4x.png`;
             $('#temp-and-main', this.shadowRoot).textContent = `${Math.round(this.weather.temp)}° ${UNITS_MAP[utils.getUnits()].temperature}, ${this.weather.weather[0].main}`;
 

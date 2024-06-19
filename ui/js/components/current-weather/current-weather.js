@@ -42,16 +42,33 @@ const define = (html) => {
             const edit = document.createElement('button');
             edit.textContent = '✏️';
             edit.id = 'edit-btn';
+            edit.className = 'btn';
             edit.title = 'Change Location';
             edit.onclick = () => {
                 this.changeLocation();
             }
 
+            const refresh = document.createElement('button');
+            refresh.textContent = '🔄';
+            refresh.id = 'refresh-btn';
+            refresh.className = 'btn';
+            refresh.title = 'Refresh Location';
+            refresh.onclick = () => {
+                this.refreshLocation()
+            }
+
             $('#locality', this.shadowRoot).appendChild(edit);
+            $('#locality', this.shadowRoot).appendChild(refresh);
         }
 
         get locality() {
             return this._locality;
+        }
+
+        setLocalityAndUpdatedTime(locality, updatedAt) {
+            this.locality = locality;
+
+            $('#locality', this.shadowRoot).title = `Updated at ${utils.toLocaleString(updatedAt)}`;
         }
 
         changeLocation() {
@@ -66,6 +83,10 @@ const define = (html) => {
 
         changeUnits() {
             utils.changeUnits();
+        }
+
+        refreshLocation() {
+            utils.refreshLocation();
         }
     }
 
