@@ -1,6 +1,11 @@
 import { DAY_OF_WEEK_MAP, IMPERIAL, METRIC } from '../constants.js';
 
-const shortTime = (time) => new Date(time * 1000).toLocaleTimeString('en-us', {timeStyle: 'short'});
+const toLocaleTimeString = (time) => new Date(time * 1000).toLocaleTimeString('en-us', {timeStyle: 'short'});
+
+const toLocaleString = (time) => new Date(time).toLocaleString('en-us', {
+    dateStyle: 'short',
+    timeStyle: 'short'
+})
 
 const dayOfWeek = (time) => DAY_OF_WEEK_MAP[new Date(time * 1000).getDay()];
 
@@ -104,11 +109,18 @@ const changeUnits = () => {
     location.reload();
 }
 
+const refreshLocation = () => {
+    localStorage.removeItem('location');
+    location.reload();
+}
+
 export {
-    shortTime,
+    toLocaleTimeString,
+    toLocaleString,
     dayOfWeek,
     getWindDirection,
     getMoonPhase,
     getUnits,
-    changeUnits
+    changeUnits,
+    refreshLocation
 }

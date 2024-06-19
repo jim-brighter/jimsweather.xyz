@@ -20,9 +20,9 @@ const define = (html) => {
         set weather(weather) {
             this._weather = weather;
 
-            $('#sunrise-val', this.shadowRoot).textContent = utils.shortTime(this.weather['sunrise']);
+            $('#sunrise-val', this.shadowRoot).textContent = utils.toLocaleTimeString(this.weather['sunrise']);
             $('#uvi-val', this.shadowRoot).textContent = Math.round(this.weather['uvi']);
-            $('#sunset-val', this.shadowRoot).textContent = utils.shortTime(this.weather['sunset']);
+            $('#sunset-val', this.shadowRoot).textContent = utils.toLocaleTimeString(this.weather['sunset']);
             $('#clouds-val', this.shadowRoot).textContent = `${Math.round(this.weather['clouds'])}%`;
             $('#feels_like-val', this.shadowRoot).textContent = `${Math.round(this.weather['feels_like'])}° ${UNITS_MAP[utils.getUnits()].temperature}`;
             $('#visibility-val', this.shadowRoot).textContent = `${Math.round(this.weather['visibility'] / 1000)} km`;

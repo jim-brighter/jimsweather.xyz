@@ -50,10 +50,10 @@ const define = (html) => {
             $('#pressure-val', this.shadowRoot).textContent = `${Math.round(this.weather['pressure'])} hPa`;
 
             // sun & moon
-            $('#sunrise-val', this.shadowRoot).textContent = utils.shortTime(this.weather.sunrise);
-            $('#sunset-val', this.shadowRoot).textContent = utils.shortTime(this.weather.sunset);
-            $('#moonrise-val', this.shadowRoot).textContent = utils.shortTime(this.weather.moonrise);
-            $('#moonset-val', this.shadowRoot).textContent = utils.shortTime(this.weather.moonset);
+            $('#sunrise-val', this.shadowRoot).textContent = utils.toLocaleTimeString(this.weather.sunrise);
+            $('#sunset-val', this.shadowRoot).textContent = utils.toLocaleTimeString(this.weather.sunset);
+            $('#moonrise-val', this.shadowRoot).textContent = utils.toLocaleTimeString(this.weather.moonrise);
+            $('#moonset-val', this.shadowRoot).textContent = utils.toLocaleTimeString(this.weather.moonset);
             $('#moonphase-val', this.shadowRoot).textContent = utils.getMoonPhase(this.weather.moon_phase);
 
             const uviColor = Math.round(this.weather['uvi']) in UVI_COLOR_MAP ? UVI_COLOR_MAP[Math.round(this.weather['uvi'])] : 'uvi-extreme';

@@ -12,20 +12,44 @@ import './components/alerts-weather/alerts-weather.js';
 // Util
 import { getWeather } from './modules/services/weatherService.js';
 
-navigator.geolocation.getCurrentPosition(
-    (location) => {
-        getWeather({
-            lat: location.coords.latitude,
-            lon: location.coords.longitude
+const isLocationFresh = (location) => {
+    const now = new Date()
+    const then = new Date(location.time)
+
+    // shelf life of 8 hours
+    return ((now - then) / 1000 / 60 / 60) < 8;
+}
+
+const storedLocation = JSON.parse(localStorage.getItem('location'))
+
+if (storedLocation && isLocationFresh(storedLocation)) {
+    console.log('location is fresh')
+    getWeather(storedLocation)
+} else {
+    console.log('location is stale')
+    navigator.geolocation.getCurrentPosition(
+        (location) => {
+            const locationData = {
+                lat: location.coords.latitude,
+                lon: location.coords.longitude,
+                time: new Date().valueOf()
+            };
+
+            getWeather(locationData);
+            localStorage.setItem('location', JSON.stringify(locationData));
+        },
+        (error) => {
+            const zip = prompt('Could not determine location. Enter zip code to get weather data:');
+            const locationData = {
+                zip,
+                time: new Date().valueOf()
+            };
+
+            getWeather(locationData);
+            localStorage.setItem('location', JSON.stringify(locationData));
+        },
+        {
+            enableHighAccuracy: false,
+            maximumAge: 24 * 60 * 60 * 1000
         });
-    },
-    (error) => {
-        const zip = prompt('Could not determine location. Enter zip code to get weather data:');
-        getWeather({
-            zip: zip
-        });
-    },
-    {
-        enableHighAccuracy: false,
-        maximumAge: 24 * 60 * 60 * 1000
-    });
+}

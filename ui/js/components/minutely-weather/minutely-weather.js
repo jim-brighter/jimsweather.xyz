@@ -31,7 +31,7 @@ const define = (html) => {
                 minuteDiv.classList.add('minute-div');
 
                 const time = document.createElement('p');
-                time.textContent = utils.shortTime(minute.dt);
+                time.textContent = utils.toLocaleTimeString(minute.dt);
 
                 const precipitation = document.createElement('p');
                 precipitation.textContent = `${Math.round(minute.precipitation)} mm`;
