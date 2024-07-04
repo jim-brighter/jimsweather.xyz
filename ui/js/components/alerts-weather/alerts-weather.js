@@ -64,6 +64,8 @@ const define = (html) => {
 
             const modal = $('.modal-content', this.shadowRoot);
 
+            modal.textContent = '';
+
             if (this.alerts.length == 0) {
                 modal.textContent = 'All good! 👍'
                 return;
