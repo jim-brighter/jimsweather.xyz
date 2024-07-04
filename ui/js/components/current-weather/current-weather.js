@@ -76,9 +76,13 @@ const define = (html) => {
             if (zip === null) {
                 return;
             }
-            weatherService.getWeather({
-                zip: zip
-            });
+
+            const locationData = {
+                zip,
+                time: new Date().valueOf()
+            };
+
+            weatherService.getWeather(locationData);
         }
 
         changeUnits() {

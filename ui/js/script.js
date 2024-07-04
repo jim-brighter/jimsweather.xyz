@@ -36,7 +36,6 @@ if (storedLocation && isLocationFresh(storedLocation)) {
             };
 
             getWeather(locationData);
-            localStorage.setItem('location', JSON.stringify(locationData));
         },
         (error) => {
             const zip = prompt('Could not determine location. Enter zip code to get weather data:');
@@ -46,7 +45,6 @@ if (storedLocation && isLocationFresh(storedLocation)) {
             };
 
             getWeather(locationData);
-            localStorage.setItem('location', JSON.stringify(locationData));
         },
         {
             enableHighAccuracy: false,
