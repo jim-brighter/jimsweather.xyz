@@ -9,6 +9,8 @@ const getWeather = async (locationOptions) => {
         return;
     }
 
+    localStorage.setItem('location', JSON.stringify(locationOptions));
+
     try {
         $('#loading').remove();
     } catch (e) {
