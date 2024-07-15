@@ -17,7 +17,7 @@ const getWeather = async (locationOptions) => {
         console.log('Loading spinner already removed');
     }
 
-    $('alerts-weather').alerts = weatherData.onecall.alerts ? weatherData.onecall.alerts : [];
+    $('alerts-weather').alerts = weatherData.onecall.alerts || [];
     $('current-weather').weather = weatherData.onecall.current;
     $('current-weather').setLocalityAndUpdatedTime(weatherData.locality, locationOptions.time);
     $('current-weather-details').weather = weatherData.onecall.current;
