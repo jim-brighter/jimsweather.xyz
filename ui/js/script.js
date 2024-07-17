@@ -20,6 +20,31 @@ const isLocationFresh = (location) => {
     return ((now - then) / 1000 / 60 / 60) < 8;
 }
 
+const geoHandler = (location) => {
+    const locationData = {
+        lat: location.coords.latitude,
+        lon: location.coords.longitude,
+        time: new Date().valueOf()
+    };
+
+    getWeather(locationData);
+}
+
+const errorHandler = () => {
+    const zip = prompt('Could not determine location. Enter zip code to get weather data:');
+    const locationData = {
+        zip,
+        time: new Date().valueOf()
+    };
+
+    getWeather(locationData);
+}
+
+const options = {
+    enableHighAccuracy: false,
+    maximumAge: 24 * 60 * 60 * 1000
+}
+
 const storedLocation = JSON.parse(localStorage.getItem('location'))
 
 if (storedLocation && isLocationFresh(storedLocation)) {
@@ -27,27 +52,5 @@ if (storedLocation && isLocationFresh(storedLocation)) {
     getWeather(storedLocation)
 } else {
     console.log('location is stale')
-    navigator.geolocation.getCurrentPosition(
-        (location) => {
-            const locationData = {
-                lat: location.coords.latitude,
-                lon: location.coords.longitude,
-                time: new Date().valueOf()
-            };
-
-            getWeather(locationData);
-        },
-        (error) => {
-            const zip = prompt('Could not determine location. Enter zip code to get weather data:');
-            const locationData = {
-                zip,
-                time: new Date().valueOf()
-            };
-
-            getWeather(locationData);
-        },
-        {
-            enableHighAccuracy: false,
-            maximumAge: 24 * 60 * 60 * 1000
-        });
+    navigator.geolocation.getCurrentPosition(geoHandler, errorHandler, options);
 }

@@ -74,7 +74,6 @@ const createPrecipitationCells = (volume, keyId, keyText, shadowRootElement) => 
 
 export {
     createStyleElement,
-    createHtmlElement,
     createHtmlElementV2,
     addPrecipitationClass,
     createRainCells,
