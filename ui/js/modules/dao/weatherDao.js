@@ -7,13 +7,9 @@ const getWeather = async (locationOptions, units) => {
     // return mocks.defaultWeatherResponseWithAlert;
 
     try {
-        let url = '';
-        if (locationOptions.zip) {
-            url = `https://api.jimsweather.xyz/weather?zip=${locationOptions.zip}&units=${units}`;
-        }
-        else {
-            url = `https://api.jimsweather.xyz/weather?lat=${locationOptions.lat}&lon=${locationOptions.lon}&units=${units}`;
-        }
+        const url = locationOptions.zip
+            ? `https://api.jimsweather.xyz/weather?zip=${locationOptions.zip}&units=${units}`
+            : `https://api.jimsweather.xyz/weather?lat=${locationOptions.lat}&lon=${locationOptions.lon}&units=${units}`;
 
         const response = await fetch(url, {
             headers: {
@@ -23,6 +19,7 @@ const getWeather = async (locationOptions, units) => {
         });
 
         if (!response.ok) {
+            console.error(response);
             throw `Got status ${response.status} from weather api`;
         }
 
