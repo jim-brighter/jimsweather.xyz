@@ -10,5 +10,5 @@ echo "Link: $link"
 if [[ "$OSTYPE" =~ ^"darwin".*$ ]]; then
     open $link
 else
-    wslview $link
+    /mnt/c/Program\ Files/Google/Chrome/Application/chrome.exe "$link"
 fi
