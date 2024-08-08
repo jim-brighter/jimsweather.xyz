@@ -23,9 +23,11 @@ const define = (html) => {
 
             for (let day of this.weather) {
                 const oneDay = document.createElement('day-weather');
-                dailyContainer.append(oneDay);
-                oneDay.id = `day-${day.dt}`;
-                oneDay.weather = day;
+                customElements.whenDefined('day-weather').then(() => {
+                    dailyContainer.append(oneDay);
+                    oneDay.id = `day-${day.dt}`;
+                    oneDay.weather = day;
+                });
             }
         }
 
