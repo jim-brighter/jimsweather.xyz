@@ -1,15 +1,15 @@
 :root {
-    --uvi-green: rgb(151, 215, 00);
-    --uvi-yellow: rgb(252, 227, 0);
-    --uvi-orange: rgb(255, 130, 0);
-    --uvi-red: rgb(239, 51, 64);
-    --uvi-purple: rgb(144, 99, 205);
+    --uvi-green: green;
+    --uvi-yellow: gold;
+    --uvi-orange: orangered;
+    --uvi-red: crimson;
+    --uvi-purple: darkviolet;
 
-    --uvi-green-transparent: rgba(151, 215, 00, 0.2);
-    --uvi-yellow-transparent: rgba(252, 227, 0, 0.2);
-    --uvi-orange-transparent: rgba(255, 130, 0, 0.2);
-    --uvi-red-transparent: rgba(239, 51, 64, 0.2);
-    --uvi-purple-transparent: rgba(144, 99, 205, 0.2);
+    --uvi-green-transparent: rgba(0, 128, 00, 0.2);
+    --uvi-yellow-transparent: rgba(255, 215, 0, 0.2);
+    --uvi-orange-transparent: rgba(255, 69, 0, 0.2);
+    --uvi-red-transparent: rgba(220, 20, 60, 0.2);
+    --uvi-purple-transparent: rgba(148, 0, 211, 0.2);
 }
 
 @media (prefers-color-scheme: light) {

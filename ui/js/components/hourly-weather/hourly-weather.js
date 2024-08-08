@@ -31,7 +31,7 @@ const define = (html) => {
             return this._aqi;
         }
 
-        setWeatherAndAqi(weather, aqi) {
+        async setWeatherAndAqi(weather, aqi) {
             this.weather = weather;
             this.aqi = aqi;
 
@@ -44,6 +44,7 @@ const define = (html) => {
                 const aqi = this.aqi[i];
 
                 const oneHour = document.createElement('hour-weather');
+                await customElements.whenDefined('hour-weather');
                 hourlyContainer.append(oneHour);
                 oneHour.id = `hour-${hour.dt}`;
                 oneHour.setWeatherAndAqi(hour, aqi);
