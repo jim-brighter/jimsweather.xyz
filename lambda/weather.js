@@ -26,33 +26,25 @@ exports.handler = async (event) => {
         lon = event.queryStringParameters.lon;
     }
 
-    const weatherUrls = [
-        `/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${openweathermapApiKey}&units=${event.queryStringParameters.units}`,
-        `/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${openweathermapApiKey}`,
-        `/data/2.5/air_pollution/forecast?lat=${lat}&lon=${lon}&appid=${openweathermapApiKey}`,
-        `/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${openweathermapApiKey}`,
-    ];
+    const weatherUrls = {
+        onecall: `/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${openweathermapApiKey}&units=${event.queryStringParameters.units}`,
+        air_pollution_forecast: `/data/2.5/air_pollution/forecast?lat=${lat}&lon=${lon}&appid=${openweathermapApiKey}`,
+        air_pollution: `/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${openweathermapApiKey}`,
+        locality:`/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${openweathermapApiKey}`,
+    };
 
     const weatherResponse = {};
 
     try {
-        await Promise.all(weatherUrls.map(async (urlOptions) => {
-            const response = await fetch(`${OPENWEATHER_HOST}${urlOptions}`);
+        await Promise.all(Object.keys(weatherUrls).map(async (key) => {
+
+            const path = weatherUrls[key];
+
+            const response = await fetch(`${OPENWEATHER_HOST}${path}`);
 
             const result = await response.json();
 
-            if (urlOptions.includes('/data/3.0/onecall')) {
-                weatherResponse.onecall = result;
-            }
-            else if (urlOptions.includes('/data/2.5/air_pollution/forecast')) {
-                weatherResponse.air_pollution_forecast = result;
-            }
-            else if (urlOptions.includes('/data/2.5/air_pollution')) {
-                weatherResponse.air_pollution = result;
-            }
-            else if (urlOptions.includes('/geo/1.0/reverse')) {
-                weatherResponse.locality = `${result[0].name}, ${result[0].state || result[0].country}`
-            }
+            weatherResponse[key] = result;
 
             return result;
         }));
