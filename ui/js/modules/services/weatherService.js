@@ -41,7 +41,7 @@ const getWeather = async (locationOptions) => {
 
     $(ALERTS_WEATHER).alerts = weatherData.onecall.alerts || [];
     $(CURRENT_WEATHER).weather = weatherData.onecall.current;
-    $(CURRENT_WEATHER).setLocalityAndUpdatedTime(weatherData.locality, locationOptions.time);
+    $(CURRENT_WEATHER).setLocalityAndUpdatedTime(weatherData.locality[0], locationOptions.time);
     $(CURRENT_WEATHER_DETAILS).weather = weatherData.onecall.current;
     $(MINUTELY_WEATHER).weather = weatherData.onecall.minutely;
     $(DAILY_WEATHER).weather = weatherData.onecall.daily;
