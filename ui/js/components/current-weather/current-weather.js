@@ -35,7 +35,7 @@ const define = (html) => {
         }
 
         set locality(locality) {
-            this._locality = locality;
+            this._locality = `${locality.name}, ${locality.state || locality.country}`;
 
             $('#locality', this.shadowRoot).textContent = this.locality;
 
