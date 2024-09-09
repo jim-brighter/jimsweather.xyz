@@ -24,7 +24,7 @@ const geoHandler = (location) => {
     const locationData = {
         lat: location.coords.latitude,
         lon: location.coords.longitude,
-        time: new Date().valueOf()
+        time: Date.now()
     };
 
     getWeather(locationData);
@@ -34,7 +34,7 @@ const errorHandler = () => {
     const zip = prompt('Could not determine location. Enter zip code to get weather data:');
     const locationData = {
         zip,
-        time: new Date().valueOf()
+        time: Date.now()
     };
 
     getWeather(locationData);

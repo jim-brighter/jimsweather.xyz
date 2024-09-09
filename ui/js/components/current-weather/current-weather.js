@@ -79,7 +79,7 @@ const define = (html) => {
 
             const locationData = {
                 zip,
-                time: new Date().valueOf()
+                time: Date.now()
             };
 
             weatherService.getWeather(locationData);
