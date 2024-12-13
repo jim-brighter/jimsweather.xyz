@@ -104,7 +104,7 @@ export class JimsWeatherStack extends Stack {
 
     // Default Error Lambda
     const defaultErrorLambda = new lambda.Function(this, 'DefaultErrorHandler', {
-      runtime: lambda.Runtime.NODEJS_20_X,
+      runtime: lambda.Runtime.NODEJS_22_X,
       handler: 'index.handler',
       code: lambda.Code.fromInline(`
         exports.handler = async (event) => {
@@ -123,7 +123,7 @@ export class JimsWeatherStack extends Stack {
 
     // Weather Lambda
     const weatherLambda = new nodelambda.NodejsFunction(this, 'WeatherHandler', {
-      runtime: lambda.Runtime.NODEJS_20_X,
+      runtime: lambda.Runtime.NODEJS_22_X,
       handler: 'handler',
       entry: '../lambda/weather.js',
       environment: {
