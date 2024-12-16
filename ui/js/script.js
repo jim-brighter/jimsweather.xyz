@@ -16,8 +16,8 @@ const isLocationFresh = (location) => {
     const now = new Date()
     const then = new Date(location.time)
 
-    // shelf life of 8 hours
-    return ((now - then) / 1000 / 60 / 60) < 8;
+    // shelf life of 1 month
+    return ((now - then) / 1000 / 60 / 60 / 24) < 30;
 }
 
 const geoHandler = (location) => {
