@@ -18,3 +18,21 @@ fs.readdirSync('ui', {
 
   fs.renameSync(`ui/${cssFile}`, `ui/${newFile}`)
 })
+
+fs.readdirSync('ui', {
+  recursive: true
+})
+.forEach((filename) => {
+  let contents = fs.readFileSync(filename, {
+    encoding: 'utf-8'
+  })
+
+  for (let replacement of fileReplacements) {
+    contents = contents.replace(replacement.oldName, replacement.newName)
+  }
+
+  fs.writeFileSync(filename, contents, {
+    encoding: 'utf-8',
+    flush: true
+  })
+})
