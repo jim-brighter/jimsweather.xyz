@@ -2,7 +2,7 @@ const fs = require('fs')
 
 const fileReplacements = []
 
-fs.readdirSync('ui', {
+fs.readdirSync('.', {
   recursive: true
 })
 .filter((entry) => entry.endsWith('.css') || entry.endsWith('.js'))
@@ -16,13 +16,17 @@ fs.readdirSync('ui', {
     newName: newFile
   })
 
-  fs.renameSync(`ui/${cssFile}`, `ui/${newFile}`)
+  fs.renameSync(cssFile, newFile)
 })
 
-fs.readdirSync('ui', {
+fs.readdirSync('.', {
   recursive: true
 })
 .forEach((filename) => {
+  if (fs.lstatSync(filename).isDirectory()) {
+    return
+  }
+
   let contents = fs.readFileSync(filename, {
     encoding: 'utf-8'
   })
