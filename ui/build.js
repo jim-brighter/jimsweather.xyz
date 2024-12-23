@@ -3,7 +3,7 @@ const fs = require('fs')
 const fileReplacements = []
 
 const isValidFile = (filename) => {
-  return filename !== 'build.js' && (filename.endsWith('.css') || filename.endsWith('.js'))
+  return filename !== 'build.js' && (filename.endsWith('.css') || filename.endsWith('.js') || filename.endsWith('.html'))
 }
 
 fs.readdirSync('.', {
@@ -11,13 +11,17 @@ fs.readdirSync('.', {
 })
 .filter((entry) => isValidFile(entry))
 .forEach((oldFile) => {
+  if (oldFile === 'index.html') {
+    return
+  }
+
   const timestamp = Date.now()
   const splitName = oldFile.split('.')
   const newFile = `${splitName[0]}.${timestamp}.${splitName[1]}`
 
   fileReplacements.push({
-    oldName: oldFile,
-    newName: newFile
+    oldName: oldFile.split('/').pop(),
+    newName: newFile.split('/').pop()
   })
 
   fs.renameSync(oldFile, newFile)
