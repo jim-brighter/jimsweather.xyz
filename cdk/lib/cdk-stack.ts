@@ -36,8 +36,7 @@ export class JimsWeatherStack extends Stack {
       lifecycleRules: [{
         enabled: true,
         expiredObjectDeleteMarker: true,
-        noncurrentVersionExpiration: Duration.days(30),
-        noncurrentVersionsToRetain: 0
+        noncurrentVersionExpiration: Duration.days(30)
       }]
     });
 
