@@ -62,9 +62,9 @@ export class JimsWeatherStack extends Stack {
               compress: true,
               allowedMethods: cloudfront.CloudFrontAllowedMethods.GET_HEAD_OPTIONS,
               cachedMethods: cloudfront.CloudFrontAllowedCachedMethods.GET_HEAD_OPTIONS,
-              defaultTtl: Duration.days(1),
-              minTtl: Duration.days(1),
-              maxTtl: Duration.days(3)
+              defaultTtl: Duration.days(90),
+              minTtl: Duration.days(30),
+              maxTtl: Duration.days(365)
             }
           ]
         }
@@ -76,13 +76,13 @@ export class JimsWeatherStack extends Stack {
           errorCode: 404,
           responsePagePath: '/',
           responseCode: 200,
-          errorCachingMinTtl: Duration.days(1).toSeconds()
+          errorCachingMinTtl: Duration.days(30).toSeconds()
         },
         {
           errorCode: 403,
           responsePagePath: '/',
           responseCode: 200,
-          errorCachingMinTtl: Duration.days(1).toSeconds()
+          errorCachingMinTtl: Duration.days(30).toSeconds()
         }
       ],
       viewerCertificate: {
@@ -98,7 +98,6 @@ export class JimsWeatherStack extends Stack {
     // S3 Deployment
     new s3Deployment.BucketDeployment(this, 'JimsWeatherUIDeployment', {
       sources: [s3Deployment.Source.asset('../ui')],
-      cacheControl: [s3Deployment.CacheControl.noCache()],
       destinationBucket: uiBucket,
       distribution: distribution
     });
