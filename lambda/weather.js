@@ -1,4 +1,4 @@
-import { OPENWEATHER_HOST } from './constants';
+import { OPENWEATHER_HOST } from './constants.js';
 
 exports.handler = async (event) => {
     const headers = {
