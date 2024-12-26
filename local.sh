@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-docker build --pull -f Dockerfile -t jimsweather.xyz:latest .
-docker run -d --rm --name jimsweather.xyz -p 9001:80 -v "$PWD/ui":/usr/share/nginx/html/ jimsweather.xyz:latest
+docker compose build --pull
+docker compose up -d
 
 link="http://localhost:9001"
 

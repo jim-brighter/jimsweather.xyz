@@ -1,0 +1,10 @@
+services:
+  weather:
+    container_name: jimsweather.xyz
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "9001:80"
+    volumes:
+      - ./ui:/usr/share/nginx/html/:ro
