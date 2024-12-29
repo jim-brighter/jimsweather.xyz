@@ -34,6 +34,7 @@ jobs:
         with:
           major-version: 1
           minor-version: 1
+          num_releases_to_keep: 10
       - name: Deploy
         run: |
           cd ui
