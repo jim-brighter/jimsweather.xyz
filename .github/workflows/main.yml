@@ -7,25 +7,11 @@ concurrency:
   group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
   cancel-in-progress: false
 jobs:
-  create-release:
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: write
-    steps:
-      - name: Create Release
-        uses: jim-brighter/github-release-action@v3
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          major-version: 1
-          minor-version: 1
-          num_releases_to_keep: 10
   deploy:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
-      contents: read
+      contents: write
     steps:
       - name: Configure AWS
         uses: aws-actions/configure-aws-credentials@v4
@@ -41,6 +27,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Create Release
+        uses: jim-brighter/github-release-action@v3
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          major-version: 1
+          minor-version: 1
+          num_releases_to_keep: 10
       - name: Deploy
         run: |
           cd ui
