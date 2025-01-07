@@ -5,7 +5,7 @@ const options = {
   maximumAge: 24 * 60 * 60 * 1000
 }
 
-export default function checkLocationAndGetWeather () {
+const checkLocationAndGetWeather = () => {
   const storedLocation = JSON.parse(localStorage.getItem('location'))
 
   if (storedLocation && isLocationFresh(storedLocation)) {
@@ -32,19 +32,35 @@ const geoHandler = (location) => {
       time: Date.now()
   };
 
-  localStorage.setItem('location', JSON.stringify(locationOptions));
+  localStorage.setItem('location', JSON.stringify(locationData));
 
   getWeather(locationData);
 }
 
-const errorHandler = () => {
-  const zip = prompt('Could not determine location. Enter zip code to get weather data:');
+const errorHandler = (error) => {
+  console.error(error)
+  getLocationByZip('Could not determine location. Enter zip code to get weather data:')
+}
+
+const getLocationByZip = (message) => {
+  message = message ?? 'Enter zip code:';
+  const zip = prompt(message);
+
+  if (zip === null) {
+    return;
+  }
+
   const locationData = {
       zip,
       time: Date.now()
   };
 
-  localStorage.setItem('location', JSON.stringify(locationOptions));
+  localStorage.setItem('location', JSON.stringify(locationData));
 
   getWeather(locationData);
+}
+
+export {
+  checkLocationAndGetWeather,
+  getLocationByZip
 }

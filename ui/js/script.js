@@ -9,6 +9,6 @@ import './components/hour/hour.js';
 import './components/day/day.js';
 import './components/alerts-weather/alerts-weather.js';
 
-import checkLocationAndGetWeather from './modules/services/locationService.js'
+import { checkLocationAndGetWeather } from './modules/services/locationService.js'
 
 checkLocationAndGetWeather()
