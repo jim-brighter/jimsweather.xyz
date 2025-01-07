@@ -3,7 +3,7 @@ import * as utils from '../../modules/utils/utils.js';
 import * as domService from '../../modules/services/domService.js';
 import { $ } from '../../modules/utils/selectors.js';
 import { UNITS_MAP } from '../../modules/constants.js';
-import * as weatherService from '../../modules/services/weatherService.js';
+import { getLocationByZip } from '../../modules/services/locationService.js';
 
 const style = domService.createStyleElement(`
     @import "/js/components/current-weather/current-weather.css";
@@ -72,17 +72,7 @@ const define = (html) => {
         }
 
         changeLocation() {
-            const zip = prompt('Enter zip code:');
-            if (zip === null) {
-                return;
-            }
-
-            const locationData = {
-                zip,
-                time: Date.now()
-            };
-
-            weatherService.getWeather(locationData);
+            getLocationByZip('Enter zip code:');
         }
 
         changeUnits() {
