@@ -27,15 +27,21 @@ const getWeather = async (locationOptions) => {
         return;
     }
 
-    localStorage.setItem('location', JSON.stringify(locationOptions));
+    removeLoadingSpinner();
 
+    await updateUI(weatherData, locationOptions);
+}
+
+const removeLoadingSpinner = () => {
     try {
         $('#loading').remove();
     } catch (e) {
         console.log('Loading spinner already removed');
     }
+}
 
-    await Promise.all(ALL_ELEMENTS.map(async e => {
+const updateUI = async (weatherData, locationOptions) => {
+    await Promise.all(ALL_ELEMENTS.map(async (e) => {
         return await customElements.whenDefined(e);
     }));
 
