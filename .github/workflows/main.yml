@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: 22
       - name: Create Release
-        uses: jim-brighter/github-release-action@v5
+        uses: jim-brighter/github-release-action@v4
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
