@@ -81,8 +81,15 @@ const define = (html) => {
                 const endTime = document.createElement('h5');
                 endTime.textContent = `End Time: ${new Date(alert.end * 1000)}`;
 
-                const description = document.createElement('pre');
-                description.textContent = alert.description;
+                const description = document.createElement('div')
+                const descriptionLines = alert.description.split('\n\n')
+                descriptionLines.forEach(l => {
+                    const cleanedText = l.replace('\n', ' ')
+                    const paragraph = document.createElement('p')
+                    paragraph.textContent = cleanedText
+
+                    description.append(paragraph)
+                })
 
                 const alertDiv = document.createElement('div');
                 alertDiv.classList.add('alert');
