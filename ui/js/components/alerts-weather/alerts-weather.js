@@ -75,13 +75,13 @@ const define = (html) => {
                 const event = document.createElement('h3');
                 event.textContent = alert.event;
 
-                const startTime = document.createElement('p');
+                const startTime = document.createElement('h5');
                 startTime.textContent = `Start Time: ${new Date(alert.start * 1000)}`;
 
-                const endTime = document.createElement('p');
+                const endTime = document.createElement('h5');
                 endTime.textContent = `End Time: ${new Date(alert.end * 1000)}`;
 
-                const description = document.createElement('p');
+                const description = document.createElement('pre');
                 description.textContent = alert.description;
 
                 const alertDiv = document.createElement('div');
