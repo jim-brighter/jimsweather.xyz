@@ -9,9 +9,11 @@
 }
 
 body {
+    min-height: 1440px;
+    overflow-y: scroll;
     display: grid;
-    grid-template-columns: repeat(13, 7.69%);
-    grid-template-rows: repeat(19, 8%);
+    grid-template-columns: repeat(13, 1fr);
+    grid-template-rows: repeat(19, 1fr);
 }
 
 .tile {
@@ -76,7 +78,7 @@ daily-weather {
     grid-column-start: 3;
     grid-column-end: 12;
     grid-row-start: 8;
-    grid-row-end: 15;
+    grid-row-end: 20;
 }
 
 #loading {

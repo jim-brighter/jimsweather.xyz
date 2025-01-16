@@ -24,7 +24,6 @@ const define = (html) => {
             $('#uvi-val', this.shadowRoot).textContent = Math.round(this.weather['uvi']);
             $('#sunset-val', this.shadowRoot).textContent = utils.toLocaleTimeString(this.weather['sunset']);
             $('#clouds-val', this.shadowRoot).textContent = `${Math.round(this.weather['clouds'])}%`;
-            $('#feels_like-val', this.shadowRoot).textContent = `${Math.round(this.weather['feels_like'])}° ${UNITS_MAP[utils.getUnits()].temperature}`;
             $('#visibility-val', this.shadowRoot).textContent = `${Math.round(this.weather['visibility'] / 1000)} km`;
             $('#pressure-val', this.shadowRoot).textContent = `${Math.round(this.weather['pressure'])} hPa`;
             $('#wind_speed-val', this.shadowRoot).textContent = `${Math.round(this.weather['wind_speed'])} ${UNITS_MAP[utils.getUnits()].windSpeed}`;
