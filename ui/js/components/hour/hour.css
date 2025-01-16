@@ -17,18 +17,18 @@ img {
     width: 3rem;
 }
 
-#icon {
-    grid-column-start: 1;
-    grid-column-end: 2;
-    grid-row-start: 2;
-    grid-row-end: 5;
-}
-
 #temp-and-main {
     font-size: 9pt;
     grid-column-start: 1;
     grid-column-end: 2;
-    grid-row-start: 5;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+#icon {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 3;
     grid-row-end: 6;
 }
 

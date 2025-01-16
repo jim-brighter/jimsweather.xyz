@@ -23,7 +23,7 @@ const define = (html) => {
 
             $('#temp', this.shadowRoot).textContent = `${Math.round(this.weather.temp)}° ${UNITS_MAP[utils.getUnits()].temperature}`;
             $('#icon', this.shadowRoot).src = `https://openweathermap.org/img/wn/${this.weather.weather[0].icon}@4x.png`;
-            $('#main', this.shadowRoot).textContent = `${this.weather.weather[0].main}`;
+            $('#main', this.shadowRoot).textContent = `${this.weather.weather[0].main}. Feels like ${Math.round(this.weather['feels_like'])}°.`;
 
             $('#temp-link', this.shadowRoot).onclick = () => {
                 this.changeUnits();
