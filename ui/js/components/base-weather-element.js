@@ -1,8 +1,8 @@
 export class BaseWeatherElement extends HTMLElement {
     constructor(style, html, mode='open') {
-        super();
+        super()
 
-        const shadow = this.attachShadow({ mode });
+        const shadow = this.attachShadow({ mode })
 
         if (navigator.userAgent.toLowerCase().includes('windows') || navigator.userAgent.toLowerCase().includes('linux')) {
             style.textContent = `
@@ -31,10 +31,10 @@ export class BaseWeatherElement extends HTMLElement {
                     background: darkgray;
                 }
             }
-            `;
-        };
+            `
+        }
 
-        shadow.append(style);
-        shadow.append(html);
+        shadow.append(style)
+        shadow.append(html)
     }
 }

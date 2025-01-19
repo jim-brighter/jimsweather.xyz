@@ -1,8 +1,8 @@
-const CELSIUS = '°C';
-const FAHRENHEIT = '°F';
+const CELSIUS = '°C'
+const FAHRENHEIT = '°F'
 
-const USER_AGENT = 'jimsweather.xyz';
-const APPLICATION_JSON = 'application/json';
+const USER_AGENT = 'jimsweather.xyz'
+const APPLICATION_JSON = 'application/json'
 
 const UVI_COLOR_MAP = {
     0: 'uvi-low',
@@ -16,7 +16,7 @@ const UVI_COLOR_MAP = {
     8: 'uvi-very-high',
     9: 'uvi-very-high',
     10: 'uvi-very-high'
-};
+}
 
 const DAY_OF_WEEK_MAP = {
     0: 'Sunday',
@@ -26,7 +26,7 @@ const DAY_OF_WEEK_MAP = {
     4: 'Thursday',
     5: 'Friday',
     6: 'Saturday'
-};
+}
 
 const AQI_COLOR_MAP = {
     1: 'aqi-good',
@@ -34,7 +34,7 @@ const AQI_COLOR_MAP = {
     3: 'aqi-moderate',
     4: 'aqi-poor',
     5: 'aqi-very-poor'
-};
+}
 
 const AQI_DESC_MAP = {
     1: 'Good',
@@ -55,8 +55,8 @@ const UNITS_MAP = {
     }
 }
 
-const IMPERIAL = 'imperial';
-const METRIC = 'metric';
+const IMPERIAL = 'imperial'
+const METRIC = 'metric'
 
 export {
     CELSIUS,

@@ -1,5 +1,5 @@
 const handleError = (err) => {
-    alert(err);
+    alert(err)
 }
 
-export { handleError };
+export { handleError }
