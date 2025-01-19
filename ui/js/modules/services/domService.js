@@ -16,10 +16,11 @@ const ALL_ELEMENTS = [
     AQI_WEATHER
 ]
 
-const createStyleElement = (styleContent) => {
+const createStyleElement = (...cssFilenames) => {
     const style = document.createElement('style')
-    style.textContent = styleContent
-
+    cssFilenames.forEach((f) => {
+        style.textContent += `@import "${f}";\n`
+    })
     return style
 }
 

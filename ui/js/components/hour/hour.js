@@ -4,10 +4,7 @@ import * as domService from '../../modules/services/domService.js'
 import { $ } from '../../modules/utils/selectors.js'
 import { UVI_COLOR_MAP, AQI_COLOR_MAP, UNITS_MAP } from '../../modules/constants.js'
 
-const style = domService.createStyleElement(`
-    @import "/js/components/hour/hour.css";
-    @import "/css/pills.css";
-`)
+const style = domService.createStyleElement('/js/components/hour/hour.css', '/css/pills.css')
 
 const define = (html) => {
     class HourWeather extends BaseWeatherElement {

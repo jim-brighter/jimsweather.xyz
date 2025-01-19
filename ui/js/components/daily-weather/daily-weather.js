@@ -2,9 +2,7 @@ import { BaseWeatherElement } from '../base-weather-element.js'
 import * as domService from '../../modules/services/domService.js'
 import { $ } from '../../modules/utils/selectors.js'
 
-const style = domService.createStyleElement(`
-    @import "/js/components/daily-weather/daily-weather.css";
-`)
+const style = domService.createStyleElement('/js/components/daily-weather/daily-weather.css')
 
 const define = (html) => {
     class DailyWeather extends BaseWeatherElement {

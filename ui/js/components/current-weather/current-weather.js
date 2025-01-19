@@ -5,9 +5,7 @@ import { $ } from '../../modules/utils/selectors.js'
 import { UNITS_MAP } from '../../modules/constants.js'
 import { getLocationByZip } from '../../modules/services/locationService.js'
 
-const style = domService.createStyleElement(`
-    @import "/js/components/current-weather/current-weather.css";
-`)
+const style = domService.createStyleElement('/js/components/current-weather/current-weather.css')
 
 const define = (html) => {
     class CurrentWeather extends BaseWeatherElement {

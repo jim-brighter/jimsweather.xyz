@@ -5,9 +5,7 @@ import { AQI_COLOR_MAP, AQI_DESC_MAP } from '../../modules/constants.js'
 
 const microgramsPerCubicMeter = 'μg/m<sup>3</sup>'
 
-const style = domService.createStyleElement(`
-    @import "/js/components/aqi-weather/aqi-weather.css";
-`)
+const style = domService.createStyleElement('/js/components/aqi-weather/aqi-weather.css')
 
 const define = (html) => {
     class AqiWeather extends BaseWeatherElement {

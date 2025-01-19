@@ -3,10 +3,7 @@ import * as utils from '../../modules/utils/utils.js'
 import * as domService from '../../modules/services/domService.js'
 import { $ } from '../../modules/utils/selectors.js'
 
-const style = domService.createStyleElement(`
-    @import "/js/components/minutely-weather/minutely-weather.css";
-    @import "/css/pills.css";
-`)
+const style = domService.createStyleElement('/js/components/minutely-weather/minutely-weather.css', '/css/pills.css')
 
 const define = (html) => {
     class MinutelyWeather extends BaseWeatherElement {
