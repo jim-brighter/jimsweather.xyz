@@ -7,7 +7,6 @@ import './components/daily-weather/daily-weather.js';
 import './components/aqi-weather/aqi-weather.js';
 import './components/hour/hour.js';
 import './components/day/day.js';
-import './components/alerts-weather/alerts-weather.js';
 
 import { checkLocationAndGetWeather } from './modules/services/locationService.js'
 

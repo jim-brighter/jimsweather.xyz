@@ -1,7 +1,7 @@
 import { BaseWeatherElement } from '../base-weather-element.js';
 import * as utils from '../../modules/utils/utils.js'
 import * as domService from '../../modules/services/domService.js';
-import { $ } from '../../modules/utils/selectors.js';
+import { $, $$ } from '../../modules/utils/selectors.js';
 import { UVI_COLOR_MAP, UNITS_MAP } from '../../modules/constants.js';
 
 const style = domService.createStyleElement(`
@@ -17,6 +17,34 @@ const define = (html) => {
             this._weather = {};
             this._alerts = [];
             this._modalOpen = false;
+        }
+
+        handleClick(event) {
+            event.preventDefault()
+
+            if (!(event.target.classList.contains('modal') || event.target.classList.contains('alert-cell'))) {
+                return
+            }
+
+            if (this._modalOpen) {
+                $('.modal', this.shadowRoot).classList.remove('show')
+                $('.modal-content', this.shadowRoot).classList.remove('show')
+
+                Array.from($$('.tile')).forEach((n) => {
+                    n.classList.add('tile-hover')
+                })
+
+                this._modalOpen = false
+            } else {
+                Array.from($$('.tile')).forEach((n) => {
+                    n.classList.remove('tile-hover')
+                })
+
+                $('.modal', this.shadowRoot).classList.add('show')
+                $('.modal-content', this.shadowRoot).classList.add('show')
+
+                this._modalOpen = true
+            }
         }
 
         set weather(weather) {
@@ -67,25 +95,59 @@ const define = (html) => {
             const alertRow = document.createElement('tr');
             alertRow.appendChild(alertCell);
             alertRow.classList.add('alert-row')
-            alertRow.
+
+            alertRow.addEventListener('click', (event) => {
+                this.handleClick(event)
+            })
 
             $('#weather-details', this.shadowRoot).prepend(alertRow)
+
+            $('.modal', this.shadowRoot).addEventListener('click', (event) => {
+                this.handleClick(event)
+            })
+
+            const modal = $('.modal-content', this.shadowRoot)
+            modal.textContent = ''
+
+            this.alerts.forEach((a) => {
+                const event = document.createElement('h3')
+                event.textContent = a.event
+
+                const startTime = document.createElement('h5')
+                startTime.textContent = `Starting: ${new Date(a.start * 1000)}`
+
+                const endTime = document.createElement('h5')
+                endTime.textContent = `Ending: ${new Date(a.end * 1000)}`
+
+                const description = document.createElement('div')
+                const descriptionLines = a.description.split('\n\n')
+                descriptionLines.forEach(l => {
+                    const cleanedText = l.replace('\n', ' ')
+                    const paragraph = document.createElement('p')
+                    paragraph.textContent = cleanedText
+
+                    description.append(paragraph)
+                })
+
+                const alertDiv = document.createElement('div');
+                alertDiv.classList.add('alert');
+                alertDiv.append(event);
+                alertDiv.append(startTime);
+                alertDiv.append(endTime);
+                alertDiv.append(description);
+
+                modal.append(alertDiv);
+            })
         }
 
         get alerts() {
             return this._alerts;
         }
-
-        connectedCallback() {
-            $('.alert-row', this.shadowRoot).addEventListener('click', (event) => {
-                event.preventDefault()
-
-            })
-        }
-
     }
 
     customElements.define('current-weather-details', CurrentWeatherDetails);
 }
 
-domService.createHtmlElementV2('/js/components/current-weather-details/current-weather-details.html', define);
+domService.createHtmlElementV2('/js/components/current-weather-details/current-weather-details.html', define, {
+    id: 'current-weather-details-container'
+});

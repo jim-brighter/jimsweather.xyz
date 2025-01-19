@@ -48,11 +48,15 @@ img {
     cursor: pointer;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1280px) {
     #current-weather-parent {
         display: grid;
         grid-template-columns: 70% 30%;
-        grid-template-rows: 90% 10%;
+        grid-template-rows: 80% 20%;
+    }
+
+    #left {
+        font-size: smaller;
     }
 
     img {

@@ -1,4 +1,4 @@
-div {
+#current-weather-details-container {
     height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -27,6 +27,7 @@ td {
 .alert-row {
     color: white;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .alert-cell {
@@ -49,13 +50,14 @@ td {
     top: 0;
     opacity: 1;
     display: block;
+    cursor: pointer;
 }
 
 .modal-content {
     position: relative;
     background-color: white;
     margin: 2rem auto;
-    padding: 2rem;
+    padding: 1rem;
     width: 40%;
     border-radius: 15px;
     top: -100%;
@@ -69,6 +71,7 @@ td {
     max-height: 80%;
     overflow-y: scroll;
     overflow-x: hidden;
+    cursor: default;
 }
 
 h5 {

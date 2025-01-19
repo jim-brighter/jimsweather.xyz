@@ -4,31 +4,24 @@
         min-height: 1080px;
     }
 
-    alerts-weather {
-        grid-column-start: 1;
-        grid-column-end: 14;
-        grid-row-start: 1;
-        grid-row-end: 2;
-    }
-
     current-weather {
         grid-column-start: 1;
         grid-column-end: 7;
-        grid-row-start: 2;
-        grid-row-end: 4;
+        grid-row-start: 1;
+        grid-row-end: 3;
     }
 
     hourly-weather {
         grid-column-start: 7;
         grid-column-end: 14;
-        grid-row-start: 2;
+        grid-row-start: 1;
         grid-row-end: 6;
     }
 
     current-weather-details {
         grid-column-start: 1;
         grid-column-end: 7;
-        grid-row-start: 4;
+        grid-row-start: 3;
         grid-row-end: 6;
     }
 
@@ -50,7 +43,7 @@
         grid-column-start: 1;
         grid-column-end: 14;
         grid-row-start: 8;
-        grid-row-end: 15;
+        grid-row-end: 20;
     }
 }
 
@@ -61,52 +54,45 @@
         grid-template-rows: repeat(21, 1fr);
     }
 
-    alerts-weather {
-        grid-column-start: 1;
-        grid-column-end: 14;
-        grid-row-start: 1;
-        grid-row-end: 2;
-    }
-
     current-weather {
         grid-column-start: 1;
         grid-column-end: 14;
-        grid-row-start: 2;
-        grid-row-end: 5;
+        grid-row-start: 1;
+        grid-row-end: 4;
     }
 
     current-weather-details {
         grid-column-start: 1;
         grid-column-end: 14;
-        grid-row-start: 5;
-        grid-row-end: 8;
+        grid-row-start: 4;
+        grid-row-end: 7;
     }
 
     aqi-weather {
         grid-column-start: 1;
         grid-column-end: 14;
-        grid-row-start: 8;
-        grid-row-end: 9;
+        grid-row-start: 7;
+        grid-row-end: 8;
     }
 
     hourly-weather {
         grid-column-start: 1;
         grid-column-end: 14;
-        grid-row-start: 9;
-        grid-row-end: 13;
+        grid-row-start: 8;
+        grid-row-end: 12;
     }
 
     minutely-weather {
         grid-column-start: 1;
         grid-column-end: 14;
-        grid-row-start: 13;
-        grid-row-end: 16;
+        grid-row-start: 12;
+        grid-row-end: 15;
     }
 
     daily-weather {
         grid-column-start: 1;
         grid-column-end: 14;
-        grid-row-start: 16;
+        grid-row-start: 15;
         grid-row-end: 22;
     }
 }

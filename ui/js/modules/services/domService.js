@@ -1,6 +1,5 @@
 import { $ } from "../utils/selectors.js";
 
-const ALERTS_WEATHER = 'alerts-weather';
 const CURRENT_WEATHER = 'current-weather';
 const CURRENT_WEATHER_DETAILS = 'current-weather-details';
 const MINUTELY_WEATHER = 'minutely-weather';
@@ -9,7 +8,6 @@ const HOURLY_WEATHER = 'hourly-weather';
 const AQI_WEATHER = 'aqi-weather';
 
 const ALL_ELEMENTS = [
-    ALERTS_WEATHER,
     CURRENT_WEATHER,
     CURRENT_WEATHER_DETAILS,
     MINUTELY_WEATHER,
@@ -103,7 +101,6 @@ const updateWeatherUI = async (weatherData, locationOptions) => {
         return await customElements.whenDefined(e);
     }));
 
-    $(ALERTS_WEATHER).alerts = weatherData.onecall.alerts || [];
     $(CURRENT_WEATHER).weather = weatherData.onecall.current;
     $(CURRENT_WEATHER).setLocalityAndUpdatedTime(weatherData.locality[0], locationOptions.time);
     $(CURRENT_WEATHER_DETAILS).weather = weatherData.onecall.current;
@@ -113,13 +110,9 @@ const updateWeatherUI = async (weatherData, locationOptions) => {
     $(HOURLY_WEATHER).setWeatherAndAqi(weatherData.onecall.hourly, weatherData.air_pollution_forecast.list);
     $(AQI_WEATHER).aqi = weatherData.air_pollution.list[0];
 
-    $(ALERTS_WEATHER).hidden = false;
-    $(CURRENT_WEATHER).hidden = false;
-    $(CURRENT_WEATHER_DETAILS).hidden = false;
-    $(MINUTELY_WEATHER).hidden = false;
-    $(DAILY_WEATHER).hidden = false;
-    $(HOURLY_WEATHER).hidden = false;
-    $(AQI_WEATHER).hidden = false;
+    ALL_ELEMENTS.forEach((e) => {
+        $(e).hidden = false
+    })
 }
 
 export {
