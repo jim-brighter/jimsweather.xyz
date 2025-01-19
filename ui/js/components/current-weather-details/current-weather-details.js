@@ -15,6 +15,8 @@ const define = (html) => {
             super(style, html);
 
             this._weather = {};
+            this._alerts = [];
+            this._modalOpen = false;
         }
 
         set weather(weather) {
@@ -47,6 +49,38 @@ const define = (html) => {
 
         get weather() {
             return this._weather;
+        }
+
+        set alerts(alerts) {
+            this._alerts = alerts;
+
+            if (this.alerts.length === 0) {
+                return;
+            }
+
+            const alertsTitle = `⚠️ ${this.alerts[0].event}${this.alerts.length > 1 ? ` and ${this.alerts.length - 1} other ${this.alerts.length > 2 ? 'alerts' : 'alert'}` : ''}`;
+
+            const alertCell = document.createElement('td');
+            alertCell.colSpan = 4;
+            alertCell.textContent = alertsTitle;
+            alertCell.classList.add('alert-cell')
+            const alertRow = document.createElement('tr');
+            alertRow.appendChild(alertCell);
+            alertRow.classList.add('alert-row')
+            alertRow.
+
+            $('#weather-details', this.shadowRoot).prepend(alertRow)
+        }
+
+        get alerts() {
+            return this._alerts;
+        }
+
+        connectedCallback() {
+            $('.alert-row', this.shadowRoot).addEventListener('click', (event) => {
+                event.preventDefault()
+
+            })
         }
 
     }

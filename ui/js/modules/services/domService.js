@@ -107,6 +107,7 @@ const updateWeatherUI = async (weatherData, locationOptions) => {
     $(CURRENT_WEATHER).weather = weatherData.onecall.current;
     $(CURRENT_WEATHER).setLocalityAndUpdatedTime(weatherData.locality[0], locationOptions.time);
     $(CURRENT_WEATHER_DETAILS).weather = weatherData.onecall.current;
+    $(CURRENT_WEATHER_DETAILS).alerts = weatherData.onecall.alerts || [];
     $(MINUTELY_WEATHER).weather = weatherData.onecall.minutely;
     $(DAILY_WEATHER).weather = weatherData.onecall.daily;
     $(HOURLY_WEATHER).setWeatherAndAqi(weatherData.onecall.hourly, weatherData.air_pollution_forecast.list);
