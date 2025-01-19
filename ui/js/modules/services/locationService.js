@@ -1,4 +1,4 @@
-import { getWeather } from './weatherService.js';
+import { getWeather } from './weatherService.js'
 
 const options = {
   enableHighAccuracy: false,
@@ -13,7 +13,7 @@ const checkLocationAndGetWeather = () => {
     getWeather(storedLocation)
   } else {
     console.log('location is stale')
-    navigator.geolocation.getCurrentPosition(geoHandler, errorHandler, options);
+    navigator.geolocation.getCurrentPosition(geoHandler, errorHandler, options)
   }
 }
 
@@ -22,7 +22,7 @@ const isLocationFresh = (location) => {
   const then = new Date(location.time)
 
   // shelf life of 1 month
-  return ((now - then) / 1000 / 60 / 60 / 24) < 30;
+  return ((now - then) / 1000 / 60 / 60 / 24) < 30
 }
 
 const geoHandler = (location) => {
@@ -30,11 +30,11 @@ const geoHandler = (location) => {
       lat: location.coords.latitude,
       lon: location.coords.longitude,
       time: Date.now()
-  };
+  }
 
-  localStorage.setItem('location', JSON.stringify(locationData));
+  localStorage.setItem('location', JSON.stringify(locationData))
 
-  getWeather(locationData);
+  getWeather(locationData)
 }
 
 const errorHandler = (error) => {
@@ -43,24 +43,30 @@ const errorHandler = (error) => {
 }
 
 const getLocationByZip = (message) => {
-  message = message ?? 'Enter zip code:';
-  const zip = prompt(message);
+  message = message ?? 'Enter zip code:'
+  const zip = prompt(message)
 
   if (zip === null) {
-    return;
+    return
   }
 
   const locationData = {
       zip,
       time: Date.now()
-  };
+  }
 
-  localStorage.setItem('location', JSON.stringify(locationData));
+  localStorage.setItem('location', JSON.stringify(locationData))
 
-  getWeather(locationData);
+  getWeather(locationData)
+}
+
+const refreshLocation = () => {
+  localStorage.removeItem('location')
+  location.reload()
 }
 
 export {
   checkLocationAndGetWeather,
-  getLocationByZip
+  getLocationByZip,
+  refreshLocation
 }

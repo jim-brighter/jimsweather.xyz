@@ -1,60 +1,58 @@
-import { BaseWeatherElement } from '../base-weather-element.js';
-import * as domService from '../../modules/services/domService.js';
-import { $ } from '../../modules/utils/selectors.js';
+import { BaseWeatherElement } from '../base-weather-element.js'
+import * as domService from '../../modules/services/domService.js'
+import { $ } from '../../modules/utils/selectors.js'
 
-const style = domService.createStyleElement(`
-    @import "/js/components/hourly-weather/hourly-weather.css";
-`);
+const style = domService.createStyleElement('/js/components/hourly-weather/hourly-weather.css')
 
 const define = (html) => {
     class HourlyWeather extends BaseWeatherElement {
         constructor() {
-            super(style, html);
+            super(style, html)
 
-            this._weather = [];
-            this._aqi = [];
+            this._weather = []
+            this._aqi = []
         }
 
         set weather(weather) {
-            this._weather = weather;
+            this._weather = weather
         }
 
         get weather() {
-            return this._weather;
+            return this._weather
         }
 
         set aqi(aqi) {
-            this._aqi = aqi;
+            this._aqi = aqi
         }
 
         get aqi() {
-            return this._aqi;
+            return this._aqi
         }
 
         async setWeatherAndAqi(weather, aqi) {
-            this.weather = weather;
-            this.aqi = aqi;
+            this.weather = weather
+            this.aqi = aqi
 
-            const hourlyContainer = $('#hourly-container', this.shadowRoot);
+            const hourlyContainer = $('#hourly-container', this.shadowRoot)
 
-            hourlyContainer.replaceChildren();
+            hourlyContainer.replaceChildren()
 
             for (let i = 0; i < Math.min(this.weather.length, 24); i++) {
-                const hour = this.weather[i];
-                const aqi = this.aqi[i];
+                const hour = this.weather[i]
+                const aqi = this.aqi[i]
 
-                const oneHour = document.createElement('hour-weather');
-                await customElements.whenDefined('hour-weather');
-                hourlyContainer.append(oneHour);
-                oneHour.id = `hour-${hour.dt}`;
-                oneHour.setWeatherAndAqi(hour, aqi);
+                const oneHour = document.createElement('hour-weather')
+                await customElements.whenDefined('hour-weather')
+                hourlyContainer.append(oneHour)
+                oneHour.id = `hour-${hour.dt}`
+                oneHour.setWeatherAndAqi(hour, aqi)
             }
         }
     }
 
-    customElements.define('hourly-weather', HourlyWeather);
+    customElements.define('hourly-weather', HourlyWeather)
 }
 
 domService.createHtmlElementV2(null, define, {
     id: 'hourly-container'
-});
+})
