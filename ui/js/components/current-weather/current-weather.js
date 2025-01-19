@@ -4,7 +4,6 @@ import * as domService from '../../modules/services/domService.js'
 import * as locationService from '../../modules/services/locationService.js'
 import { $ } from '../../modules/utils/selectors.js'
 import { UNITS_MAP } from '../../modules/constants.js'
-import { getLocationByZip } from '../../modules/services/locationService.js'
 
 const style = domService.createStyleElement('/js/components/current-weather/current-weather.css')
 
@@ -71,7 +70,7 @@ const define = (html) => {
         }
 
         changeLocation() {
-            getLocationByZip('Enter zip code:')
+            locationService.getLocationByZip('Enter zip code:')
         }
 
         changeUnits() {
