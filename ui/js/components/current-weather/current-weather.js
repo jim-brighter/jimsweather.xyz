@@ -1,6 +1,7 @@
 import { BaseWeatherElement } from '../base-weather-element.js'
 import * as utils from '../../modules/utils/utils.js'
 import * as domService from '../../modules/services/domService.js'
+import * as locationService from '../../modules/services/locationService.js'
 import { $ } from '../../modules/utils/selectors.js'
 import { UNITS_MAP } from '../../modules/constants.js'
 import { getLocationByZip } from '../../modules/services/locationService.js'
@@ -52,7 +53,7 @@ const define = (html) => {
             refresh.className = 'btn'
             refresh.title = 'Refresh Location'
             refresh.onclick = () => {
-                this.refreshLocation()
+                locationService.refreshLocation()
             }
 
             $('#locality', this.shadowRoot).appendChild(edit)
@@ -75,10 +76,6 @@ const define = (html) => {
 
         changeUnits() {
             utils.changeUnits()
-        }
-
-        refreshLocation() {
-            utils.refreshLocation()
         }
     }
 

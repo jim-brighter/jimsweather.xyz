@@ -109,11 +109,6 @@ const changeUnits = () => {
     location.reload()
 }
 
-const refreshLocation = () => {
-    localStorage.removeItem('location')
-    location.reload()
-}
-
 export {
     toLocaleTimeString,
     toLocaleString,
@@ -121,6 +116,5 @@ export {
     getWindDirection,
     getMoonPhase,
     getUnits,
-    changeUnits,
-    refreshLocation
+    changeUnits
 }

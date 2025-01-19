@@ -60,7 +60,13 @@ const getLocationByZip = (message) => {
   getWeather(locationData)
 }
 
+const refreshLocation = () => {
+  localStorage.removeItem('location')
+  location.reload()
+}
+
 export {
   checkLocationAndGetWeather,
-  getLocationByZip
+  getLocationByZip,
+  refreshLocation
 }
