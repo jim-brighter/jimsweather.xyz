@@ -19,28 +19,30 @@ const define = (html) => {
         handleClick(event) {
             event.preventDefault()
 
+            const currentWeatherDetails = $('current-weather-details')
+
             if (!(event.target.classList.contains('modal') || event.target.classList.contains('alert-cell'))) {
                 return
             }
 
-            if (this._modalOpen) {
-                $('.modal', this.shadowRoot).classList.remove('show')
-                $('.modal-content', this.shadowRoot).classList.remove('show')
+            if (currentWeatherDetails._modalOpen) {
+                $('.modal', currentWeatherDetails.shadowRoot).classList.remove('show')
+                $('.modal-content', currentWeatherDetails.shadowRoot).classList.remove('show')
 
                 Array.from($$('.tile')).forEach((n) => {
                     n.classList.add('tile-hover')
                 })
 
-                this._modalOpen = false
+                currentWeatherDetails._modalOpen = false
             } else {
                 Array.from($$('.tile')).forEach((n) => {
                     n.classList.remove('tile-hover')
                 })
 
-                $('.modal', this.shadowRoot).classList.add('show')
-                $('.modal-content', this.shadowRoot).classList.add('show')
+                $('.modal', currentWeatherDetails.shadowRoot).classList.add('show')
+                $('.modal-content', currentWeatherDetails.shadowRoot).classList.add('show')
 
-                this._modalOpen = true
+                currentWeatherDetails._modalOpen = true
             }
         }
 
@@ -79,6 +81,9 @@ const define = (html) => {
         set alerts(alerts) {
             this._alerts = alerts
 
+            $$('.alert-row', this.shadowRoot).forEach((e) => e.remove())
+            $$('.alert', this.shadowRoot).forEach((e) => e.remove())
+
             if (this.alerts.length === 0) {
                 return
             }
@@ -93,18 +98,14 @@ const define = (html) => {
             alertRow.appendChild(alertCell)
             alertRow.classList.add('alert-row')
 
-            alertRow.addEventListener('click', (event) => {
-                this.handleClick(event)
-            })
+            alertRow.addEventListener('click', this.handleClick)
 
             $('#weather-details', this.shadowRoot).prepend(alertRow)
 
-            $('.modal', this.shadowRoot).addEventListener('click', (event) => {
-                this.handleClick(event)
-            })
+            $('.modal', this.shadowRoot).addEventListener('click', this.handleClick)
 
             const modal = $('.modal-content', this.shadowRoot)
-            modal.textContent = ''
+            modal.innerHTML = ''
 
             this.alerts.forEach((a) => {
                 const event = document.createElement('h3')
