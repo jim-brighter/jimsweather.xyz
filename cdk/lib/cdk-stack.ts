@@ -36,7 +36,7 @@ export class JimsWeatherStack extends Stack {
       lifecycleRules: [{
         enabled: true,
         expiredObjectDeleteMarker: true,
-        noncurrentVersionExpiration: Duration.days(30)
+        noncurrentVersionExpiration: Duration.days(3)
       }]
     })
 
@@ -129,7 +129,7 @@ export class JimsWeatherStack extends Stack {
       environment: {
         OPEN_WEATHER_MAP_API_KEY: openweathermapSecret.secretValue.unsafeUnwrap()
       },
-      logRetention: logs.RetentionDays.ONE_WEEK
+      logRetention: logs.RetentionDays.THREE_DAYS
     })
 
     // REST API
