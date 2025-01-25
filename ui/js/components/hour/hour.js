@@ -4,9 +4,7 @@ import * as domService from '../../modules/services/domService.js'
 import { $ } from '../../modules/utils/selectors.js'
 import { UVI_COLOR_MAP, AQI_COLOR_MAP, UNITS_MAP } from '../../modules/constants.js'
 
-const style = domService.createStyleElement('/js/components/hour/hour.css', '/css/pills.css')
-
-const define = (html) => {
+const define = (style, html) => {
     class HourWeather extends BaseWeatherElement {
         constructor() {
             super(style.cloneNode(true), html.cloneNode(true))
@@ -75,6 +73,10 @@ const define = (html) => {
     customElements.define('hour-weather', HourWeather)
 }
 
-domService.createHtmlElementV2('/js/components/hour/hour.html', define, {
+const htmlFile = '/js/components/hour/hour.html'
+const cssFiles = ['/js/components/hour/hour.css', '/css/pills.css']
+const options = {
     class: 'one-hour'
-})
+}
+
+domService.createComponentElement(htmlFile, cssFiles, define, options)

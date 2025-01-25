@@ -4,7 +4,7 @@ export class BaseWeatherElement extends HTMLElement {
 
         const shadow = this.attachShadow({ mode })
 
-        if (navigator.userAgent.toLowerCase().includes('windows') || navigator.userAgent.toLowerCase().includes('linux')) {
+        if (navigator.userAgent.toLowerCase().includes('windows')) {
             style.textContent = `@import "/js/components/base-weather-element.css";\n${style.textContent}`
         }
 

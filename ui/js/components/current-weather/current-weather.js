@@ -5,9 +5,7 @@ import * as locationService from '../../modules/services/locationService.js'
 import { $ } from '../../modules/utils/selectors.js'
 import { UNITS_MAP } from '../../modules/constants.js'
 
-const style = domService.createStyleElement('/js/components/current-weather/current-weather.css')
-
-const define = (html) => {
+const define = (style, html) => {
     class CurrentWeather extends BaseWeatherElement {
         constructor() {
             super(style, html)
@@ -81,6 +79,10 @@ const define = (html) => {
     customElements.define('current-weather', CurrentWeather)
 }
 
-domService.createHtmlElementV2('/js/components/current-weather/current-weather.html', define, {
+const htmlFile = '/js/components/current-weather/current-weather.html'
+const cssFiles = ['/js/components/current-weather/current-weather.css']
+const options = {
     id: 'current-weather-parent'
-})
+}
+
+domService.createComponentElement(htmlFile, cssFiles, define, options)

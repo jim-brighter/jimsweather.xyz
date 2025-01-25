@@ -2,9 +2,7 @@ import { BaseWeatherElement } from '../base-weather-element.js'
 import * as domService from '../../modules/services/domService.js'
 import { $ } from '../../modules/utils/selectors.js'
 
-const style = domService.createStyleElement('/js/components/daily-weather/daily-weather.css')
-
-const define = (html) => {
+const define = (style, html) => {
     class DailyWeather extends BaseWeatherElement {
         constructor() {
             super(style, html)
@@ -37,6 +35,10 @@ const define = (html) => {
     customElements.define('daily-weather', DailyWeather)
 }
 
-domService.createHtmlElementV2(null, define, {
+const htmlFile = null
+const cssFiles = ['/js/components/daily-weather/daily-weather.css']
+const options = {
     id: 'daily-container'
-})
+}
+
+domService.createComponentElement(htmlFile, cssFiles, define, options)
