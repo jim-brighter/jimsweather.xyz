@@ -16,7 +16,7 @@ const ALL_ELEMENTS = [
     AQI_WEATHER
 ]
 
-const createStyleElement = (...cssFilenames) => {
+const createStyleElement = (cssFilenames) => {
     const style = document.createElement('style')
     cssFilenames.forEach((f) => {
         style.textContent += `@import "${f}";\n`
@@ -24,17 +24,11 @@ const createStyleElement = (...cssFilenames) => {
     return style
 }
 
-const createHtmlElement = (htmlContent) => {
-    const html = document.createElement('div')
-    html.innerHTML = htmlContent
-
-    return html
-}
-
-const createHtmlElementV2 = async (filename, defineFunction, options = { id: '', class: '' }) => {
+const createHtmlElement = async (filename, options = { id: '', class: '' }) => {
     const htmlBody = filename ? await fetch(filename) : ''
     const htmlText = htmlBody ? await htmlBody.text() : ''
-    const html = createHtmlElement(htmlText)
+    const html = document.createElement('div')
+    html.innerHTML = htmlText
 
     if (options.class) {
         html.classList.add(options.class)
@@ -44,7 +38,15 @@ const createHtmlElementV2 = async (filename, defineFunction, options = { id: '',
         html.id = options.id
     }
 
-    defineFunction(html)
+    return html
+}
+
+const createComponentElement = async (htmlFile, cssFiles, defineFunction, options = { id: '', class: '' }) => {
+    const html = await createHtmlElement(htmlFile, options)
+
+    const style = createStyleElement(cssFiles)
+
+    defineFunction(style, html)
 }
 
 const addPrecipitationClass = (htmlElement, precipitationValue) => {
@@ -117,8 +119,7 @@ const updateWeatherUI = async (weatherData, locationOptions) => {
 }
 
 export {
-    createStyleElement,
-    createHtmlElementV2,
+    createComponentElement,
     addPrecipitationClass,
     createRainCells,
     createSnowCells,

@@ -3,9 +3,7 @@ import * as utils from '../../modules/utils/utils.js'
 import * as domService from '../../modules/services/domService.js'
 import { $ } from '../../modules/utils/selectors.js'
 
-const style = domService.createStyleElement('/js/components/minutely-weather/minutely-weather.css', '/css/pills.css')
-
-const define = (html) => {
+const define = (style, html) => {
     class MinutelyWeather extends BaseWeatherElement {
         constructor() {
             super(style, html)
@@ -50,6 +48,10 @@ const define = (html) => {
     customElements.define('minutely-weather', MinutelyWeather)
 }
 
-domService.createHtmlElementV2('/js/components/minutely-weather/minutely-weather.html', define, {
+const htmlFile = '/js/components/minutely-weather/minutely-weather.html'
+const cssFiles = ['/js/components/minutely-weather/minutely-weather.css', '/css/pills.css']
+const options = {
     id: 'minutely-container'
-})
+}
+
+domService.createComponentElement(htmlFile, cssFiles, define, options)

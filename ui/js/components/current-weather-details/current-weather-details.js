@@ -4,9 +4,7 @@ import * as domService from '../../modules/services/domService.js'
 import { $, $$ } from '../../modules/utils/selectors.js'
 import { UVI_COLOR_MAP, UNITS_MAP } from '../../modules/constants.js'
 
-const style = domService.createStyleElement('/js/components/current-weather-details/current-weather-details.css', '/css/pills.css')
-
-const define = (html) => {
+const define = (style, html) => {
     class CurrentWeatherDetails extends BaseWeatherElement {
         constructor() {
             super(style, html)
@@ -146,6 +144,10 @@ const define = (html) => {
     customElements.define('current-weather-details', CurrentWeatherDetails)
 }
 
-domService.createHtmlElementV2('/js/components/current-weather-details/current-weather-details.html', define, {
+const htmlFile = '/js/components/current-weather-details/current-weather-details.html'
+const cssFiles = ['/js/components/current-weather-details/current-weather-details.css', '/css/pills.css']
+const options = {
     id: 'current-weather-details-container'
-})
+}
+
+domService.createComponentElement(htmlFile, cssFiles, define, options)
