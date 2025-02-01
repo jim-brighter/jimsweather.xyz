@@ -5,6 +5,7 @@ import * as s3 from 'aws-cdk-lib/aws-s3'
 import * as s3Deployment from 'aws-cdk-lib/aws-s3-deployment'
 import * as certmanager from 'aws-cdk-lib/aws-certificatemanager'
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront'
+import * as origins from 'aws-cdk-lib/aws-cloudfront-origins'
 import * as targets from 'aws-cdk-lib/aws-route53-targets'
 import * as lambda from 'aws-cdk-lib/aws-lambda'
 import * as nodelambda from 'aws-cdk-lib/aws-lambda-nodejs'
@@ -48,50 +49,38 @@ export class JimsWeatherStack extends Stack {
     })
 
     // Cloudfront
-    const distribution = new cloudfront.CloudFrontWebDistribution(this, 'JimsWeatherDistribution', {
-      originConfigs: [
-        {
-          s3OriginSource: {
-            s3BucketSource: uiBucket
-          },
-          behaviors: [
-            {
-              isDefaultBehavior: true,
-              pathPattern: '*',
-              compress: true,
-              allowedMethods: cloudfront.CloudFrontAllowedMethods.GET_HEAD_OPTIONS,
-              cachedMethods: cloudfront.CloudFrontAllowedCachedMethods.GET_HEAD_OPTIONS,
-              defaultTtl: Duration.days(90),
-              minTtl: Duration.days(30),
-              maxTtl: Duration.days(365)
-            }
-          ]
-        }
-      ],
-      viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+    const distribution = new cloudfront.Distribution(this, 'JimsWeatherDistribution', {
+      defaultBehavior: {
+        compress: true,
+        origin: new origins.S3StaticWebsiteOrigin(uiBucket),
+        viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
+        cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
+        cachePolicy: new cloudfront.CachePolicy(this, 'CachePolicy', {
+          defaultTtl: Duration.days(90),
+          minTtl: Duration.days(30),
+          maxTtl: Duration.days(365)
+        })
+      },
+      certificate: cert,
+      sslSupportMethod: cloudfront.SSLMethod.SNI,
+      minimumProtocolVersion: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
+      domainNames: ['jimsweather.xyz'],
       defaultRootObject: 'index.html',
-      errorConfigurations: [
+      errorResponses: [
         {
-          errorCode: 404,
+          httpStatus: 404,
           responsePagePath: '/',
-          responseCode: 200,
-          errorCachingMinTtl: Duration.days(30).toSeconds()
+          responseHttpStatus: 200,
+          ttl: Duration.days(30)
         },
         {
-          errorCode: 403,
+          httpStatus: 403,
           responsePagePath: '/',
-          responseCode: 200,
-          errorCachingMinTtl: Duration.days(30).toSeconds()
+          responseHttpStatus: 200,
+          ttl: Duration.days(30)
         }
-      ],
-      viewerCertificate: {
-        aliases: ['jimsweather.xyz'],
-        props: {
-          minimumProtocolVersion: 'TLSv1.2_2021',
-          sslSupportMethod: 'sni-only',
-          acmCertificateArn: cert.certificateArn
-        }
-      }
+      ]
     })
 
     // S3 Deployment
