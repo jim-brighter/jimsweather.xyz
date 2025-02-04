@@ -1,4 +1,4 @@
-import {DAY_OF_WEEK_MAP, IMPERIAL, METRIC} from '../constants.js'
+import { DAY_OF_WEEK_MAP, IMPERIAL, METRIC } from '../constants.js'
 
 const toLocaleTimeString = (time) => new Date(time * 1000).toLocaleTimeString('en-us', {timeStyle: 'short'})
 

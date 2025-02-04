@@ -1,4 +1,4 @@
-import {APPLICATION_JSON, USER_AGENT} from '../constants.js'
+import { APPLICATION_JSON, USER_AGENT } from '../constants.js'
 import * as errorService from '../services/errorService.js'
 // import { defaultWeatherResponseWithAlert } from '../utils/mocks.js'
 

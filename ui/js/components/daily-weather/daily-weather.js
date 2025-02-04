@@ -1,6 +1,6 @@
-import {BaseWeatherElement} from '../base-weather-element.js'
+import { BaseWeatherElement } from '../base-weather-element.js'
 import * as domService from '../../modules/services/domService.js'
-import {$} from '../../modules/utils/selectors.js'
+import { $ } from '../../modules/utils/selectors.js'
 
 const define = (style, html) => {
   class DailyWeather extends BaseWeatherElement {

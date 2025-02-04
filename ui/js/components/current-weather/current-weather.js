@@ -1,9 +1,9 @@
-import {BaseWeatherElement} from '../base-weather-element.js'
+import { BaseWeatherElement } from '../base-weather-element.js'
 import * as utils from '../../modules/utils/utils.js'
 import * as domService from '../../modules/services/domService.js'
 import * as locationService from '../../modules/services/locationService.js'
-import {$} from '../../modules/utils/selectors.js'
-import {UNITS_MAP} from '../../modules/constants.js'
+import { $ } from '../../modules/utils/selectors.js'
+import { UNITS_MAP } from '../../modules/constants.js'
 
 const define = (style, html) => {
   class CurrentWeather extends BaseWeatherElement {

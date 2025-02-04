@@ -1,4 +1,4 @@
-import {OPENWEATHER_HOST} from './constants.js'
+import { OPENWEATHER_HOST } from './constants.js'
 
 exports.handler = async (event) => {
   const headers = {
@@ -29,7 +29,7 @@ exports.handler = async (event) => {
     onecall: `/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${openweathermapApiKey}&units=${event.queryStringParameters.units}`,
     air_pollution_forecast: `/data/2.5/air_pollution/forecast?lat=${lat}&lon=${lon}&appid=${openweathermapApiKey}`,
     air_pollution: `/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${openweathermapApiKey}`,
-    locality: `/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${openweathermapApiKey}`,
+    locality: `/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${openweathermapApiKey}`
   }
 
   const weatherResponse = {}

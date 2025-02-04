@@ -3,4 +3,4 @@ const handleError = (err) => {
   alert('Something went wrong, try again')
 }
 
-export {handleError}
+export { handleError }

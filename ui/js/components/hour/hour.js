@@ -1,8 +1,8 @@
-import {BaseWeatherElement} from '../base-weather-element.js'
+import { BaseWeatherElement } from '../base-weather-element.js'
 import * as utils from '../../modules/utils/utils.js'
 import * as domService from '../../modules/services/domService.js'
-import {$} from '../../modules/utils/selectors.js'
-import {AQI_COLOR_MAP, UNITS_MAP, UVI_COLOR_MAP} from '../../modules/constants.js'
+import { $ } from '../../modules/utils/selectors.js'
+import { AQI_COLOR_MAP, UNITS_MAP, UVI_COLOR_MAP } from '../../modules/constants.js'
 
 const define = (style, html) => {
   class HourWeather extends BaseWeatherElement {

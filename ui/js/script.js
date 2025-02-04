@@ -8,6 +8,6 @@ import './components/aqi-weather/aqi-weather.js'
 import './components/hour/hour.js'
 import './components/day/day.js'
 
-import {checkLocationAndGetWeather} from './modules/services/locationService.js'
+import { checkLocationAndGetWeather } from './modules/services/locationService.js'
 
 checkLocationAndGetWeather()

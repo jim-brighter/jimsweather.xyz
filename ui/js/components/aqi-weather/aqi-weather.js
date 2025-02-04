@@ -1,7 +1,7 @@
-import {BaseWeatherElement} from '../base-weather-element.js'
+import { BaseWeatherElement } from '../base-weather-element.js'
 import * as domService from '../../modules/services/domService.js'
-import {$} from '../../modules/utils/selectors.js'
-import {AQI_COLOR_MAP, AQI_DESC_MAP} from '../../modules/constants.js'
+import { $ } from '../../modules/utils/selectors.js'
+import { AQI_COLOR_MAP, AQI_DESC_MAP } from '../../modules/constants.js'
 
 const microgramsPerCubicMeter = 'μg/m<sup>3</sup>'
 
