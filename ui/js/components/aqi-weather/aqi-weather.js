@@ -23,14 +23,14 @@ const define = (style, html) => {
       $('#aqi', this.shadowRoot).textContent = `${this.aqi ? this.aqi.main.aqi : 'error'} - ${AQI_DESC_MAP[this.aqi ? this.aqi.main.aqi : 5]}`
       $('aqi-weather').classList.add(AQI_COLOR_MAP[this.aqi ? this.aqi.main.aqi : 5])
 
-      $("#pollutant-co-val", this.shadowRoot).innerHTML = `${this.aqi.components.co} ${microgramsPerCubicMeter}`
-      $("#pollutant-no-val", this.shadowRoot).innerHTML = `${this.aqi.components.no} ${microgramsPerCubicMeter}`
-      $("#pollutant-no2-val", this.shadowRoot).innerHTML = `${this.aqi.components.no2} ${microgramsPerCubicMeter}`
-      $("#pollutant-o3-val", this.shadowRoot).innerHTML = `${this.aqi.components.o3} ${microgramsPerCubicMeter}`
-      $("#pollutant-so2-val", this.shadowRoot).innerHTML = `${this.aqi.components.so2} ${microgramsPerCubicMeter}`
-      $("#pollutant-pm2_5-val", this.shadowRoot).innerHTML = `${this.aqi.components.pm2_5} ${microgramsPerCubicMeter}`
-      $("#pollutant-pm10-val", this.shadowRoot).innerHTML = `${this.aqi.components.pm10} ${microgramsPerCubicMeter}`
-      $("#pollutant-nh3-val", this.shadowRoot).innerHTML = `${this.aqi.components.nh3} ${microgramsPerCubicMeter}`
+      $('#pollutant-co-val', this.shadowRoot).innerHTML = `${this.aqi.components.co} ${microgramsPerCubicMeter}`
+      $('#pollutant-no-val', this.shadowRoot).innerHTML = `${this.aqi.components.no} ${microgramsPerCubicMeter}`
+      $('#pollutant-no2-val', this.shadowRoot).innerHTML = `${this.aqi.components.no2} ${microgramsPerCubicMeter}`
+      $('#pollutant-o3-val', this.shadowRoot).innerHTML = `${this.aqi.components.o3} ${microgramsPerCubicMeter}`
+      $('#pollutant-so2-val', this.shadowRoot).innerHTML = `${this.aqi.components.so2} ${microgramsPerCubicMeter}`
+      $('#pollutant-pm2_5-val', this.shadowRoot).innerHTML = `${this.aqi.components.pm2_5} ${microgramsPerCubicMeter}`
+      $('#pollutant-pm10-val', this.shadowRoot).innerHTML = `${this.aqi.components.pm10} ${microgramsPerCubicMeter}`
+      $('#pollutant-nh3-val', this.shadowRoot).innerHTML = `${this.aqi.components.nh3} ${microgramsPerCubicMeter}`
     }
   }
 

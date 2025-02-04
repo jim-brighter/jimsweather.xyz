@@ -1,4 +1,4 @@
-import {$} from "../utils/selectors.js"
+import {$} from '../utils/selectors.js'
 
 const CURRENT_WEATHER = 'current-weather'
 const CURRENT_WEATHER_DETAILS = 'current-weather-details'
