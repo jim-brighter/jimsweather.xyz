@@ -1,19 +1,19 @@
 import * as weatherDao from '../dao/weatherDao.js'
-import { getUnits } from '../utils/utils.js'
-import { removeLoadingSpinner, updateWeatherUI } from './domService.js'
+import {getUnits} from '../utils/utils.js'
+import {removeLoadingSpinner, updateWeatherUI} from './domService.js'
 
 const getWeather = async (locationOptions) => {
-    const weatherData = await weatherDao.getWeather(locationOptions, getUnits())
+  const weatherData = await weatherDao.getWeather(locationOptions, getUnits())
 
-    if (weatherData === undefined) {
-        return
-    }
+  if (weatherData === undefined) {
+    return
+  }
 
-    removeLoadingSpinner()
+  removeLoadingSpinner()
 
-    await updateWeatherUI(weatherData, locationOptions)
+  await updateWeatherUI(weatherData, locationOptions)
 }
 
 export {
-    getWeather
+  getWeather
 }

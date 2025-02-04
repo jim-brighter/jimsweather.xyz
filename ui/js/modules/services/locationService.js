@@ -1,5 +1,5 @@
-import { getWeather } from './weatherService.js'
-import { handleError } from "./errorService";
+import {getWeather} from './weatherService.js'
+import {handleError} from "./errorService";
 
 const options = {
   enableHighAccuracy: false,
@@ -28,9 +28,9 @@ const isLocationFresh = (location) => {
 
 const geoHandler = (location) => {
   const locationData = {
-      lat: location.coords.latitude,
-      lon: location.coords.longitude,
-      time: Date.now()
+    lat: location.coords.latitude,
+    lon: location.coords.longitude,
+    time: Date.now()
   }
 
   localStorage.setItem('location', JSON.stringify(locationData))
@@ -52,8 +52,8 @@ const getLocationByZip = (message) => {
   }
 
   const locationData = {
-      zip,
-      time: Date.now()
+    zip,
+    time: Date.now()
   }
 
   localStorage.setItem('location', JSON.stringify(locationData))
