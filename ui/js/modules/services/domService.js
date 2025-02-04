@@ -24,7 +24,7 @@ const createStyleElement = (cssFilenames) => {
   return style
 }
 
-const createHtmlElement = async (filename, options = {id: '', class: ''}) => {
+const createHtmlElement = async (filename, options = { id: '', class: '' }) => {
   const htmlBody = filename ? await fetch(filename) : ''
   const htmlText = htmlBody ? await htmlBody.text() : ''
   const html = document.createElement('div')
@@ -41,7 +41,7 @@ const createHtmlElement = async (filename, options = {id: '', class: ''}) => {
   return html
 }
 
-const createComponentElement = async (htmlFile, cssFiles, defineFunction, options = {id: '', class: ''}) => {
+const createComponentElement = async (htmlFile, cssFiles, defineFunction, options = { id: '', class: '' }) => {
   const html = await createHtmlElement(htmlFile, options)
 
   const style = createStyleElement(cssFiles)
