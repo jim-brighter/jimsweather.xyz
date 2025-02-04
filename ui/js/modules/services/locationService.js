@@ -1,5 +1,5 @@
 import {getWeather} from './weatherService.js'
-import {handleError} from "./errorService";
+import {handleError} from './errorService'
 
 const options = {
   enableHighAccuracy: false,
