@@ -10,6 +10,7 @@ import * as targets from 'aws-cdk-lib/aws-route53-targets'
 import * as lambda from 'aws-cdk-lib/aws-lambda'
 import * as nodelambda from 'aws-cdk-lib/aws-lambda-nodejs'
 import * as logs from 'aws-cdk-lib/aws-logs'
+import * as secrets from 'aws-cdk-lib/aws-secretsmanager'
 import * as apigw from 'aws-cdk-lib/aws-apigateway'
 
 export class JimsWeatherStack extends Stack {
@@ -106,6 +107,8 @@ export class JimsWeatherStack extends Stack {
       `)
     })
 
+    const openweathermapSecret = secrets.Secret.fromSecretCompleteArn(this, 'WeatherSecret', 'arn:aws:secretsmanager:us-east-1:108929950724:secret:jimsweather/openweathermap-api-key-MYDqHT')
+
     // Weather Lambda
     const weatherLambda = new nodelambda.NodejsFunction(this, 'WeatherHandler', {
       runtime: lambda.Runtime.NODEJS_22_X,
@@ -113,6 +116,8 @@ export class JimsWeatherStack extends Stack {
       entry: '../lambda/weather.js',
       logRetention: logs.RetentionDays.THREE_DAYS
     })
+
+    openweathermapSecret.grantRead(weatherLambda)
 
     // REST API
     const restApi = new apigw.LambdaRestApi(this, 'WeatherApi', {
