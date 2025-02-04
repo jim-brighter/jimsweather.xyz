@@ -1,4 +1,5 @@
 import { getWeather } from './weatherService.js'
+import { handleError } from './errorService'
 
 const options = {
   enableHighAccuracy: false,
@@ -10,7 +11,7 @@ const checkLocationAndGetWeather = () => {
 
   if (storedLocation && isLocationFresh(storedLocation)) {
     console.log('location is fresh')
-    getWeather(storedLocation)
+    getWeather(storedLocation).catch(err => handleError(err))
   } else {
     console.log('location is stale')
     navigator.geolocation.getCurrentPosition(geoHandler, errorHandler, options)
@@ -27,14 +28,14 @@ const isLocationFresh = (location) => {
 
 const geoHandler = (location) => {
   const locationData = {
-      lat: location.coords.latitude,
-      lon: location.coords.longitude,
-      time: Date.now()
+    lat: location.coords.latitude,
+    lon: location.coords.longitude,
+    time: Date.now()
   }
 
   localStorage.setItem('location', JSON.stringify(locationData))
 
-  getWeather(locationData)
+  getWeather(locationData).catch(err => handleError(err))
 }
 
 const errorHandler = (error) => {
@@ -51,13 +52,13 @@ const getLocationByZip = (message) => {
   }
 
   const locationData = {
-      zip,
-      time: Date.now()
+    zip,
+    time: Date.now()
   }
 
   localStorage.setItem('location', JSON.stringify(locationData))
 
-  getWeather(locationData)
+  getWeather(locationData).catch(err => handleError(err))
 }
 
 const refreshLocation = () => {

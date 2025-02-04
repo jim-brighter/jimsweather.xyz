@@ -1,5 +1,6 @@
 const handleError = (err) => {
-    alert(err)
+  console.error(err)
+  alert('Something went wrong, try again')
 }
 
 export { handleError }
