@@ -1,4 +1,23 @@
+import { SecretsManagerClient, GetSecretValueCommand } from '@aws-sdk/client-secrets-manager'
 import { OPENWEATHER_HOST } from './constants.js'
+
+const secret_name = 'jimsweather/openweathermap-api-key'
+
+const client = new SecretsManagerClient({
+  region: 'us-east-1'
+})
+
+const getApiKey = async () => {
+  try {
+    const response = await client.send(new GetSecretValueCommand({
+      SecretId: secret_name
+    }))
+    return JSON.parse(response.SecretString)['openweathermap-api-key']
+  } catch (e) {
+    console.error(e)
+    throw e
+  }
+}
 
 exports.handler = async (event) => {
   const headers = {
@@ -8,10 +27,10 @@ exports.handler = async (event) => {
     'Access-Control-Allow-Credentials': true
   }
 
-  const openweathermapApiKey = JSON.parse(process.env.OPEN_WEATHER_MAP_API_KEY)['openweathermap-api-key']
+  const openweathermapApiKey = await getApiKey()
 
-  let lat = ''
-  let lon = ''
+  let lat
+  let lon
 
   if (event.queryStringParameters.zip) {
     const geoResponse = await fetch(`${OPENWEATHER_HOST}/geo/1.0/zip?zip=${event.queryStringParameters.zip},US&appid=${openweathermapApiKey}`)
