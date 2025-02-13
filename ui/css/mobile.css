@@ -1,9 +1,5 @@
 /* Tablet layout */
-@media screen and (min-width: 769px) and (max-width: 1280px) {
-    body {
-        min-height: 1080px;
-    }
-
+@media screen and (min-width: 769px) and (max-width: 1366px) {
     current-weather {
         grid-column-start: 1;
         grid-column-end: 7;
