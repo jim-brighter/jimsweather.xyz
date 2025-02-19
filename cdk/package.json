@@ -10,7 +10,7 @@
     "test": "jest",
     "cdk": "cdk",
     "cdk:lambda:install": "cd ../lambda && npm i && cd ../cdk",
-    "deploy": "npm run cdk:lambda:install && cdk deploy --require-approval never --outputs-file output.json",
+    "deploy": "npm run cdk:lambda:install && cdk deploy --all --require-approval never --outputs-file output.json",
     "destroy": "cdk destroy -f",
     "synth": "cdk synth"
   },
@@ -18,10 +18,10 @@
     "@types/jest": "^29.5.14",
     "@types/node": "22.13.4",
     "@types/prettier": "3.0.0",
+    "aws-cdk": "2.178.2",
     "esbuild": "^0.25.0",
     "jest": "^29.7.0",
     "ts-jest": "^29.2.5",
-    "aws-cdk": "2.178.2",
     "ts-node": "^10.9.2",
     "typescript": "~5.7.3"
   },
