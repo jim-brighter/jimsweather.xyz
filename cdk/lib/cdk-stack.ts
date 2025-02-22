@@ -10,21 +10,26 @@ import * as nodelambda from 'aws-cdk-lib/aws-lambda-nodejs'
 import * as logs from 'aws-cdk-lib/aws-logs'
 import * as secrets from 'aws-cdk-lib/aws-secretsmanager'
 import * as apigw from 'aws-cdk-lib/aws-apigateway'
-import { JimsHostedZoneStack } from './hosted-zone'
+import * as route53 from 'aws-cdk-lib/aws-route53'
+import * as targets from 'aws-cdk-lib/aws-route53-targets'
 
 export class JimsWeatherStack extends Stack {
 
-  readonly distribution : cloudfront.Distribution
-  readonly apiGateway : apigw.LambdaRestApi
+  readonly hostedZone: route53.IHostedZone
 
-  constructor(scope: Construct, id: string, hostedZoneStack: JimsHostedZoneStack, props?: StackProps) {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props)
+
+    // Hosted Zone
+    this.hostedZone = new route53.HostedZone(this, 'JimsWeatherHostedZone', {
+      zoneName: 'jimsweather.xyz'
+    })
 
     // SSL Certificate
     const cert = new certmanager.Certificate(this, 'JimsWeatherCertificate', {
       domainName: '*.jimsweather.xyz',
       subjectAlternativeNames: ['jimsweather.xyz'],
-      validation: certmanager.CertificateValidation.fromDns(hostedZoneStack.hostedZone)
+      validation: certmanager.CertificateValidation.fromDns(this.hostedZone)
     })
 
     // UI Bucket
@@ -47,7 +52,7 @@ export class JimsWeatherStack extends Stack {
     })
 
     // Cloudfront
-    this.distribution = new cloudfront.Distribution(this, 'JimsWeatherDistribution', {
+    const distribution = new cloudfront.Distribution(this, 'JimsWeatherDistribution', {
       defaultBehavior: {
         compress: true,
         origin: new origins.S3StaticWebsiteOrigin(uiBucket),
@@ -86,7 +91,15 @@ export class JimsWeatherStack extends Stack {
       sources: [s3Deployment.Source.asset('../ui')],
       exclude: ['build.js'],
       destinationBucket: uiBucket,
-      distribution: this.distribution
+      distribution: distribution
+    })
+
+    // Route53 Root Record
+    new route53.ARecord(this, 'JimsWeatherRootRecord', {
+      zone: this.hostedZone,
+      target: {
+        aliasTarget: new targets.CloudFrontTarget(distribution)
+      }
     })
 
     // Default Error Lambda
@@ -118,7 +131,7 @@ export class JimsWeatherStack extends Stack {
     openweathermapSecret.grantRead(weatherLambda)
 
     // REST API
-    this.apiGateway = new apigw.LambdaRestApi(this, 'WeatherApi', {
+    const apiGateway = new apigw.LambdaRestApi(this, 'WeatherApi', {
       handler: defaultErrorLambda,
       proxy: false,
       domainName: {
@@ -128,12 +141,20 @@ export class JimsWeatherStack extends Stack {
       }
     })
 
-    const api = this.apiGateway.root.addResource('weather')
+    const api = apiGateway.root.addResource('weather')
     api.addCorsPreflight({
       allowOrigins: ['*'],
       allowHeaders: ['*'],
       allowCredentials: true
     })
     api.addMethod('GET', new apigw.LambdaIntegration(weatherLambda))
+
+    // Route53 API Record
+    new route53.ARecord(this, 'JimsWeatherApiRecord', {
+      zone: this.hostedZone,
+      recordName: 'api',
+      region: 'us-east-1',
+      target: route53.RecordTarget.fromAlias(new targets.ApiGateway(apiGateway))
+    })
   }
 }
