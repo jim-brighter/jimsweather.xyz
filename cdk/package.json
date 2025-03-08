@@ -10,9 +10,11 @@
     "test": "jest",
     "cdk": "cdk",
     "cdk:lambda:install": "cd ../lambda && npm i && cd ../cdk",
-    "deploy": "npm run cdk:lambda:install && cdk deploy --all --require-approval never --outputs-file output.json",
+    "cdk:ui:build": "cd ../ui && node build.js && cd ../cdk",
+    "cdk:deploy": "cdk deploy --all --require-approval never --outputs-file output.json",
+    "deploy": "npm run cdk:ui:build && npm run cdk:lambda:install && npm run cdk:deploy",
     "destroy": "cdk destroy -f",
-    "synth": "cdk synth"
+    "synth": "npm run cdk:ui:build && npm run cdk:lambda:install && cdk synth"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
