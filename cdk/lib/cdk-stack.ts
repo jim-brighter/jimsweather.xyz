@@ -88,7 +88,7 @@ export class JimsWeatherStack extends Stack {
 
     // S3 Deployment
     new s3Deployment.BucketDeployment(this, 'JimsWeatherUIDeployment', {
-      sources: [s3Deployment.Source.asset('../ui')],
+      sources: [s3Deployment.Source.asset('../ui/dist')],
       exclude: ['build.js'],
       destinationBucket: uiBucket,
       distribution: distribution
