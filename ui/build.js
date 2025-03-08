@@ -1,4 +1,5 @@
 const fs = require('fs')
+const path = require('path')
 
 const fileReplacements = []
 const timestamp = Date.now()
@@ -7,12 +8,31 @@ const isValidFile = (filename) => {
   return filename !== 'build.js' && (filename.endsWith('.css') || filename.endsWith('.js') || filename.endsWith('.html'))
 }
 
+const copyFileWithDir = (source, dest) => {
+  const dir = path.dirname(dest)
+
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true })
+  }
+
+  fs.copyFileSync(source, dest)
+}
+
+if (fs.existsSync('dist')) {
+  fs.rmSync('dist', {
+    recursive: true
+  })
+}
+
+fs.mkdirSync('dist')
+
 fs.readdirSync('.', {
   recursive: true
 })
   .filter((entry) => isValidFile(entry))
   .forEach((oldFile) => {
     if (oldFile === 'index.html') {
+      copyFileWithDir(oldFile, `dist/${oldFile}`)
       return
     }
 
@@ -24,15 +44,15 @@ fs.readdirSync('.', {
       newName: newFile.split('/').pop()
     })
 
-    fs.renameSync(oldFile, newFile)
+    copyFileWithDir(oldFile, `dist/${newFile}`)
   })
 
-fs.readdirSync('.', {
+fs.readdirSync('dist', {
   recursive: true
 })
   .filter((entry) => isValidFile(entry))
   .forEach((filename) => {
-    let contents = fs.readFileSync(filename, {
+    let contents = fs.readFileSync(`dist/${filename}`, {
       encoding: 'utf-8'
     })
 
@@ -40,8 +60,10 @@ fs.readdirSync('.', {
       contents = contents.replace(replacement.oldName, replacement.newName)
     }
 
-    fs.writeFileSync(filename, contents, {
+    fs.writeFileSync(`dist/${filename}`, contents, {
       encoding: 'utf-8',
       flush: true
     })
   })
+
+console.log('UI Built Successfully')
