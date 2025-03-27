@@ -57,15 +57,19 @@ export class JimsWeatherStackWest extends Stack {
         certificate: cert,
         domainName: 'api.jimsweather.xyz',
         securityPolicy: apigw.SecurityPolicy.TLS_1_2
+      },
+      defaultCorsPreflightOptions: {
+        allowOrigins: ['*'],
+        allowHeaders: ['*'],
+        allowCredentials: true
+      },
+      deployOptions: {
+        throttlingBurstLimit: 3,
+        throttlingRateLimit: 5
       }
     })
 
     const api = apiGateway.root.addResource('weather')
-    api.addCorsPreflight({
-      allowOrigins: ['*'],
-      allowHeaders: ['*'],
-      allowCredentials: true
-    })
     api.addMethod('GET', new apigw.LambdaIntegration(weatherLambda))
 
     // Route53 API Record
