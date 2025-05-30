@@ -2,7 +2,7 @@ import { BaseWeatherElement } from '../base-weather-element.js'
 import * as utils from '../../modules/utils/utils.js'
 import * as domService from '../../modules/services/domService.js'
 import { $, $$ } from '../../modules/utils/selectors.js'
-import { UNITS_MAP, UVI_COLOR_MAP } from '../../modules/constants.js'
+import { DAY_OF_WEEK_MAP, UNITS_MAP, UVI_COLOR_MAP } from '../../modules/constants.js'
 
 const define = (style, html) => {
   class CurrentWeatherDetails extends BaseWeatherElement {
@@ -84,15 +84,17 @@ const define = (style, html) => {
         event.textContent = a.event
 
         const startTime = document.createElement('h5')
-        startTime.textContent = `Starting: ${new Date(a.start * 1000)}`
+        const startDate = new Date(a.start * 1000)
+        startTime.textContent = `Starting: ${DAY_OF_WEEK_MAP[startDate.getDay()]}, ${startDate.toLocaleDateString()}, ${startDate.toLocaleTimeString()}`
 
         const endTime = document.createElement('h5')
-        endTime.textContent = `Ending: ${new Date(a.end * 1000)}`
+        const endDate = new Date(a.end * 1000)
+        endTime.textContent = `Ending: ${DAY_OF_WEEK_MAP[endDate.getDay()]}, ${endDate.toLocaleDateString()}, ${endDate.toLocaleTimeString()}`
 
         const description = document.createElement('div')
         const descriptionLines = a.description.split('\n\n')
         descriptionLines.forEach(l => {
-          const cleanedText = l.replace('\n', ' ')
+          const cleanedText = l.replace('\n', ' ').replace('...', ': ')
           const paragraph = document.createElement('p')
           paragraph.textContent = cleanedText
 
