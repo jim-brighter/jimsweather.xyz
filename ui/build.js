@@ -58,6 +58,9 @@ function updateReferences() {
   getAllFiles(DIST_DIR)
     .filter(isValidFile)
     .forEach((filename) => {
+      if (filename === 'favicon.ico') {
+        return
+      }
       const filePath = path.join(DIST_DIR, filename)
       let contents = fs.readFileSync(filePath, 'utf-8')
       for (const { oldName, newName } of fileReplacements) {
