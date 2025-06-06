@@ -38,7 +38,8 @@ function buildAssets() {
   getAllFiles()
     .filter(isValidFile)
     .forEach((oldFile) => {
-      if (oldFile === 'index.html') {
+      const unversionedFiles = ['index.html', 'favicon.ico']
+      if (unversionedFiles.includes(oldFile)) {
         copyFileWithDir(oldFile, path.join(DIST_DIR, oldFile))
         return
       }
