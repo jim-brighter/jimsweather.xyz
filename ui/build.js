@@ -3,7 +3,7 @@ const path = require('path')
 
 const DIST_DIR = 'dist'
 const BUILD_SCRIPT = 'build.js'
-const ASSET_EXTENSIONS = ['.css', '.js', '.html']
+const ASSET_EXTENSIONS = ['.ico', '.css', '.js', '.html']
 const fileReplacements = []
 const timestamp = Date.now()
 
