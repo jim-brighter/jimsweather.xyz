@@ -10,7 +10,7 @@
     "test": "jest",
     "cdk": "cdk",
     "cdk:lambda:install": "cd ../lambda && npm i && cd ../cdk",
-    "cdk:ui:build": "cd ../ui && node build.js && cd ../cdk",
+    "cdk:ui:build": "cd ../ui && npm i && npm run build && cd ../cdk",
     "cdk:deploy": "cdk deploy --all --require-approval never --outputs-file output.json",
     "deploy": "npm run cdk:ui:build && npm run cdk:lambda:install && npm run cdk:deploy",
     "destroy": "cdk destroy -f",
