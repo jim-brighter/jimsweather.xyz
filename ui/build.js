@@ -1,69 +1,76 @@
 const fs = require('fs')
 const path = require('path')
 
+const DIST_DIR = 'dist'
+const BUILD_SCRIPT = 'build.js'
+const ASSET_EXTENSIONS = ['.css', '.js', '.html']
 const fileReplacements = []
 const timestamp = Date.now()
 
-const isValidFile = (filename) => {
-  return filename !== 'build.js' && (filename.endsWith('.css') || filename.endsWith('.js') || filename.endsWith('.html'))
+function isValidFile(filename) {
+  const ext = path.extname(filename)
+  const isAsset = ASSET_EXTENSIONS.includes(ext)
+  const isNotBuildScript = path.basename(filename) !== BUILD_SCRIPT
+  const isNotNodeModule = !filename.startsWith('node_modules/')
+  return isAsset && isNotBuildScript && isNotNodeModule
 }
 
-const copyFileWithDir = (source, dest) => {
+function copyFileWithDir(source, dest) {
   const dir = path.dirname(dest)
-
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true })
   }
-
   fs.copyFileSync(source, dest)
 }
 
-if (fs.existsSync('dist')) {
-  fs.rmSync('dist', {
-    recursive: true
-  })
+function cleanDist() {
+  if (fs.existsSync(DIST_DIR)) {
+    fs.rmSync(DIST_DIR, { recursive: true })
+  }
+  fs.mkdirSync(DIST_DIR)
 }
 
-fs.mkdirSync('dist')
+function getAllFiles(dir = '.') {
+  return fs.readdirSync(dir, { recursive: true })
+}
 
-fs.readdirSync('.', {
-  recursive: true
-})
-  .filter((entry) => isValidFile(entry))
-  .forEach((oldFile) => {
-    if (oldFile === 'index.html') {
-      copyFileWithDir(oldFile, `dist/${oldFile}`)
-      return
-    }
-
-    const splitName = oldFile.split('.')
-    const newFile = `${splitName[0]}.${timestamp}.${splitName[1]}`
-
-    fileReplacements.push({
-      oldName: oldFile.split('/').pop(),
-      newName: newFile.split('/').pop()
+function buildAssets() {
+  getAllFiles()
+    .filter(isValidFile)
+    .forEach((oldFile) => {
+      if (oldFile === 'index.html') {
+        copyFileWithDir(oldFile, path.join(DIST_DIR, oldFile))
+        return
+      }
+      const ext = path.extname(oldFile)
+      const base = oldFile.slice(0, -ext.length)
+      const newFile = `${base}.${timestamp}${ext}`
+      fileReplacements.push({
+        oldName: path.basename(oldFile),
+        newName: path.basename(newFile),
+      })
+      copyFileWithDir(oldFile, path.join(DIST_DIR, newFile))
     })
+}
 
-    copyFileWithDir(oldFile, `dist/${newFile}`)
-  })
-
-fs.readdirSync('dist', {
-  recursive: true
-})
-  .filter((entry) => isValidFile(entry))
-  .forEach((filename) => {
-    let contents = fs.readFileSync(`dist/${filename}`, {
-      encoding: 'utf-8'
+function updateReferences() {
+  getAllFiles(DIST_DIR)
+    .filter(isValidFile)
+    .forEach((filename) => {
+      const filePath = path.join(DIST_DIR, filename)
+      let contents = fs.readFileSync(filePath, 'utf-8')
+      for (const { oldName, newName } of fileReplacements) {
+        contents = contents.replaceAll(oldName, newName)
+      }
+      fs.writeFileSync(filePath, contents, { encoding: 'utf-8', flush: true })
     })
+}
 
-    for (let replacement of fileReplacements) {
-      contents = contents.replace(replacement.oldName, replacement.newName)
-    }
+function main() {
+  cleanDist()
+  buildAssets()
+  updateReferences()
+  console.log('UI Built Successfully')
+}
 
-    fs.writeFileSync(`dist/${filename}`, contents, {
-      encoding: 'utf-8',
-      flush: true
-    })
-  })
-
-console.log('UI Built Successfully')
+main()
