@@ -4,6 +4,9 @@ const path = require('path')
 const DIST_DIR = 'dist'
 const BUILD_SCRIPT = 'build.js'
 const ASSET_EXTENSIONS = ['.ico', '.css', '.js', '.html']
+const INDEX_FILE = 'index.html'
+const FAVICON_FILE = 'favicon.ico'
+const UNVERSIONED_FILES = [INDEX_FILE, FAVICON_FILE]
 const fileReplacements = []
 const timestamp = Date.now()
 
@@ -38,8 +41,7 @@ function buildAssets() {
   getAllFiles()
     .filter(isValidFile)
     .forEach((oldFile) => {
-      const unversionedFiles = ['index.html', 'favicon.ico']
-      if (unversionedFiles.includes(oldFile)) {
+      if (UNVERSIONED_FILES.includes(oldFile)) {
         copyFileWithDir(oldFile, path.join(DIST_DIR, oldFile))
         return
       }
@@ -58,7 +60,7 @@ function updateReferences() {
   getAllFiles(DIST_DIR)
     .filter(isValidFile)
     .forEach((filename) => {
-      if (filename === 'favicon.ico') {
+      if (filename === FAVICON_FILE) {
         return
       }
       const filePath = path.join(DIST_DIR, filename)
