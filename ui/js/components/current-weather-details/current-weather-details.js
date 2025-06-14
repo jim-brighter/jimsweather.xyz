@@ -94,7 +94,7 @@ const define = (style, html) => {
         const description = document.createElement('div')
         const descriptionLines = a.description.split('\n\n')
         descriptionLines.forEach(l => {
-          const cleanedText = l.replaceAll('\n', ' ').replaceAll('...', ': ').replaceAll(' - ', '<br>- ')
+          const cleanedText = l.replaceAll('\n', ' ').replace('...', ': ').replaceAll(' - ', '<br>- ')
           const paragraph = document.createElement('p')
           paragraph.innerHTML = cleanedText
 
