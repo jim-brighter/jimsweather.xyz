@@ -21,6 +21,12 @@ const define = (style, html) => {
     set weather(weather) {
       this._weather = weather
 
+      this.setWeatherDetails()
+      this.setUVDetails()
+      this.setPrecipitationDetails()
+    }
+
+    setWeatherDetails() {
       $('#sunrise-val', this.shadowRoot).textContent = utils.toLocaleTimeString(this.weather['sunrise'])
       $('#uvi-val', this.shadowRoot).textContent = Math.round(this.weather['uvi'])
       $('#sunset-val', this.shadowRoot).textContent = utils.toLocaleTimeString(this.weather['sunset'])
@@ -32,11 +38,14 @@ const define = (style, html) => {
       $('#wind_deg-val', this.shadowRoot).textContent = `${utils.getWindDirection(this.weather['wind_deg'])}`
       $('#dew_point-val', this.shadowRoot).textContent = `${Math.round(this.weather['dew_point'])}° ${UNITS_MAP[utils.getUnits()].temperature}`
       $('#wind_gust-val', this.shadowRoot).textContent = typeof (this.weather.wind_gust) === 'number' ? `${Math.round(this.weather.wind_gust)} ${UNITS_MAP[utils.getUnits()].windSpeed}` : ''
+    }
 
+    setUVDetails() {
       const uviColor = Math.round(this.weather['uvi']) in UVI_COLOR_MAP ? UVI_COLOR_MAP[Math.round(this.weather['uvi'])] : 'uvi-extreme'
-
       $('#uvi-val', this.shadowRoot).classList.add(uviColor)
+    }
 
+    setPrecipitationDetails() {
       if (this.weather.rain && this.weather.rain['1h']) {
         domService.createRainCells(this.weather.rain['1h'], this.shadowRoot)
       }
@@ -53,63 +62,111 @@ const define = (style, html) => {
     set alerts(alerts) {
       this._alerts = alerts
 
-      $$('.alert-row', this.shadowRoot).forEach((e) => e.remove())
-      $$('.alert', this.shadowRoot).forEach((e) => e.remove())
+      this.cleanupAlerts()
 
       if (this.alerts.length === 0) {
         return
       }
 
+      this.createAlertsRow()
+
+      const modal = this.setupModal()
+
+      this.alerts.forEach((a) => {
+        const alertDiv = this.createAlert(a)
+        modal.append(alertDiv)
+      })
+    }
+
+    cleanupAlerts() {
+      $$('.alert-row', this.shadowRoot).forEach((e) => e.remove())
+      $$('.alert', this.shadowRoot).forEach((e) => e.remove())
+    }
+
+    createAlertsRow() {
       const alertsTitle = `⚠️ ${this.alerts[0].event}${this.alerts.length > 1 ? ` and ${this.alerts.length - 1} other ${this.alerts.length > 2 ? 'alerts' : 'alert'}` : ''}`
 
-      const alertCell = document.createElement('td')
-      alertCell.colSpan = 4
-      alertCell.textContent = alertsTitle
-      alertCell.classList.add('alert-cell')
-      const alertRow = document.createElement('tr')
-      alertRow.appendChild(alertCell)
-      alertRow.classList.add('alert-row')
+      const alertCell = this.createCell(alertsTitle)
+
+      const alertRow = this.createRow(alertCell)
 
       alertRow.addEventListener('click', this.handleClick)
 
       $('#weather-details', this.shadowRoot).prepend(alertRow)
+    }
 
+    createCell(alertsTitle) {
+      const alertCell = document.createElement('td')
+      alertCell.colSpan = 4
+      alertCell.textContent = alertsTitle
+      alertCell.classList.add('alert-cell')
+      return alertCell
+    }
+
+    createRow(alertCell) {
+      const alertRow = document.createElement('tr')
+      alertRow.appendChild(alertCell)
+      alertRow.classList.add('alert-row')
+      return alertRow
+    }
+
+    setupModal() {
       $('.modal', this.shadowRoot).addEventListener('click', this.handleClick)
 
       const modal = $('.modal-content', this.shadowRoot)
       modal.innerHTML = ''
+      return modal
+    }
 
-      this.alerts.forEach((a) => {
-        const event = document.createElement('h3')
-        event.textContent = a.event
+    createAlert(a) {
+      const event = document.createElement('h3')
+      event.textContent = a.event
 
-        const startTime = document.createElement('h5')
-        const startDate = new Date(a.start * 1000)
-        startTime.textContent = `Starting: ${DAY_OF_WEEK_MAP[startDate.getDay()]}, ${startDate.toLocaleDateString()}, ${startDate.toLocaleTimeString()}`
+      const startTime = this.createStartTime(a)
 
-        const endTime = document.createElement('h5')
-        const endDate = new Date(a.end * 1000)
-        endTime.textContent = `Ending: ${DAY_OF_WEEK_MAP[endDate.getDay()]}, ${endDate.toLocaleDateString()}, ${endDate.toLocaleTimeString()}`
+      const endTime = this.createEndTime(a)
 
-        const description = document.createElement('div')
-        const descriptionLines = a.description.split('\n\n')
-        descriptionLines.forEach(l => {
-          const cleanedText = l.replaceAll('\n', ' ').replace('...', ': ').replaceAll(' - ', '<br>- ')
-          const paragraph = document.createElement('p')
-          paragraph.innerHTML = cleanedText
+      const description = this.createDescription(a)
 
-          description.append(paragraph)
-        })
+      const alertDiv = this.createAlertDiv(event, startTime, endTime, description)
+      return alertDiv
+    }
 
-        const alertDiv = document.createElement('div')
-        alertDiv.classList.add('alert')
-        alertDiv.append(event)
-        alertDiv.append(startTime)
-        alertDiv.append(endTime)
-        alertDiv.append(description)
+    createStartTime(a) {
+      const startTime = document.createElement('h5')
+      const startDate = new Date(a.start * 1000)
+      startTime.textContent = `Starting: ${DAY_OF_WEEK_MAP[startDate.getDay()]}, ${startDate.toLocaleDateString()}, ${startDate.toLocaleTimeString()}`
+      return startTime
+    }
 
-        modal.append(alertDiv)
+    createEndTime(a) {
+      const endTime = document.createElement('h5')
+      const endDate = new Date(a.end * 1000)
+      endTime.textContent = `Ending: ${DAY_OF_WEEK_MAP[endDate.getDay()]}, ${endDate.toLocaleDateString()}, ${endDate.toLocaleTimeString()}`
+      return endTime
+    }
+
+    createDescription(a) {
+      const description = document.createElement('div')
+      const descriptionLines = a.description.split('\n\n')
+      descriptionLines.forEach(l => {
+        const cleanedText = l.replaceAll('\n', ' ').replace('...', ': ').replaceAll(' - ', '<br>- ')
+        const paragraph = document.createElement('p')
+        paragraph.innerHTML = cleanedText
+
+        description.append(paragraph)
       })
+      return description
+    }
+
+    createAlertDiv(event, startTime, endTime, description) {
+      const alertDiv = document.createElement('div')
+      alertDiv.classList.add('alert')
+      alertDiv.append(event)
+      alertDiv.append(startTime)
+      alertDiv.append(endTime)
+      alertDiv.append(description)
+      return alertDiv
     }
 
     handleClick(event) {

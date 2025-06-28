@@ -20,9 +20,16 @@ const define = (style, html) => {
     set aqi(aqi) {
       this._aqi = aqi
 
+      this.setAqiDetails()
+      this.setPollutantDetails()
+    }
+
+    setAqiDetails() {
       $('#aqi', this.shadowRoot).textContent = `${this.aqi ? this.aqi.main.aqi : 'error'} - ${AQI_DESC_MAP[this.aqi ? this.aqi.main.aqi : 5]}`
       $('aqi-weather').classList.add(AQI_COLOR_MAP[this.aqi ? this.aqi.main.aqi : 5])
+    }
 
+    setPollutantDetails() {
       $('#pollutant-co-val', this.shadowRoot).innerHTML = `${this.aqi.components.co} ${microgramsPerCubicMeter}`
       $('#pollutant-no-val', this.shadowRoot).innerHTML = `${this.aqi.components.no} ${microgramsPerCubicMeter}`
       $('#pollutant-no2-val', this.shadowRoot).innerHTML = `${this.aqi.components.no2} ${microgramsPerCubicMeter}`
