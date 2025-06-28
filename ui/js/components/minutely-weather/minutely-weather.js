@@ -25,24 +25,39 @@ const define = (style, html) => {
       } while (minutelyContainer.childElementCount > 1)
 
       for (let minute of this.weather) {
-        const minuteDiv = document.createElement('div')
-        minuteDiv.id = `minute-${minute.dt}`
-        minuteDiv.classList.add('minute-div')
-
-        const time = document.createElement('p')
-        time.textContent = utils.toLocaleTimeString(minute.dt)
-
-        const precipitation = document.createElement('p')
-        precipitation.textContent = `${Math.round(minute.precipitation)} mm`
-
-        domService.addPrecipitationClass(precipitation, minute.precipitation)
-
-        $('#minutely-container', this.shadowRoot).append(minuteDiv)
-        minuteDiv.append(time)
-        minuteDiv.append(precipitation)
+        this.setMinute(minute)
       }
     }
 
+    setMinute(minute) {
+      const minuteDiv = this.createMinute(minute)
+      const time = this.createTime(minute)
+      const precipitation = this.createPrecipitation(minute)
+
+      $('#minutely-container', this.shadowRoot).append(minuteDiv)
+      minuteDiv.append(time)
+      minuteDiv.append(precipitation)
+    }
+
+    createMinute(minute) {
+      const minuteDiv = document.createElement('div')
+      minuteDiv.id = `minute-${minute.dt}`
+      minuteDiv.classList.add('minute-div')
+      return minuteDiv
+    }
+
+    createTime(minute) {
+      const time = document.createElement('p')
+      time.textContent = utils.toLocaleTimeString(minute.dt)
+      return time
+    }
+
+    createPrecipitation(minute) {
+      const precipitation = document.createElement('p')
+      precipitation.textContent = `${Math.round(minute.precipitation)} mm`
+      domService.addPrecipitationClass(precipitation, minute.precipitation)
+      return precipitation
+    }
   }
 
   customElements.define('minutely-weather', MinutelyWeather)

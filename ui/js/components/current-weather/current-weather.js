@@ -21,13 +21,17 @@ const define = (style, html) => {
     set weather(weather) {
       this._weather = weather
 
-      $('#temp', this.shadowRoot).textContent = `${Math.round(this.weather.temp)}° ${UNITS_MAP[utils.getUnits()].temperature}`
-      $('#icon', this.shadowRoot).src = `https://openweathermap.org/img/wn/${this.weather.weather[0].icon}@4x.png`
-      $('#main', this.shadowRoot).textContent = `${this.weather.weather[0].main}. Feels like ${Math.round(this.weather['feels_like'])}°.`
+      this.setMainDetails()
 
       $('#temp-link', this.shadowRoot).onclick = () => {
         this.changeUnits()
       }
+    }
+
+    setMainDetails() {
+      $('#temp', this.shadowRoot).textContent = `${Math.round(this.weather.temp)}° ${UNITS_MAP[utils.getUnits()].temperature}`
+      $('#icon', this.shadowRoot).src = `https://openweathermap.org/img/wn/${this.weather.weather[0].icon}@4x.png`
+      $('#main', this.shadowRoot).textContent = `${this.weather.weather[0].main}. Feels like ${Math.round(this.weather['feels_like'])}°.`
     }
 
     get locality() {
@@ -39,6 +43,14 @@ const define = (style, html) => {
 
       $('#locality', this.shadowRoot).textContent = this.locality
 
+      const edit = this.createEditButton()
+      const refresh = this.createRefreshButton()
+
+      $('#locality', this.shadowRoot).appendChild(edit)
+      $('#locality', this.shadowRoot).appendChild(refresh)
+    }
+
+    createEditButton() {
       const edit = document.createElement('button')
       edit.textContent = '✏️'
       edit.id = 'edit-btn'
@@ -47,7 +59,10 @@ const define = (style, html) => {
       edit.onclick = () => {
         this.changeLocation()
       }
+      return edit
+    }
 
+    createRefreshButton() {
       const refresh = document.createElement('button')
       refresh.textContent = '🔄'
       refresh.id = 'refresh-btn'
@@ -56,9 +71,7 @@ const define = (style, html) => {
       refresh.onclick = () => {
         locationService.refreshLocation()
       }
-
-      $('#locality', this.shadowRoot).appendChild(edit)
-      $('#locality', this.shadowRoot).appendChild(refresh)
+      return refresh
     }
 
     setLocalityAndUpdatedTime(locality, updatedAt) {
