@@ -1,11 +1,11 @@
 import { Stack, StackProps } from 'aws-cdk-lib'
-import { Construct } from 'constructs'
-import * as secrets from 'aws-cdk-lib/aws-secretsmanager'
-import { SECRET_ARN } from './constants'
-import { WeatherCertificate } from './core/WeatherCert'
 import { IHostedZone } from 'aws-cdk-lib/aws-route53'
-import { DefaultErrorLambda, WeatherLambda } from './backend/WeatherLambda'
+import * as secrets from 'aws-cdk-lib/aws-secretsmanager'
+import { Construct } from 'constructs'
 import { WeatherApiGateway } from './backend/WeatherApiGateway'
+import { DefaultErrorLambda, WeatherLambda } from './backend/WeatherLambda'
+import { SECRET_ARN } from './core/constants'
+import { WeatherCertificate } from './core/WeatherCert'
 import { WeatherApiRecord } from './core/WeatherRoute53'
 
 export class JimsWeatherStackWest extends Stack {

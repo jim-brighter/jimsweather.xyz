@@ -1,7 +1,7 @@
-import { Code, Function, Runtime } from "aws-cdk-lib/aws-lambda";
-import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
-import { RetentionDays } from "aws-cdk-lib/aws-logs";
-import { Construct } from "constructs";
+import { Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda'
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
+import { RetentionDays } from 'aws-cdk-lib/aws-logs'
+import { Construct } from 'constructs'
 
 export class DefaultErrorLambda extends Function {
   constructor(scope: Construct) {
@@ -18,7 +18,7 @@ export class DefaultErrorLambda extends Function {
           }
         }
       `)
-    });
+    })
   }
 }
 
@@ -29,6 +29,6 @@ export class WeatherLambda extends NodejsFunction {
       handler: 'handler',
       entry: '../lambda/weather.js',
       logRetention: RetentionDays.THREE_DAYS
-    });
+    })
   }
 }

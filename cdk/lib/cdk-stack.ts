@@ -4,11 +4,11 @@ import { Secret } from 'aws-cdk-lib/aws-secretsmanager'
 import { Construct } from 'constructs'
 import { WeatherApiGateway } from './backend/WeatherApiGateway'
 import { DefaultErrorLambda, WeatherLambda } from './backend/WeatherLambda'
-import { SECRET_ARN } from './constants'
+import { SECRET_ARN } from './core/constants'
 import { WeatherCertificate } from './core/WeatherCert'
 import { WeatherApiRecord, WeatherHostedZone, WeatherUIRecord } from './core/WeatherRoute53'
-import { WeatherUIBucket } from './frontend/WeatherUIBucket'
 import { WeatherDistribution } from './frontend/WeatherDistribution'
+import { WeatherUIBucket } from './frontend/WeatherUIBucket'
 import { WeatherUIDeployment } from './frontend/WeatherUIDeployment'
 
 export class JimsWeatherStack extends Stack {
