@@ -1,7 +1,7 @@
-import { LambdaIntegration, LambdaRestApi, SecurityPolicy } from "aws-cdk-lib/aws-apigateway";
-import { ICertificate } from "aws-cdk-lib/aws-certificatemanager";
-import { IFunction } from "aws-cdk-lib/aws-lambda";
-import { Construct } from "constructs";
+import { LambdaIntegration, LambdaRestApi, SecurityPolicy } from 'aws-cdk-lib/aws-apigateway'
+import { ICertificate } from 'aws-cdk-lib/aws-certificatemanager'
+import { IFunction } from 'aws-cdk-lib/aws-lambda'
+import { Construct } from 'constructs'
 
 export class WeatherApiGateway extends LambdaRestApi {
   constructor(scope: Construct, defaultErrorLambda: IFunction, cert: ICertificate) {
@@ -22,11 +22,11 @@ export class WeatherApiGateway extends LambdaRestApi {
         throttlingBurstLimit: 3,
         throttlingRateLimit: 5
       }
-    });
+    })
   }
 
   setupGateway(handler: IFunction) {
-    const api = this.root.addResource('weather');
-    api.addMethod('GET', new LambdaIntegration(handler));
+    const api = this.root.addResource('weather')
+    api.addMethod('GET', new LambdaIntegration(handler))
   }
 }

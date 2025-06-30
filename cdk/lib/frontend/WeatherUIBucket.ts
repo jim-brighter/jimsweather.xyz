@@ -1,6 +1,6 @@
-import { Duration, RemovalPolicy } from "aws-cdk-lib"
-import { BlockPublicAccess, Bucket, BucketAccessControl, BucketEncryption } from "aws-cdk-lib/aws-s3"
-import { Construct } from "constructs"
+import { Duration, RemovalPolicy } from 'aws-cdk-lib'
+import { BlockPublicAccess, Bucket, BucketAccessControl, BucketEncryption } from 'aws-cdk-lib/aws-s3'
+import { Construct } from 'constructs'
 
 export class WeatherUIBucket extends Bucket {
   constructor(scope: Construct) {

@@ -1,7 +1,7 @@
-import { IDistribution } from "aws-cdk-lib/aws-cloudfront";
-import { IBucket } from "aws-cdk-lib/aws-s3";
-import { BucketDeployment, Source } from "aws-cdk-lib/aws-s3-deployment";
-import { Construct } from "constructs";
+import { IDistribution } from 'aws-cdk-lib/aws-cloudfront'
+import { IBucket } from 'aws-cdk-lib/aws-s3'
+import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment'
+import { Construct } from 'constructs'
 
 export class WeatherUIDeployment extends BucketDeployment {
   constructor(scope: Construct, bucket: IBucket, distribution: IDistribution) {
@@ -10,6 +10,6 @@ export class WeatherUIDeployment extends BucketDeployment {
       exclude: ['build.js'],
       destinationBucket: bucket,
       distribution: distribution
-    });
+    })
   }
 }

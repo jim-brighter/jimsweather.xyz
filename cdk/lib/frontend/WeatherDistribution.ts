@@ -1,9 +1,9 @@
-import { ICertificate } from "aws-cdk-lib/aws-certificatemanager"
-import { AllowedMethods, CachedMethods, CachePolicy, Distribution, SecurityPolicyProtocol, SSLMethod, ViewerProtocolPolicy } from "aws-cdk-lib/aws-cloudfront"
-import { S3StaticWebsiteOrigin } from "aws-cdk-lib/aws-cloudfront-origins"
-import { IBucket } from "aws-cdk-lib/aws-s3"
-import { Duration } from "aws-cdk-lib/core"
-import { Construct } from "constructs"
+import { ICertificate } from 'aws-cdk-lib/aws-certificatemanager'
+import { AllowedMethods, CachedMethods, CachePolicy, Distribution, SecurityPolicyProtocol, SSLMethod, ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront'
+import { S3StaticWebsiteOrigin } from 'aws-cdk-lib/aws-cloudfront-origins'
+import { IBucket } from 'aws-cdk-lib/aws-s3'
+import { Duration } from 'aws-cdk-lib/core'
+import { Construct } from 'constructs'
 
 export class WeatherDistribution extends Distribution {
   constructor(scope: Construct, uiBucket: IBucket, cert: ICertificate) {
