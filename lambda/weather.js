@@ -58,7 +58,11 @@ exports.handler = async (event) => {
 
       const path = weatherUrls[key]
 
+      console.log(`Calling OpenWeather API: ${key}`)
+
       const response = await fetch(`${OPENWEATHER_HOST}${path}`)
+
+      console.log(`Response from OpenWeather API for ${key}:`, response.status)
 
       const result = await response.json()
 
