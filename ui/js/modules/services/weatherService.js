@@ -5,11 +5,11 @@ import { removeLoadingSpinner, updateWeatherUI } from './domService.js'
 const getWeather = async (locationOptions) => {
   const weatherData = await weatherDao.getWeather(locationOptions, getUnits())
 
+  removeLoadingSpinner()
+
   if (weatherData === undefined) {
     return
   }
-
-  removeLoadingSpinner()
 
   await updateWeatherUI(weatherData, locationOptions)
 }
