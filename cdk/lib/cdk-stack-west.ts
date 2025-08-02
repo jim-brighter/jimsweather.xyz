@@ -1,6 +1,6 @@
 import { Stack, StackProps } from 'aws-cdk-lib'
 import { IHostedZone } from 'aws-cdk-lib/aws-route53'
-import * as secrets from 'aws-cdk-lib/aws-secretsmanager'
+import { Secret } from 'aws-cdk-lib/aws-secretsmanager'
 import { Construct } from 'constructs'
 import { WeatherApiGateway } from './backend/WeatherApiGateway'
 import { DefaultErrorLambda, WeatherLambda } from './backend/WeatherLambda'
@@ -24,7 +24,7 @@ export class JimsWeatherStackWest extends Stack {
   private createAPI(cert: WeatherCertificate) {
     const defaultErrorLambda = new DefaultErrorLambda(this)
 
-    const openweathermapSecret = secrets.Secret.fromSecretCompleteArn(this, 'WeatherSecret', SECRET_ARN)
+    const openweathermapSecret = Secret.fromSecretCompleteArn(this, 'WeatherSecret', SECRET_ARN)
 
     const weatherLambda = new WeatherLambda(this)
 
