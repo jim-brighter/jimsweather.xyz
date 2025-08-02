@@ -1,10 +1,10 @@
 #!/usr/bin/env node
+import { App } from 'aws-cdk-lib'
 import 'source-map-support/register'
-import * as cdk from 'aws-cdk-lib'
 import { JimsWeatherStack } from '../lib/cdk-stack'
 import { JimsWeatherStackWest } from '../lib/cdk-stack-west'
 
-const app = new cdk.App()
+const app = new App()
 
 const east = new JimsWeatherStack(app, 'JimsWeather', {
   env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: 'us-east-1' },
