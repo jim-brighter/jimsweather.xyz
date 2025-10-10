@@ -102,7 +102,9 @@ const updateWeatherUI = async (weatherData, locationOptions) => {
   }))
 
   $(CURRENT_WEATHER).weather = weatherData.onecall.current
-  $(CURRENT_WEATHER).setLocalityAndUpdatedTime(weatherData.locality[0], locationOptions.time)
+  if (weatherData.locality && weatherData.locality.length > 0) {
+    $(CURRENT_WEATHER).setLocalityAndUpdatedTime(weatherData.locality[0], locationOptions.time)
+  }
   $(CURRENT_WEATHER_DETAILS).weather = weatherData.onecall.current
   $(CURRENT_WEATHER_DETAILS).alerts = weatherData.onecall.alerts || []
   $(MINUTELY_WEATHER).weather = weatherData.onecall.minutely
