@@ -1,8 +1,17 @@
+import { Stack, StackProps } from 'aws-cdk-lib'
 import { RestApiBase } from 'aws-cdk-lib/aws-apigateway'
 import { IDistribution } from 'aws-cdk-lib/aws-cloudfront'
 import { ARecord, HostedZone, IHostedZone, RecordTarget } from 'aws-cdk-lib/aws-route53'
 import { ApiGateway, CloudFrontTarget } from 'aws-cdk-lib/aws-route53-targets'
 import { Construct } from 'constructs'
+
+export class HostedZoneStack extends Stack {
+  readonly hostedZone: IHostedZone
+  constructor(scope: Construct, id: string, props?: StackProps) {
+    super(scope, id, props)
+    this.hostedZone = new WeatherHostedZone(this)
+  }
+}
 
 export class WeatherHostedZone extends HostedZone {
   constructor(scope: Construct) {
