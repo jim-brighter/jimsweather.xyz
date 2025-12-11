@@ -6,7 +6,7 @@ import { Construct } from 'constructs'
 export class DefaultErrorLambda extends Function {
   constructor(scope: Construct) {
     super(scope, 'DefaultErrorHandler', {
-      runtime: Runtime.NODEJS_22_X,
+      runtime: Runtime.NODEJS_24_X,
       handler: 'index.handler',
       reservedConcurrentExecutions: 2,
       code: Code.fromInline(`
@@ -26,7 +26,7 @@ export class DefaultErrorLambda extends Function {
 export class WeatherLambda extends NodejsFunction {
   constructor(scope: Construct) {
     super(scope, 'WeatherHandler', {
-      runtime: Runtime.NODEJS_22_X,
+      runtime: Runtime.NODEJS_24_X,
       handler: 'handler',
       entry: '../lambda/weather.js',
       reservedConcurrentExecutions: 2,
