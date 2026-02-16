@@ -1,7 +1,9 @@
 import { SecretsManagerClient, GetSecretValueCommand } from '@aws-sdk/client-secrets-manager'
-import { OPENWEATHER_HOST } from './constants.js'
 
-const secret_name = 'jimsweather/openweathermap-api-key'
+const Constants = {
+  OPENWEATHER_HOST: 'https://api.openweathermap.org',
+  SECRET_ARN: 'jimsweather/openweathermap-api-key'
+}
 
 const client = new SecretsManagerClient({
   region: 'us-east-1'
@@ -10,7 +12,7 @@ const client = new SecretsManagerClient({
 const getApiKey = async () => {
   try {
     const response = await client.send(new GetSecretValueCommand({
-      SecretId: secret_name
+      SecretId: Constants.SECRET_ARN
     }))
     return JSON.parse(response.SecretString)['openweathermap-api-key']
   } catch (e) {
@@ -33,7 +35,7 @@ exports.handler = async (event) => {
   let lon
 
   if (event.queryStringParameters.zip) {
-    const geoResponse = await fetch(`${OPENWEATHER_HOST}/geo/1.0/zip?zip=${event.queryStringParameters.zip},US&appid=${openweathermapApiKey}`)
+    const geoResponse = await fetch(`${Constants.OPENWEATHER_HOST}/geo/1.0/zip?zip=${event.queryStringParameters.zip},US&appid=${openweathermapApiKey}`)
 
     const geoData = await geoResponse.json()
 
@@ -60,7 +62,7 @@ exports.handler = async (event) => {
 
       console.log(`Calling OpenWeather API: ${key}`)
 
-      const response = await fetch(`${OPENWEATHER_HOST}${path}`)
+      const response = await fetch(`${Constants.OPENWEATHER_HOST}${path}`)
 
       console.log(`Response from OpenWeather API for ${key}:`, response.status)
 
