@@ -3,6 +3,7 @@ const FAHRENHEIT = '°F'
 
 const USER_AGENT = 'jimsweather.xyz'
 const APPLICATION_JSON = 'application/json'
+const API_BASE = 'http://localhost:8080'
 
 const UVI_COLOR_MAP = {
   0: 'uvi-low',
@@ -63,6 +64,7 @@ export {
   FAHRENHEIT,
   USER_AGENT,
   APPLICATION_JSON,
+  API_BASE,
   UVI_COLOR_MAP,
   DAY_OF_WEEK_MAP,
   AQI_COLOR_MAP,

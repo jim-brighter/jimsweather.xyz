@@ -2,7 +2,10 @@ const fs = require('fs')
 const path = require('path')
 
 const DIST_DIR = 'dist'
+
 const BUILD_SCRIPT = 'build.js'
+const MOCK_SERVER_SCRIPT = 'mock-server.js'
+const EXCLUDED_SCRIPTS = new Set([BUILD_SCRIPT, MOCK_SERVER_SCRIPT])
 
 const ASSET_EXTENSIONS = new Set(['.ico', '.css', '.js', '.html'])
 
@@ -17,9 +20,9 @@ const timestamp = Date.now()
 function isValidFile(filename) {
   const ext = path.extname(filename)
   const isAsset = ASSET_EXTENSIONS.has(ext)
-  const isNotBuildScript = path.basename(filename) !== BUILD_SCRIPT
+  const isNotExcludedScript = !EXCLUDED_SCRIPTS.has(path.basename(filename))
   const isNotNodeModule = !filename.startsWith('node_modules/')
-  return isAsset && isNotBuildScript && isNotNodeModule
+  return isAsset && isNotExcludedScript && isNotNodeModule
 }
 
 function copyFileWithDir(source, dest) {
@@ -77,11 +80,28 @@ function updateReferences() {
     })
 }
 
+function substituteApiUrl() {
+  getAllFiles(DIST_DIR)
+    .filter(isValidFile)
+    .forEach((filename) => {
+      if (BINARY_FILES.has(filename)) {
+        return
+      }
+      const filePath = path.join(DIST_DIR, filename)
+      let contents = fs.readFileSync(filePath, 'utf-8')
+      if (contents.includes('http://localhost:8080')) {
+        contents = contents.replaceAll('http://localhost:8080', 'https://api.jimsweather.xyz')
+        fs.writeFileSync(filePath, contents, { encoding: 'utf-8', flush: true })
+      }
+    })
+}
+
 function main() {
   console.log(`[INFO] :: ${new Date().toISOString()} :: Starting UI Build`)
   cleanDist()
   buildAssets()
   updateReferences()
+  substituteApiUrl()
   console.log(`[INFO] :: ${new Date().toISOString()} :: UI Built Successfully`)
 }
 
