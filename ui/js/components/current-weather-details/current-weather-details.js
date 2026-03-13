@@ -184,12 +184,16 @@ const define = (style, html) => {
 
         Array.from($$('.tile')).forEach((n) => {
           n.classList.add('tile-hover')
+          n.style.transition = ''
+          n.style.transform = ''
         })
 
         currentWeatherDetails._modalOpen = false
       } else {
         Array.from($$('.tile')).forEach((n) => {
           n.classList.remove('tile-hover')
+          n.style.transition = 'none'
+          n.style.transform = 'none'
         })
 
         $('.modal', currentWeatherDetails.shadowRoot).classList.add('show')
