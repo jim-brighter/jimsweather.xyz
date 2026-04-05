@@ -12,7 +12,7 @@ export class WeatherApiGateway extends LambdaRestApi {
       domainName: {
         certificate: cert,
         domainName: 'api.jimsweather.xyz',
-        securityPolicy: SecurityPolicy.TLS13_1_3_2025_09,
+        securityPolicy: SecurityPolicy.TLS_1_2,
         endpointAccessMode: EndpointAccessMode.STRICT
       },
       defaultCorsPreflightOptions: {
