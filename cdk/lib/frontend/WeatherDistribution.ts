@@ -22,7 +22,7 @@ export class WeatherDistribution extends Distribution {
       },
       certificate: cert,
       sslSupportMethod: SSLMethod.SNI,
-      minimumProtocolVersion: SecurityPolicyProtocol.TLS_V1_2_2021,
+      minimumProtocolVersion: SecurityPolicyProtocol.TLS_V1_3_2025,
       domainNames: ['jimsweather.xyz'],
       defaultRootObject: 'index.html',
       errorResponses: [
