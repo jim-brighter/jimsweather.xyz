@@ -1,4 +1,4 @@
-import { LambdaIntegration, LambdaRestApi, SecurityPolicy } from 'aws-cdk-lib/aws-apigateway'
+import { EndpointAccessMode, LambdaIntegration, LambdaRestApi, SecurityPolicy } from 'aws-cdk-lib/aws-apigateway'
 import { ICertificate } from 'aws-cdk-lib/aws-certificatemanager'
 import { IFunction } from 'aws-cdk-lib/aws-lambda'
 import { Construct } from 'constructs'
@@ -11,7 +11,8 @@ export class WeatherApiGateway extends LambdaRestApi {
       domainName: {
         certificate: cert,
         domainName: 'api.jimsweather.xyz',
-        securityPolicy: SecurityPolicy.TLS13_2025_EDGE
+        securityPolicy: SecurityPolicy.TLS13_2025_EDGE,
+        endpointAccessMode: EndpointAccessMode.STRICT
       },
       defaultCorsPreflightOptions: {
         allowOrigins: ['*'],
