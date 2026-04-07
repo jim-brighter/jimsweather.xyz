@@ -1,4 +1,4 @@
-import { EndpointAccessMode, EndpointType, LambdaIntegration, LambdaRestApi, SecurityPolicy } from 'aws-cdk-lib/aws-apigateway'
+import { EndpointType, LambdaIntegration, LambdaRestApi, SecurityPolicy } from 'aws-cdk-lib/aws-apigateway'
 import { ICertificate } from 'aws-cdk-lib/aws-certificatemanager'
 import { IFunction } from 'aws-cdk-lib/aws-lambda'
 import { Construct } from 'constructs'
