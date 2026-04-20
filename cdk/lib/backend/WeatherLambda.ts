@@ -28,6 +28,7 @@ export class WeatherLambda extends NodejsFunction {
     super(scope, 'WeatherHandler', {
       runtime: Runtime.NODEJS_24_X,
       handler: 'handler',
+      depsLockFilePath: '../lambda/package-lock.json',
       entry: '../lambda/weather.js',
       reservedConcurrentExecutions: 2,
       logGroup: new LogGroup(scope, 'WeatherLambdaLogGroup', {
