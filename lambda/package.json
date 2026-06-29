@@ -14,6 +14,6 @@
   },
   "devDependencies": {
     "esbuild": "^0.28.0",
-    "@jim-brighter/lambda-local-runner": "^0.0.2"
+    "@jim-brighter/lambda-local-runner": "^0.1.0"
   }
 }
