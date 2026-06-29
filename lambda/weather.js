@@ -21,7 +21,7 @@ const getApiKey = async () => {
   }
 }
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
   const headers = {
     'Access-Control-Allow-Headers': '*',
     'Access-Control-Allow-Origin': '*',
