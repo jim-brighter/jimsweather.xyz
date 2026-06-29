@@ -4,7 +4,7 @@
   "description": "",
   "license": "ISC",
   "author": "",
-  "type": "commonjs",
+  "type": "module",
   "main": "weather.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,6 +13,7 @@
     "@aws-sdk/client-secrets-manager": "^3.741.0"
   },
   "devDependencies": {
-    "esbuild": "^0.28.0"
+    "esbuild": "^0.28.0",
+    "@jim-brighter/lambda-local-runner": "^0.0.2"
   }
 }
