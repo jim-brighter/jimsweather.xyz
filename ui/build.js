@@ -4,8 +4,7 @@ const path = require('path')
 const DIST_DIR = 'dist'
 
 const BUILD_SCRIPT = 'build.js'
-const MOCK_SERVER_SCRIPT = 'mock-server.js'
-const EXCLUDED_SCRIPTS = new Set([BUILD_SCRIPT, MOCK_SERVER_SCRIPT])
+const EXCLUDED_SCRIPTS = new Set([BUILD_SCRIPT])
 
 const ASSET_EXTENSIONS = new Set(['.ico', '.css', '.js', '.html'])
 

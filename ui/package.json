@@ -1,7 +1,7 @@
 {
   "scripts": {
     "build": "node build.js",
-    "start": "node mock-server.js & http-server -p 3000 -c-1 -o",
+    "start": "npm --prefix ../lambda start & http-server -p 3000 -c-1 -o",
     "start-prod": "http-server -p 3000 -c-1 -o dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
