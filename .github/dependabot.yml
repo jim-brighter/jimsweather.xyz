@@ -11,6 +11,9 @@ updates:
       interval: "weekly"
     assignees:
       - "jim-brighter"
+    ignore:
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
     groups:
       all:
         patterns:
