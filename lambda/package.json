@@ -7,6 +7,7 @@
   "type": "module",
   "main": "weather.js",
   "scripts": {
+    "start": "PORT=8080 USE_MOCKS=true lambda-local-runner local.js mockHandler",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
